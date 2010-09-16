@@ -48,8 +48,8 @@ first 6 charaters"
             :level level,
             :attrs (if rest (assoc attrmap :value rest) attrmap) ,
             :content nil
-            :line-number lineno
-            :source-line line}]))
+            :source-line-number lineno
+            :source-representation line}]))
 
 (defn source-line [m]  (:source-line (nth m 1)))
 
@@ -63,7 +63,7 @@ first 6 charaters"
 (defn gedcom-seq
   "Return a sequence of GEDCOM records following the pattern that the XML parsing uses."
   [f] (map #(assoc (gedcom-reduce-content %) 
-              :source-stanza (reduce str (interpose \newline (map source-line %))))
+              :source-stanza-representation (reduce str (interpose \newline (map source-line %))))
            (gedcom-partitions f)))
 
 
