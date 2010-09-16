@@ -74,7 +74,7 @@ first 6 charaters"
 ;;
 ;; test stuff
 ;;
-(def file "../topoged-clj/src/test/resources/simple.ged")
+(def file "src/test/resources/simple.ged")
 
 (def parts (gedcom-partitions file))
 
