@@ -74,10 +74,11 @@ first 6 charaters"
 ;;
 ;; test stuff
 ;;
-(def file "src/test/resources/simple.ged")
+(comment
+  (def file "src/test/resources/simple.ged")
 
-(def parts (gedcom-partitions file))
+  (def parts (gedcom-partitions file))
 
-(def xml (parse file))
+  (def xml (parse file)))
 
 
