@@ -14,7 +14,7 @@ first 6 charaters"
   "Convert the argument into a sequecnce of lines."
   [f]
   (if (gedcom? f)
-    (re-seq #"." f)
+    (filter #(> (count %) 0) (re-seq #".*" f))
     (read-lines f))
     
   )
