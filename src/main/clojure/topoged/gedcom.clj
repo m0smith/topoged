@@ -4,8 +4,7 @@
 
 
 (defn gedcom?
-  "Return true if the string resemples a gedcom file by looking for '0 HEAD' as the
-first 6 charaters"
+  "Return true if the string resembles a gedcom file by looking for '0 HEAD' as the first 6 charaters"
   [f]  (if (and (string? f) (> (count f) 6))
          (re-matches #"0 [A-Z][A-Z][A-Z][A-Z]" (subs f 0 6)))
   )
