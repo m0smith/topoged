@@ -3,7 +3,7 @@
 (defn apply-symbol
   "Appy the function named 'func-name' to the list 'alist'.
     func-name can be a function, string, symbol or keyword.
-    alist is the list if arguments.
+    alist is the list of arguments.
     example:
            (apply-symbol :max '(1 2 3))"
   ( [func-name alist] (apply-symbol *ns* func-name alist))

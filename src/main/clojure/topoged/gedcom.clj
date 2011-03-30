@@ -70,6 +70,14 @@
   "Parse a GEDCOM file and produce an structure similar to the xml parse."
   [f] { :tag :GEDCOM :content (gedcom-seq f)} )
 
+
+(defn INDI [f]
+  (let [c (-> f :content)
+	name  (map #(-> % :attrs :value) (filter #(= (% :tag) :NAME) c))]
+    name))
+
+;;(take 3 (map #(apply-symbol (:tag %) (list %)) gseq))
+
 ;;
 ;; test stuff
 ;;
