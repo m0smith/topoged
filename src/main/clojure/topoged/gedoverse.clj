@@ -1,5 +1,5 @@
 (ns topoged.gedoverse)
-
+(set! *warn-on-reflection* true)
 (def logger (agent (list)))
 
 (defn log [msg]

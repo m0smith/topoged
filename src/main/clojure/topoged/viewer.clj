@@ -1,7 +1,10 @@
 (ns topoged.viewer
   (:use [topoged.gedcom :only (gedcom-seq)]
 	[topoged.gedoverse :only (add-persona personas persona-cause sources add-source log)])
-  (:import (javax.swing DefaultListModel JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane SwingUtilities)))
+  (:import (javax.swing DefaultListModel JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities)))
+
+(set! *warn-on-reflection* true)
+
 
 (def file "src/test/resources/simple.ged")
 
@@ -43,12 +46,12 @@
   ""
   (let [ag (agent {})
 	frame  (JFrame. "Topoged Viewer")
-	update-list-model (fn [m]
+	update-list-model (fn [^DefaultListModel m]
 			    (. m clear)
-			    (reduce #(doto %1 (.addElement %2))
+			    (reduce #(doto ^DefaultListModel %1 (.addElement %2))
 				    m
 				    (map first (display-personas))))
-	list-model (update-list-model (DefaultListModel.))
+	^ListModel list-model (update-list-model ( DefaultListModel.))
 	]
     (doto frame
       (.setContentPane
