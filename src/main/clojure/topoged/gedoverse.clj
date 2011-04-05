@@ -1,5 +1,6 @@
 (ns topoged.gedoverse)
 (set! *warn-on-reflection* true)
+
 (def logger (agent (list)))
 
 (defn log [msg]
@@ -14,6 +15,14 @@
 		  (log sm)
 		  (assoc sm (:id s) s))]
       (fn [] (send source-map cause)))))
+
+(let [group-map (agent {})]
+  (defn groups [] @group-map)
+  (defn add-group [s]
+    (letfn [(cause [sm]
+		  (log sm)
+		  (assoc sm (:id s) s))]
+      (fn [] (send group-map cause)))))
 
 (let [persona-map (agent {})]
   (defn personas [] @persona-map)

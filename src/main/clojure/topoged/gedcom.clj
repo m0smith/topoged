@@ -3,6 +3,7 @@
   (:use [ clojure.contrib.string :only (split)]))
 
 (set! *warn-on-reflection* true)
+
 (defn gedcom?
   "Return true if the string resembles a gedcom file by looking for '0 HEAD' as the first 6 charaters"
   [f]  (if (and (string? f) (> (count f) 6))
