@@ -1,12 +1,11 @@
 (ns topoged.viewer
   (:use [topoged.gedcom :only (gedcom-seq)]
-	[topoged.file :only (input-stream output-stream)]
-	[clojure.contrib.duck-streams :only (reader writer copy *buffer-size*)]
+	[topoged.file :only (input-stream output-stream copy-md5)]
 	[topoged.gedoverse
 	 :only (add-persona personas persona-cause sources add-source log)])
   (:import
-   (java.io InputStream OutputStream)
-   (javax.swing DefaultListModel JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
+   (java.io File InputStream OutputStream)
+   (javax.swing DefaultListModel JFileChooser JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
    (java.awt BorderLayout)))
 
 (set! *warn-on-reflection* true)
@@ -29,24 +28,14 @@
   (if-let [handler (handlers (:tag record))]
     (handler record)))
 
-(defn copy-md5  [#^InputStream input #^OutputStream output]
-  (let [buffer (make-array Byte/TYPE *buffer-size*)
-	digest (java.security.MessageDigest/getInstance "MD5")]
-    (loop []
-      (let [size (.read input buffer)]
-        (if (pos? size)
-          (do (.write output buffer 0 size)
-	      (.update digest buffer 0 size)
-              (recur))
-	  (.toString (java.math.BigInteger. 1 (.digest digest)) 16))))))
 
 (def status-agent (agent (list "Init")))
 
 
 (defn import-gedcom [file]
-  (let [tempfile (java.io.File/createTempFile "topoged-" ".ged")
+  (let [tempfile (File/createTempFile "topoged-" ".ged")
 	uuid (str (java.util.UUID/randomUUID))
-	md5 (with-open [r (input-stream file) w (output-stream tempfile)]
+	md5 (with-open [^InputStream r (input-stream file) ^OutputStream w (output-stream tempfile)]
 	      (copy-md5 r w))]
     (if (not-empty (filter #(= md5 (:md5 %)) (vals (sources))))
       (do
@@ -78,12 +67,20 @@
       (proxy [java.awt.event.WindowAdapter] []
 	(windowClosing  [~event] ~@body))))
 
+(defn gedcom-import-action [^JFileChooser fc frame update-list-model list-model]
+  (. fc showOpenDialog frame)
+  (if-let [ file (.getSelectedFile fc)]
+    (future
+     ((persona-cause
+       #(send status-agent (fn [l] (conj l (str "Importing " file))))))
+     (let [status (import-gedcom file)]
+       ((persona-cause #(update-list-model list-model)))
+       ((persona-cause
+	 #(send status-agent (fn [l] (conj l (:message status))))))))))
 
 (defn viewer-app []
   ""
-  (let [ag (agent {})
-
-	timer (Timer. 1000 nil)
+  (let [timer (Timer. 1000 nil)
 	frame  (JFrame. "Topoged Viewer")
 	^JLabel status-info (JLabel.)
 	close-window (fn [] (.stop timer) (.dispose frame))
@@ -93,7 +90,7 @@
 				    m
 				    (map first (display-personas))))
 	^ListModel list-model (update-list-model ( DefaultListModel.))
-	^javax.swing.JFileChooser fc (javax.swing.JFileChooser. ".")]
+	^JFileChooser fc (JFileChooser. ".")]
     (with-action timer _
       (do
 	
@@ -117,20 +114,7 @@
 	 (.add (doto (JMenu. "File")
 		 (.add (doto (JMenuItem. "Import")
 			 (with-action _
-			   (. fc showOpenDialog frame)
-			   (if-let [ file (.getSelectedFile fc)]
-			     (do
-			       (send ag
-				     (fn [f]
-				       (do
-					 ((persona-cause #(send status-agent
-								(fn [l] (conj l (str "Importing " file))))))
-					 (let [msg (import-gedcom file)]
-					   ((persona-cause #(update-list-model
-							     list-model)))
-					   ((persona-cause #(send status-agent
-								(fn [l] (conj l (:message msg)))))))
-					 f))))))))
+			   (gedcom-import-action fc frame update-list-model list-model))))
 			    
 		 (.add (doto (JMenuItem. "Exit")
 			 (with-action _ (close-window))))))))

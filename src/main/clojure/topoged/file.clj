@@ -1,4 +1,5 @@
 (ns topoged.file
+  (:use [clojure.contrib.duck-streams :only (  *buffer-size* )])
   (:import
    (java.io BufferedReader BufferedInputStream BufferedOutputStream File FileInputStream FileOutputStream InputStream OutputStream)
    (java.net MalformedURLException Socket URL URI)))
@@ -87,3 +88,18 @@ closed."
 (defmethod output-stream :default [x]
   (throw (Exception. (str "Cannot open <" (pr-str x) "> as an output-stream."))))
 
+
+(defn copy-md5
+  "Copy input to output and return the MD5 hash of the stream.
+Based in duck-streams copy"
+  [#^InputStream input #^OutputStream output]
+  
+  (let [buffer (make-array Byte/TYPE *buffer-size*)
+	digest (java.security.MessageDigest/getInstance "MD5")]
+    (loop []
+      (let [size (.read input buffer)]
+        (if (pos? size)
+          (do (.write output buffer 0 size)
+	      (.update digest buffer 0 size)
+              (recur))
+	  (.toString (java.math.BigInteger. 1 (.digest digest)) 16)))))) 
