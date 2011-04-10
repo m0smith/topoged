@@ -5,12 +5,14 @@
 
 (defstruct status-element :uuid :data :funcs :state)
 
-(defn status-begin [uuid tab-init-func popup-init-func initial-data]
-  (let [tab tab-init-func
-	popup popup-init-func
-	element (struct status-element uuid initial-data [tab popup] :begin)]
-  (send status-active
-	   (fn [sa] (assoc sa uuid element))))))
+(defn status-begin [uuid status-bar tab-init-func popup-init-func initial-data]
+  (let [panel (java.swing.JPanel.)]
+    (doto status-bar (.add panel))
+    (let [tab (tab-init-func panel)
+	  popup (popup-init-func pan)
+	  element (struct status-element uuid initial-data [tab popup] :begin)]r
+      (send status-active
+	    (fn [sa] (assoc sa uuid element))))))
 
 (defn status-update [uuid data]
   (send status-active
@@ -26,10 +28,10 @@
 	  (dissoc sa uid)))
     (send status-completed (assoc uuid stat))))
 
-(defn formatted-status-begin [uuid pattern init-data]
-  (status-begin uuid
+(defn formatted-status-begin [uuid status-bar pattern init-data]
+  (status-begin uuid status-bar
+		(letfn []
 		(fn [parent]
-		  )
+		  (let [label (doto (java.swing.JLabel.) ]
+		    (fn [data] (doto label (.setText (apply format pattern data))))))
 		(fn [_] (fn [_])) init-data))
-  
-
