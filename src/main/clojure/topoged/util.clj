@@ -6,9 +6,11 @@
     alist is the list of arguments.
     example:
            (apply-symbol :max '(1 2 3))"
+  ( [func-name] (apply-symbol *ns* func-name nil))
   ( [func-name alist] (apply-symbol *ns* func-name alist))
   ( [name-space func-name alist]
       (if (fn? func-name)
         (apply func-name alist)
-        (apply (ns-resolve name-space (symbol (name func-name))) alist))))
+	(if-let [f (ns-resolve name-space (symbol (name func-name)))]
+	  (apply f alist)))))
 

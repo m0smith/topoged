@@ -1,8 +1,9 @@
 (ns topoged.viewer.frame
   (:use [topoged.gedcom :only (gedcom-seq)]
+	[topoged.viewer.status]
 	[topoged.file :only (input-stream output-stream copy-md5)]
 	[topoged.gedoverse
-	 :only (add-persona personas persona-cause sources add-source log)])
+	 :only (add-persona persona-errors personas persona-cause sources add-source log)])
   (:import
    (java.io File InputStream OutputStream)
    (javax.swing DefaultListModel JFileChooser JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
@@ -10,48 +11,6 @@
 
 (set! *warn-on-reflection* true)
 
-
-(def file "src/test/resources/simple.ged")
-
-(defn create-handler-map [uuid]
-    { 
-     :INDI (fn [record]
-	      (let [id (-> record :attrs :value)
-		    content (record :content)]
-		(add-persona
-		 {:id (str uuid "-" id)
-		  :source (str uuid)
-		  :idInSource id
-		  :name (first (map #(-> % :attrs :value) (filter #(= (% :tag) :NAME) content)))})))})
-
-(defn handle-record [handlers record]
-  (if-let [handler (handlers (:tag record))]
-    (handler record)))
-
-
-
-
-
-(defn import-gedcom [file]
-  (let [tempfile (File/createTempFile "topoged-" ".ged")
-	uuid (str (java.util.UUID/randomUUID))
-	md5 (with-open [^InputStream r (input-stream file) ^OutputStream w (output-stream tempfile)]
-	      (copy-md5 r w))]
-    (if (not-empty (filter #(= md5 (:md5 %)) (vals (sources))))
-      (do
-	(log (str "Already imported" file))
-	{:status :aborted :message (str "Already imported " file)}) 
-      (do
-	(log (str "MD5 not found" md5))
-	((add-source {:id uuid
-		      :source file
-		      :md5 md5}))
-	(let [handlers (create-handler-map uuid)
-	      causes (filter
-		      identity
-		      (map #(handle-record handlers %) (gedcom-seq tempfile)))]
-	  (doall (map #(%) causes)))
-	{:message (str "Imported " file) }))))
   
 (defn display-personas []
   (let [p (personas)]
@@ -67,22 +26,17 @@
       (proxy [java.awt.event.WindowAdapter] []
 	(windowClosing  [~event] ~@body))))
 
-(defn gedcom-import-action [^JFileChooser fc frame update-list-model list-model]
-  (. fc showOpenDialog frame)
-  (if-let [ file (.getSelectedFile fc)]
-    (future
-     ((persona-cause
-       #(send status-agent (fn [l] (conj l (str "Importing " file))))))
-     (let [status (import-gedcom file)]
-       ((persona-cause #(update-list-model list-model)))
-       ((persona-cause
-	 #(send status-agent (fn [l] (conj l (:message status))))))))))
+(defn add-sub-panel [panel]
+  (let [sub-panel (JPanel.)]
+    (.add panel sub-panel)
+    sub-panel))
+
 
 (defn viewer-app []
   ""
   (let [timer (Timer. 1000 nil)
 	frame  (JFrame. "Topoged Viewer")
-	^JLabel status-info (JLabel.)
+	^JPanel status-info (doto (JPanel.) (.add (JLabel. "Status:")))
 	close-window (fn [] (.stop timer) (.dispose frame))
 	update-list-model (fn [^DefaultListModel m]
 			    (. m clear)
@@ -91,12 +45,16 @@
 				    (map first (display-personas))))
 	^ListModel list-model (update-list-model ( DefaultListModel.))
 	^JFileChooser fc (JFileChooser. ".")]
+
     (with-action timer _
-      (do
-	
-	(prn (. status-info getText) )
-	(doto status-info
-	  (.setText (first @status-agent)))))
+      (let [active (concat (-> @status-agent :active vals) (-> @status-agent :completed))]
+	(dorun
+	 (map 
+	  (fn [{:keys [funcs data] :or {funcs [identity]}}]
+	    (let  [funcs2 (apply juxt funcs)]
+	      (funcs2 data)))
+	  active))))
+
     (with-window-closing frame _ (close-window))
 	
     (.start timer)
@@ -106,7 +64,6 @@
 	 (.setLayout (BorderLayout.))
 	 (.add (JScrollPane. (JList. list-model)) BorderLayout/CENTER)
 	 (.add (doto (JPanel.)
-		 (.add (JLabel. "Status:"))
 		 (.add status-info))
 	       BorderLayout/SOUTH)))
       (.setJMenuBar
@@ -114,7 +71,11 @@
 	 (.add (doto (JMenu. "File")
 		 (.add (doto (JMenuItem. "Import")
 			 (with-action _
-			   (gedcom-import-action fc frame update-list-model list-model))))
+			   (gedcom-import-action fc
+						 frame
+						 (add-sub-panel status-info)
+						 update-list-model
+						 list-model))))
 			    
 		 (.add (doto (JMenuItem. "Exit")
 			 (with-action _ (close-window))))))))
@@ -126,7 +87,7 @@
      
 
 
-;;(SwingUtilities/invokeLater flipperviewer-app)
+;;(SwingUtilities/invokeLater viewer-app)
 
 
 			 
