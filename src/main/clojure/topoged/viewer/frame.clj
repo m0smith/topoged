@@ -1,9 +1,11 @@
 (ns topoged.viewer.frame
   (:use [topoged.gedcom :only (gedcom-seq)]
 	[topoged.viewer.status]
+	[topoged.service.plugin.info]
+	[topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
 	[topoged.file :only (input-stream output-stream copy-md5)]
 	[topoged.gedoverse
-	 :only (add-persona persona-errors personas persona-cause sources add-source log)])
+	 :only ( log persona-agent)])
   (:import
    (java.io File InputStream OutputStream)
    (javax.swing DefaultListModel JFileChooser JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
@@ -13,7 +15,7 @@
 
   
 (defn display-personas []
-  (let [p (personas)]
+  (let [p @persona-agent]
     (sort-by first (map (fn [x] [(:name (val x)) (key x)]) (seq p)))))
 
 (defmacro with-action [component event & body]
@@ -44,7 +46,7 @@
 				    m
 				    (map first (display-personas))))
 	^ListModel list-model (update-list-model ( DefaultListModel.))
-	^JFileChooser fc (JFileChooser. ".")]
+	plugin-info (create-plugin-info frame)]
 
     (with-action timer _
       (let [active (concat (-> @status-agent :active vals) (-> @status-agent :completed))]
@@ -71,11 +73,8 @@
 	 (.add (doto (JMenu. "File")
 		 (.add (doto (JMenuItem. "Import")
 			 (with-action _
-			   (gedcom-import-action fc
-						 frame
-						 (add-sub-panel status-info)
-						 update-list-model
-						 list-model))))
+			   (let [f (gedcom-import-action (assoc plugin-info :status (add-sub-panel status-info)))]
+			     (println @f)))))
 			    
 		 (.add (doto (JMenuItem. "Exit")
 			 (with-action _ (close-window))))))))
@@ -87,7 +86,7 @@
      
 
 
-;;(SwingUtilities/invokeLater viewer-app)
+;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)
 
 
 			 

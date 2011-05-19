@@ -8,7 +8,7 @@
 
 (defn status-begin [uuid status-bar tab-init-func popup-init-func initial-data]
   (let [panel (javax.swing.JPanel.)]
-    (doto status-bar (.add panel))
+    (doto status-bar (.add ^JPanel panel))
     (let [tab (tab-init-func panel)
 	  popup (popup-init-func panel)
 	  element (struct status-element uuid initial-data [tab popup] :begin)]

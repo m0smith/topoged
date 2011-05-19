@@ -12,9 +12,11 @@
 (defn add [map element]
   (assoc map (:id element) element))
 
-(defstruct gedoverse-struct :source :group :persona)
 
-(def gedoverse-agent (agent (struct gedoverse-struct {} {} {})))
+(def source-agent (agent {}))
+(def persona-agent (agent {}))
+(def group-agent (agent {}))
+
 
 
 

@@ -9,19 +9,16 @@
 
 (defstruct persona-struct  :id :source :idInSource :name )
 
-(defn indi-handler [uuid status-agent]
-  (fn [record]
-    (let [id (source-id record)
-	  content (record :content)
-	  persona (struct persona-struct
-			  (new-id uuid record) uuid
-			  id
-		    (first (map source-id
-				(filter #(= (% :tag) :NAME) content))))]
-      (send persona-agent
-	    #(do (send status-agent status-importing :persona)
-		 (add %1 %2))
-	    persona))))
+(defn indi-handler [uuid record status-agent]
+  (println "INDI:" record)
+  (let [id (source-id record)
+	content (record :content)
+	persona (struct persona-struct
+			(new-id uuid record) uuid
+			id
+			(first (map source-id
+				    (filter #(= (% :tag) :NAME) content))))]
+      (send persona-agent add-persona persona status-agent)))
 
 
 	  

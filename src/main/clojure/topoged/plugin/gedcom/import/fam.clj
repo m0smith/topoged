@@ -40,10 +40,7 @@
 	    new-group (record-handler uuid f group)]
 	(recur (rest coll) (if new-group new-group group)))
       (do
-	(send group-agent
-	      #(do (send status-agent status-importing :group)
-		   (add %1 %2))
-	      group)))))
+	(send group-agent add-group group status-agent)))))
 	  
       
       
