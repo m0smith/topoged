@@ -36,35 +36,19 @@
 
 (defn viewer-app []
   ""
-  (let [timer (Timer. 1000 nil)
-	frame  (JFrame. "Topoged Viewer")
+  (let [frame  (JFrame. "Topoged Viewer")
 	^JPanel status-info (doto (JPanel.) (.add (JLabel. "Status:")))
-	close-window (fn [] (.stop timer) (.dispose frame))
-	update-list-model (fn [^DefaultListModel m]
-			    (. m clear)
-			    (reduce #(doto ^DefaultListModel %1 (.addElement %2))
-				    m
-				    (map first (display-personas))))
-	^ListModel list-model (update-list-model ( DefaultListModel.))
-	plugin-info (create-plugin-info frame)]
-
-    (with-action timer _
-      (let [active (concat (-> @status-agent :active vals) (-> @status-agent :completed))]
-	(dorun
-	 (map 
-	  (fn [{:keys [funcs data] :or {funcs [identity]}}]
-	    (let  [funcs2 (apply juxt funcs)]
-	      (funcs2 data)))
-	  active))))
+	^JPanel view-panel  (JPanel.)
+	close-window (fn []  (.dispose frame))
+	plugin-info (create-plugin-info frame view-panel)]
 
     (with-window-closing frame _ (close-window))
 	
-    (.start timer)
     (doto frame
       (.setContentPane
        (doto (JPanel.)
 	 (.setLayout (BorderLayout.))
-	 (.add (JScrollPane. (JList. list-model)) BorderLayout/CENTER)
+	 (.add view-panel BorderLayout/CENTER)
 	 (.add (doto (JPanel.)
 		 (.add status-info))
 	       BorderLayout/SOUTH)))
@@ -88,6 +72,25 @@
 
 ;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)
 
+
+
+;	update-list-model (fn [^DefaultListModel m]
+;			    (. m clear)
+;			    (reduce #(doto ^DefaultListModel %1 (.addElement %2))
+;				    m
+;				    (map first (display-personas))))
+;	^ListModel list-model (update-list-model ( DefaultListModel.))
+
+;(JScrollPane. (JList. list-model))
+
+;    (with-action timer _
+;      (let [active (concat (-> @status-agent :active vals) (-> @status-agent :completed))];
+;	(dorun
+;	 (map 
+;	  (fn [{:keys [funcs data] :or {funcs [identity]}}]
+;	    (let  [funcs2 (apply juxt funcs)]
+;	      (funcs2 data)))
+;	  active))))
 
 			 
 
