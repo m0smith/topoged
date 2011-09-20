@@ -1,5 +1,7 @@
 (ns topoged.util )
+
 (set! *warn-on-reflection* true)
+
 (defn apply-symbol
   "Appy the function named 'func-name' to the list 'alist'.
     func-name can be a function, string, symbol or keyword.
