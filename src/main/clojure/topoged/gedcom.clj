@@ -1,6 +1,9 @@
 (ns topoged.gedcom
   (:use [ clojure.contrib.duck-streams :only (read-lines)])
-  (:use [ clojure.contrib.string :only (split)]))
+  (:use [ clojure.contrib.string :only (split)])
+  (:use clojure.pprint)
+  (:require [topoged.util :as util]))
+
 
 (set! *warn-on-reflection* true)
 
@@ -20,47 +23,43 @@
   )
 
 
-(defn partition-starting-every
-  "Partition the sequence starting each partition when the f is true."
-  [f coll]
-  (if-let [coll (seq coll)]
-    (let [p (cons (first coll) (take-while (complement f) (rest coll)))]
-      (lazy-seq (cons p (partition-starting-every f (drop (count p) coll)))))))
+(defn level? [level] (fn [coll] (= level (first coll))))
 
 (defn gedcom-reduce-content
-  "Reduce a partition with records from a single stanza to an xml-like structure by addeing the sub-stanzas to the :content of the record"
+  "Reduce a partition with records from a single stanza to an xml-like structure by adding
+the sub-stanzas to the :content of the record"
   ([prt]
      (let [[level rec] (first prt)]
        (assoc rec :content (gedcom-reduce-content (rest  prt) []))))
   ([prt vec]
      (if-let [prt (seq prt)]
        (let [[level rec] (first prt)
-             subparts (partition-starting-every #(= level (first %))  prt)]
-         (reduce conj [] (map #(gedcom-reduce-content %) subparts))))))
+             subparts (util/partition-starting-every (level? level) prt)]
+         (reduce conj [] (map gedcom-reduce-content subparts))))))
+
+(defrecord GedcomAttrributes [level line-number representation])
+(defrecord GedcomRecord [tag value attrs content])
 
 (defn gedcom-line-to-vector
   "Convert a line from a gedcom file into a vector with level and a map"
-  [line lineno]
+  [lineno line]
   (let [[level preid prerest]  (split #" " 3 line)
-        [id rest] (if (re-matches #"@.*@" preid) [prerest preid] [preid prerest])
-        attrmap {:level level}]
-    [level {:tag (keyword id),
-            :level level,
-            :attrs (if rest (assoc attrmap :value rest) attrmap) ,
-            :content nil
-            :source-line-number lineno
-            :source-representation line}]))
+        [id value] (if (re-matches #"@.*@" preid) [prerest preid] [preid prerest])
+        attrmap {:level level :tag id}
+	attrs (GedcomAttrributes. level lineno line) ]
+    [level (GedcomRecord. (keyword id) value attrs nil)]))
 
-(defn source-line [m]  (:source-line (nth m 1)))
+(defn source-line "Get a vector with [level GedcomRecord] and return the source line"
+  [[level rec]]  (-> rec :attrs :representation))
 
 (defn gedcom-partitions  [f]
-  "Partition the gedcome lines into stanzas"
+  "Partition the gedcom lines into stanzas"
   (let [inseq (input-seq f)
-        lineseq (map gedcom-line-to-vector inseq (iterate inc 1))
-        parts (partition-starting-every  #(= "0" (first %)) lineseq)]
+        lineseq (map-indexed #(gedcom-line-to-vector (inc %1) %2) inseq)
+        parts (util/partition-starting-every (level? "0") lineseq)]
     parts ))
 
-(defn gedcom-seq
+ (defn gedcom-seq
   "Return a sequence of GEDCOM records following the pattern that the XML parsing uses."
   [f] (map #(assoc (gedcom-reduce-content %) 
               :source-stanza-representation (reduce str (interpose \newline (map source-line %))))

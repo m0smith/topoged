@@ -1,37 +1,39 @@
 (ns topoged.viewer.status)
 
-(def status-active (agent {}))
-(def status-completed (agent {}))
+(defstruct status-agent-struct :active :completed)
+
+(def status-agent (agent (struct status-agent-struct {} (list))))
 
 (defstruct status-element :uuid :data :funcs :state)
 
 (defn status-begin [uuid status-bar tab-init-func popup-init-func initial-data]
-  (let [panel (java.swing.JPanel.)]
-    (doto status-bar (.add panel))
+  (let [panel (javax.swing.JPanel.)]
+    (doto status-bar (.add ^JPanel panel))
     (let [tab (tab-init-func panel)
-	  popup (popup-init-func pan)
-	  element (struct status-element uuid initial-data [tab popup] :begin)]r
-      (send status-active
-	    (fn [sa] (assoc sa uuid element))))))
+	  popup (popup-init-func panel)
+	  element (struct status-element uuid initial-data [tab popup] :begin)]
+      (send status-agent
+	    (fn [sa] (update-in sa [:active] assoc uuid element))))))
 
 (defn status-update [uuid data]
-  (send status-active
+  (send status-agent
 	(fn [sa]
-	  (let [ element (sa uuid)]
-	    (assoc sa uuid
-			(assoc element :data data :state :active))))))
+	  (update-in sa [:active uuid] assoc :data data :state :active)))
+  data)
 
 (defn status-complete [uuid]
-  (let [stat (assoc (@status-active uuid) :state :completed)]
-    (send status-active
+  (send status-agent
 	(fn [sa]
-	  (dissoc sa uid)))
-    (send status-completed (assoc uuid stat))))
+	  (let [element (assoc (-> sa :active (get uuid)) :state :completed)]
+	    (update-in (update-in sa [:completed] conj element)
+		       [:active] dissoc uuid)))))
 
 (defn formatted-status-begin [uuid status-bar pattern init-data]
-  (status-begin uuid status-bar
-		(letfn []
-		(fn [parent]
-		  (let [label (doto (java.swing.JLabel.) ]
-		    (fn [data] (doto label (.setText (apply format pattern data))))))
-		(fn [_] (fn [_])) init-data))
+  (status-begin
+   uuid status-bar
+   (fn [parent]
+     (let [label  (javax.swing.JLabel.)]
+       (.add parent label)
+       (fn [data] (doto label (.setText (apply format pattern data))))))
+   (fn [_] (fn [_]))
+   init-data))

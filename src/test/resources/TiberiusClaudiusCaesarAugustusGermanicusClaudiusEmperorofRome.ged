@@ -1,0 +1,1440 @@
+0 HEAD
+1 SOUR The Next Generation of Genealogy Sitebuilding
+2 VERS 8.1.1
+2 NAME The Next Generation of Genealogy Sitebuilding (R)
+2 CORP Next Generation Software, LLC
+3 ADDR Sandy, UT
+1 FILE Tiberius Claudius Caesar Augustus Germanicus Claudius, Emperor of Rome.ged
+1 GEDC
+2 VERS 5.5
+2 FORM LINEAGE-LINKED
+1 CHAR ANSI
+1 SUBM @SUB1@
+0 @SUB1@ SUBM
+1 NAME Peter Western
+1 _EMAIL newlinks@genealogy4u.com
+1 DEST Gedcom55
+0 @I52719@ INDI
+1 NAME Tiberius Claudius Caesar Augustus Germanicus /Claudius/ Emperor of Rome
+2 GIVN Tiberius Claudius Caesar Augustus Germanicus
+2 SURN Claudius
+2 NSFX Emperor of Rome
+1 TITL Emperor
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 1 AUG 0010 BC
+2 PLAC Lyon, Rhone, France
+1 DEAT
+2 DATE 0054
+1 NOTE The Emperor Claudius
+2 CONT 41-54
+2 CONT 
+2 CONT Tiberius Claudius Caesar Augustus Germanicus was born in 10 BC to Nero Claudius Drusus and his wife Antonia. Although he came from a royal blood line, his family had a very low opinion of his abilities and often ignored him. Labeled an invalid f
+2 CONC rom birth because of physical disabilities including partial paralysis, stammering, slobbering, and limping, he was the last person his family thought would inherit the throne and serve as Roman Emperor. An outcast in his home environment, Claud
+2 CONC ius turned to the study of history to occupy his time. He authored various works about orthographic reform of the Roman alphabet and a work defending Cicero, a republican politician and orator. Claudius also enjoyed playing dice games.
+2 CONT 
+2 CONT Claudius' rise to power came after Emperor Gauis (Caligula), his nephew, was unexpectedly murdered on January 1, AD 41. Claudius became heir to the throne, to many a Roman's dismay. The soldiers, courtiers, freedman, and foreigners were his mai
+2 CONC n support although the senatorial aristocracy also offered to back the new emperor. Many Romans sought to have Claudius assassinated because of his cruel and ruthless discussions and actions with members of the senate and knighthood. It is thoug
+2 CONC ht by some that he even executed senators on occasion. Despite this conflict Claudius did respect these agencies and gave new opportunities to them both.
+2 CONT 
+2 CONT Claudius' reign is marked with an expansion of the Roman Empire. He invaded and conquered Britain in AD 43 and captured Camulodunum. There he started a colony of veterans and built client-kingdoms to protect the small populated land. Claudius al
+2 CONC so took over North Africa and annexed Mauretania, where he established two provinces as well. Around AD 49 he also annexed Iturea and allowed the province of Syria to control it, trying not to come into conflict with the Germans and the Parthian
+2 CONC s.
+2 CONT 
+2 CONT In the area of civil administration he encouraged urbanization. The judicial system improved under his reign and he favored the modern extension by individual and collective grants in Noricum. Claudius also made many administrative innovations
+2 CONC . He increased his control over finances and province administration and gave jurisdiction of fiscal matters to the governors under him in the senatorial provinces.
+2 CONT 
+2 CONT Claudius' personal life was wrought with conflicts that ultimately led to his undoing. He married three times. His first wife, Boudicca, started a revolt, and his second wife had a strong sexual appetite that led her to conspiracy and ultimately
+2 CONC , her execution. Claudius' third time was not a charm either. He decided to stay within the family and married his niece, Aggripina. She was very influential over Claudius to the point where he adopted her son Nero. Then she fed Claudius a dinne
+2 CONC r containing poisonous mushrooms which killed him. Her main motive was that her precious son, Nero, might inherit the throne.
+2 CONT 
+2 CONT Although Claudius was generally thought of as a weak leader and was labeled, even by his own family, as someone not worthy to rule; he made notable contributions to the development of the Roman empire. He conquered and colonized Britain, establi
+2 CONC shed provinces in North Africa, and he urbanized and innovated his civil administration. He died an unnecessary and tragic death at the hand of his own wife and was succeeded by his adopted son, Nero .
+2 CONT 
+2 CONT SURNAME: Also shown as Germanicus
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Claudius Tiberius Drusus Nero
+2 CONT 
+2 CONT BIRTH: Also shown as Born Lyon, France.
+2 CONT 
+2 CONT BIRTH: Also shown as Born 10 Aug 0010 BC
+2 CONT 
+2 CONT AKA: Also known as Tiberius, Claudius, Nero, Germanicus
+1 FAMS @F27040@
+1 FAMS @F27039@
+1 FAMS @F27041@
+1 FAMS @F55346@
+1 FAMS @F55349@
+1 FAMS @F55350@
+1 FAMC @F27042@
+0 @I52750@ INDI
+1 NAME Boudicca //
+2 GIVN Boudicca
+1 SEX F
+1 FAMS @F27040@
+0 @I52794@ INDI
+1 NAME Valeria /Messalina/
+2 GIVN Valeria
+2 SURN Messalina
+1 SEX F
+1 SOUR @S727@
+1 FAMS @F27039@
+0 @I52751@ INDI
+1 NAME Julia Aggripina /Caesar/
+2 GIVN Julia Aggripina
+2 SURN Caesar
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 6 NOV 0015
+1 DEAT
+2 DATE 0059
+1 NOTE Agrippina was born on November 6 in A.D.15. She married Gnaeus Domitius Ahenobarbus in 28. Then Agrippina the elder died in 33. Nero was born in late 37. In 39 Agrippinia the younger and Livilla were exiled. Her husband died in 40 and she had t
+2 CONC o raise her son Nero by herself in modest circumstances. Then they had a change of luck. Claudius came to power in 41 and recalled Agrippina and Livilla from exile. Then Agrippina married Passienus in 41. Agrippina and Claudius married in 49 an
+2 CONC d Agrippina convinced Claudius to adopt her own son Nero. In 50 Nero became the probable heir to the throne and reinforced his claim by marrying Claudius' daughter Octavia in 53. Agrippina then killed Claudius in 54 by giving him a plate of pois
+2 CONC on mushrooms. She ruled Rome during the first period of Nero's reign and became the first and last woman to ever have control over Rome. In 55 Agrippina and Nero clashed. Agrippina left the palace and moved into her own mansion. This suggested h
+2 CONC er decreased power. After surviving a charge of conspiracy her influence again increased. Alexandrian coins in 56 and 57 honored her. In 59 when she began to favor Brittanicus, Claudius' real son, Nero ordered her execution. Nero first tried t
+2 CONC o drown her by sending her out in the bay with a collapsible boat that fell apart in water, but this did not work, so he had some sailors beat her to death.
+2 CONT 1. Oxford Classical Dictionary
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Julia Aggripina II "The Younger"
+1 FAMS @F27041@
+0 @I124223@ INDI
+1 NAME Amelia Lepida //
+2 GIVN Amelia Lepida
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 0015
+1 DEAT
+2 DATE 0059
+1 FAMS @F55346@
+0 @I124225@ INDI
+1 NAME Aelia /Paetina/
+2 GIVN Aelia
+2 SURN Paetina
+1 SEX F
+1 SOUR @S727@
+1 FAMS @F55349@
+0 @I124226@ INDI
+1 NAME Platia /Urgulanilla/
+2 GIVN Platia
+2 SURN Urgulanilla
+1 SEX F
+1 SOUR @S727@
+1 FAMS @F55350@
+0 @I52720@ INDI
+1 NAME Claudius Drusus Nero /Germanicus/ Governor of Gaul
+2 GIVN Claudius Drusus Nero
+2 SURN Germanicus
+2 NSFX Governor of Gaul
+1 TITL Gen.
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 0015 BC
+1 DEAT
+2 DATE 0019
+1 NOTE Nero Cladious DRUSUS
+2 CONT 
+2 CONT DEATH: Also shown as Died 0009
+2 CONT 
+2 CONT SURNAME: Also shown as Nero
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Drusus Claudius
+2 CONT 
+2 CONT BIRTH: Also shown as Born 0038 BC
+2 CONT 
+2 CONT DEATH: Also shown as Died 0009 BC
+2 CONT 
+2 CONT Nero Claudius Drusus Germanicus, born Decimus Claudius Drusus and variously called Drusus, Drusus I, Drusus Claudius Nero, or Drusus the Elder (14 January 38 - 9 BC) was the youngest son of Livia, wife of Augustus, and her first husband, Tiberiu
+2 CONC s Claudius Nero, and was thus a patrician Claudian on both sides.
+2 CONT 
+2 CONT Birth
+2 CONT Drusus was born shortly before Livia divorced Tiberius Claudius Nero and married Augustus (17 January, 38 BC), giving rise to rumors that Augustus was the real father, although this is widely discredited by modern historians as Augustus had no
+2 CONC t yet met Livia when Drusus would have been conceived. Before Augustus married Livia, Tiberius Claudius Nero was declared Drusus' biological father. According to Suetonius, he was born with the praenomen Decimus, but it was later changed to Nero
+2 CONC . He was raised in Claudius Nero's house with his brother, the future emperor Tiberius, until his father's death. Drusus and Tiberius developed a famously close relationship in this environment that would last the rest of their lives. Tiberius n
+2 CONC amed his eldest son after his brother (in violation of Roman naming standards), and Drusus did likewise.
+2 CONT 
+2 CONT 
+2 CONT Marriage
+2 CONT Drusus married Antonia Minor, the daughter of Mark Antony and Augustus's sister, Octavia Minor, and gained a reputation of being completely faithful to her. Their children were Germanicus, Livilla, the future Emperor Claudius, and at least two o
+2 CONC thers who did not survive infancy. After Drusus' death, Antonia never remarried, though she outlived him by nearly 5 decades.
+2 CONT 
+2 CONT Augustus bestowed many honors on his step-sons. In 19 BC, Drusus was granted the ability to hold all public offices 5 years before the minimum age. When Tiberius left Italy during his term as praetor in 16 BC, Drusus legislated in his place. H
+2 CONC e became quaestor the following year, fighting against Raetian bandits in the alps. Drusus repelled them, gaining honors, but was unable to smash their forces, and required reinforcement from Tiberius. The brothers easily defeated the local Alpi
+2 CONC ne tribes. In 13 BC, Drusus was sent to govern Gaul to quell riots caused by the actions of a previous administrator. While there, a tribe of Germans entered Gaul and proceeded to attack Roman settlements. Drusus mobilized his legions and beat t
+2 CONC he invaders back across the Rhine. He penetrated deep into German territory, traveling as far as the North Sea and placing a yearly tribute on the Frisians. As a reward, Drusus was made praetor urbanus for 11 BC.
+2 CONT 
+2 CONT Drusus did not have it in him to stay in Rome. In the spring of his term, he set out for the German border once more. He pushed once more into the territory of the various German tribes, only stopping at the onset of winter. He was attacked whil
+2 CONC e making his way back to Roman territory, but managed to rout the German force. His troops proclaimed him Imperator and he was granted triumphal ornaments, as well as the office of proconsul for the following year. In 10 BC, the Chatti joined wi
+2 CONC th the Sicambri and attacked Drusus' camp, but were easily defeated. Drusus then went to meet Augustus and Tiberius in Lugdunum (at which point Claudius was born), and traveled with them to Rome. He was easily elected Consul for 9 BC, but once m
+2 CONC ore left the city before assuming office. He once again smashed the Chatti, and then began a campaign against the Marcomanni, but was turned back across the Rhine. Drusus died soon after in consequence of a fall from a horse, lingering on fo
+2 CONC r a month after the accident, by which point Tiberius had joined him. Suetonius reports that he had refused to return to Rome just before his death. Drusus' body was brought back to the city, and his ashes were deposited in the "Mausoleum of Aug
+2 CONC ustus." He remained extremely popular with the legionaries, who erected a monument in Moguntiacum (modern Mainz) on his behalf. His family was granted the hereditary honorific "Germanicus", which was given to his eldest son before passing to hi
+2 CONC s youngest. Augustus later wrote a biography of him which did not survive.
+2 CONT 
+2 CONT 
+2 CONT Biological Father
+2 CONT 
+2 CONT [edit] Evidence that Augustus was the biological father of Drusus
+2 CONT Augustus was infamous for being chronically "sickly" (although he lived to be 75), and records of the symptoms he suffered from match those of Wilson's disease, an autosomal recessive genetic disease.
+2 CONT 
+2 CONT Tiberius was already 4 when Augustus married Livia, while she supposedly was already pregnant with Drusus. Drusus' son was Germanicus, and Germanicus married Agrippina the Elder. Their son was Caligula. Caligula, often called "the Mad Emperor"
+2 CONC , was affected by more severe symptoms that match with Wilson's disease; apart from the intestinal problems and immune system weakness of Augustus, he was mentally unstable and suffered from psychosis.
+2 CONT 
+2 CONT Because Wilson's disease is recessive autosomal, each of his parents would have to have been a latent carrier for the disease. It is entirely possible that Agrippina inherited the allele for Wilson's disease from her grandfather Augustus, but th
+2 CONC e only way Caligula could have Wilson's disease is if his father Germanicus was also a carrier. As it is a rare disease, it is unlikely that Germanicus inherited it from his normal-type mother. Thus Germanicus had to have been given the allele b
+2 CONC y Drusus, and the only way that Drusus could have the allele for Wilson's disease is if he got it from his biological parent: Augustus. This linkage shows that Augustus was Drusus' biological father.
+2 CONT 
+2 CONT Nero also probably suffered from Wilson's disease, and he was the son of Caligula's sister Agrippina the Younger and Gnaeus Domitius Ahenobarbus. Claudius, brother of Germanicus, probably also suffered symptoms of Wilson's disease, lending furth
+2 CONC er proof to the genetic mapping. (Compare this pedigree to that of, say, the presence of the hemophilia gene in the monarchs of Europe descended from Queen Victoria).
+2 CONT 
+2 CONT 
+2 CONT Evidence that Augustus was not the biological father of Drusus
+2 CONT Augustus never acknowledged Drusus as his son, he didn't even adopt him. He believed he only had one known biological child, Julia the Elder, his daughter by Scribonia. She gave birth to the five grandchildren (3 boys, 2 girls), whom he adopte
+2 CONC d as his heirs. After the deaths of 2 of his grandsons by Julia, and the banishment of the third, Augustus never moved to adopt Drusus' sons, Germanicus and Claudius. They were nearly the same age as Julia's sons (Germanicus was older than Postu
+2 CONC mus), and would have been his illegitimate grandsons if he were Drusus' father. Instead Augustus chose the much older Tiberius, who was definitely not related by blood, as sole heir and invested him with the powers of principate. Augustus seem
+2 CONC s to have had Tiberius adopt Germanicus as heir because of the latter's marriage to his granddaughter Agrippina (the last of Augustus' living grandchildren not in disgrace), and not because of any secret blood relationship.
+2 CONT 
+2 CONT Augustus and Livia were married for 51 years and both young when they married. Augustus was 25 and Livia was 19 but they never had children after their marriage. It may have been that Augustus and Livia were incapable of having their own childre
+2 CONC n together. They had both successfully had children with other people (Augustus had Julia with Scribonia and Livia had Tiberius and Drusus with their father) but not with each other.
+1 FAMC @F27071@
+1 FAMS @F27042@
+1 FAMS @F27043@
+0 @I52765@ INDI
+1 NAME Tiberius Claudius /Nero/ Pontiff of Rome
+2 GIVN Tiberius Claudius
+2 SURN Nero
+2 NSFX Pontiff of Rome
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 0063 BC
+1 DEAT
+2 DATE 0032 BC
+1 NOTE 
+2 CONT 
+2 CONT DEATH: Also shown as Died 0033 BC
+1 FAMC @F55375@
+1 FAMS @F27071@
+0 @I124228@ INDI
+1 NAME Appius Claudius /Nero/
+2 GIVN Appius Claudius
+2 SURN Nero
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 0093 BC
+1 FAMC @F55419@
+1 FAMS @F55375@
+0 @I124229@ INDI
+1 NAME Tiberius Claudius /Nero/
+2 GIVN Tiberius Claudius
+2 SURN Nero
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 123 BC
+1 FAMS @F55419@
+0 @I52764@ INDI
+1 NAME Liviia /Drusilla/
+2 GIVN Liviia
+2 SURN Drusilla
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 30 JAN 0058 BC
+1 DEAT
+2 DATE 0029
+1 NOTE Livia Drusilla was born in 38 B.C. to Marcus Livius Drusus Claudianus. She married Tiberius Claudius Nero, her cousin, and bore her first child, Tiberius Claudius Nero. While pregnant with her second son, she was forced to marry Octavius due t
+2 CONC o political reasons. She served Octavius well, being faithful for the entirety of their marriage, which lasted until Octavius' death in 14 A.D. Her life-long goal was to have one of her sons become emperor. One son, Drusus Claudius Nero, died du
+2 CONC ring a war, although Livia may have poisoned him herself. Her first son, Tiberius Clausius Nero, became emperor when Octavius died and willed him the position. Livia had succeeded through much persuasion and a marriage arrangement of Tiberius an
+2 CONC d Julia, Octavian's daughter. Julia, however, was unfaithful to Tiberius, and he divorced her and sent her into exile. Livia stood by Tiberius and helped him gain public support, although his wife had nearly cost him his powers. Livia was suppor
+2 CONC tive and loving until her death in 29 A.D.
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Livia
+2 CONT 
+2 CONT BIRTH: Also shown as Born 0060 BC
+2 CONT 
+2 CONT DEATH: Also shown as Died 0029 BC
+1 FAMS @F27051@
+0 @I52793@ INDI
+1 NAME Marcus Livius Drusus /Claudianus/
+2 GIVN Marcus Livius Drusus
+2 SURN Claudianus
+1 SEX M
+1 FAMS @F27072@
+0 @I124159@ INDI
+1 NAME Aufidia //
+2 GIVN Aufidia
+1 SEX F
+1 NOTE Aufidia or Alfidia was a Roman Matron who lived in the first century BC and was the mother to the first Roman Empress Livia Drusilla. Livia Drusilla was the third wife to the first Roman Emperor Caesar Augustus.
+2 CONT 
+2 CONT Aufidia was a daughter to Roman Magistrate Aufidius Lurco and her mother is unknown. She had married Marcus Livius Drusus Claudianus, a future praetor. Their daughter Livia Drusilla was born in 58 BC, however it is unknown whether they had any o
+2 CONC ther children.
+2 CONT 
+2 CONT Aufidia would be the maternal grandmother to Roman Emperor Tiberius and Roman General Nero Claudius Drusus. The Emperors Caligula, Claudius, and Nero were her direct descendants.
+1 FAMC @F55353@
+1 FAMS @F27072@
+0 @I124158@ INDI
+1 NAME Marcus Aufidius /Lurco/
+2 GIVN Marcus Aufidius
+2 SURN Lurco
+1 SEX M
+1 NOTE Marcus Aufidius (or Alfidius) Lurco or known as Aufidius Lurco, was a Roman magistrate who lived in the first century BC. Lurco was a member of the gens Aufidius, a Roman family of Plebs status, who appeared later in the Roman Republican and Rom
+2 CONC an Imperial Era. They became a family of consular rank. Lurco originally came from Fundi (modern Fondi, Italy).
+2 CONT 
+2 CONT According to Suetonius, Lurco held a high office at Rome. In 61 BC, he was a Tribune of the Plebs. During his time as Tribune, he was the author of the Lex Aufidia or Lex Aufidia de Ambitu. The Lex Aufidia was a law concerning the Roman assembli
+2 CONC es or Comitia. If a candidate, promised and paid money to a tribe at the Comitia, he should pay yearly 3,000 sesterces during his life. However, if the candidate, merely promised and did not pay, the candidate should be exempt. This caused a wit
+2 CONC ted argument between Lurco and Publius Clodius Pulcher.
+2 CONT 
+2 CONT Lurco in 59 BC, was one of the witnesses called for the defence at the impeachment of Lucius Valerius Flaccus. Between 52 BC - 51 BC, Lurco prosecuted and procured for the acts of violence and the conviction of Sextus Clodius Pulcher for bringin
+2 CONC g the corpse of Publius Clodius Pulcher into the Curia Julia.
+2 CONT 
+2 CONT Lurco was the first person in Rome, to fatten peacocks for sale and from this he became wealthy. The wife of Lurco is unknown. We know, he had a daughter called Aufidia, who married Marcus Livius Drusus Claudianus, a future praetor. Through he
+2 CONC r daughter, he would become the maternal grandfather to Roman Empress Livia Drusilla and a great-grandfather to Roman Emperor Tiberius and Roman General Nero Claudius Drusus.
+1 FAMS @F55353@
+0 @I52730@ INDI
+1 NAME Gaius /Octavianus/ Emperor Octavian
+2 GIVN Gaius
+2 SURN Octavianus
+2 NSFX Emperor Octavian
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 23 SEP 0063 BC
+2 PLAC Rome, Roman Republic
+1 DEAT
+2 DATE 19 AUG 0014
+2 PLAC Rome, Roman Empire
+1 NOTE Statue of the Emperor Octavian Augustus 
+2 CONT Rome 
+2 CONT First quarter of the 1st century 
+2 CONT H 185 cm 
+2 CONT This statue was created after the death of Octavian (reigned 31st BC-14 th AD), during the reign of the Emperor Tiberius. The worship of the emperor began even during the lifetime of Octavian (in 27 BC the Senate awarded him the title Augustus
+2 CONC : the Holy, divine Son, father of the native land, descendant of Venus and Aeneas), and under his successors this became an official cult. Here the emperor is represented as Jupiter, the supreme God of the Roman pantheon, and this statue is a ty
+2 CONC pical example of Roman sculpture  from the time of the Empire. The composition was adapted from the celebrated sculpture of Zeus by Phidias, which allowed the placing of the appropriate attributes in Augustus's hands: a Nike and a sceptre. The s
+2 CONC culptor preserved the emperor's portrait features, but idealized them to create a formal cult statue.
+2 CONT 
+2 CONT BBC Source
+2 CONT 
+2 CONT Augustus (63 BC - AD 14; Roman emperor 27 BC - AD 14)
+2 CONT 
+2 CONT Augustus was the first, and the greatest, Roman emperor, and he succeeded in replacing the Roman republic, which dated back to 509 BC, with a system of monarchy headed by emperors. His long reign brought Rome peace and stability after a centur
+2 CONC y of intermittent civil war and disorder, and provided a model of successful government that it would be difficult or impossible for his successors to match.
+2 CONT 
+2 CONT Gaius Octavius, as Augustus was originally known, was 18 when in 43 BC his great-uncle, the dictator Julius Caesar, was assassinated. When the will was opened, Octavius was named as Caesar's heir, and he was posthumously adopted as the dictator'
+2 CONC s son.
+2 CONT 
+2 CONT He therefore became known formally as Gaius Julius Caesar Octavianus, but he called himself Caesar, so as to appeal to the dictator's veterans and supporters. Modern scholars, however, call him Octavian, to avoid confusion with the dictator Caes
+2 CONC ar.
+2 CONT 
+2 CONT The years 44 to 31 BC saw a struggle for dominance between Octavian and Caesar's deputy Marcus Antonius, known in English as Mark Antony. The senate, led by Cicero, supported Octavian, who defeated Antony in 43 and took the consulship by force.
+2 CONT 
+2 CONT Soon afterwards, however, Octavian changed sides, forming the 'second triumvirate' with Antony and Lepidus. Some 300 senators, including Cicero, were murdered, and Caesar's assassins, Brutus and Cassius, were destroyed at Philippi (42). Antony r
+2 CONC emained in the east, while Octavian retained a brutal hold on Italy.
+2 CONT 
+2 CONT Relations between the triumvirs were formalised at Brundisium (40); Lepidus was given Africa, and Antony married Octavian's sister Octavia. In 36, Octavian defeated Pompey's son Sextus Pompeius at Naulochus, and also ousted Lepidus from the triu
+2 CONC mvirate.
+2 CONT 
+2 CONT Mobilising public opinion against Antony, who had married Cleopatra and was setting up a dynasty to rule over the eastern Roman empire from Alexandria, Octavian declared war on Cleopatra alone (to disguise the fact that he was initiating a civi
+2 CONC l war), and defeated Antony at Actium in 31.
+2 CONT 
+2 CONT Antony and Cleopatra committed suicide, and Octavian was left as sole ruler of the empire (to which Egypt was now added) - in the same position that Caesar had been in after winning the civil war against the republicans in 45.
+2 CONT 
+2 CONT Instead of following Caesar's example, however, and making himself dictator, Octavian in 27 BC founded the principate (from princeps, 'the leading man'), a system of monarchy headed by an emperor holding power for life. His powers were hidden be
+2 CONC hind constitutional forms, and he took the name Augustus (meaning 'lofty', 'serene') in order to make a clean break with his former image.
+2 CONT 
+2 CONT Further constitutional settlements in 23 and 19 accomplished the necessary fine-tuning, leaving him with the modest-sounding 'tribunician power' as the power he chose to emphasise - under the old republic, tribunes of the plebs (elected represen
+2 CONC tatives of the plebs, who were originally the non-privileged class of citizens) had been relatively junior officials. Nevertheless, he retained ultimate control of all aspects of the Roman state, with the army under his direct command.
+2 CONT 
+2 CONT At home, he embarked on a large programme of reconstruction and social reform. Rome was transformed by impressive new building ('I found Rome a city of brick and left it a city of marble' - Augustus), and through his agent Maecenas he extended h
+2 CONC is patronage to Virgil, Horace and Propertius, the leading Roman poets of the day. Virgil's epic poem the Aeneid, which gives a central place to Augustus, was published on the poet's death in 19, and reflects the new mood.
+2 CONT 
+2 CONT Augustus also ensured that his image was everywhere promoted by means of statues and coins - but he was more careful than Caesar not to present himself as a god.
+2 CONT 
+2 CONT Abroad, he created a standing army for the first time, and embarked upon a vigorous campaign of expansion designed to make Rome safe from the barbarians beyond the frontiers, and to secure the Augustan peace. His stepsons Tiberius and Drusus und
+2 CONC ertook the task (Augustus had married their mother Livia in 38). Between 16 BC and AD 6 the frontier was advanced from the Rhine to the Elbe in Germany, and up to the Danube along its entire length.
+2 CONT 
+2 CONT But Drusus died in the process (9 BC), and in AD 9 the annihilation of three Roman legions in Germany (out of 28 overall), in the Varian disaster, led to the abandonment of Germany east of the Rhine. The lost territory was never to be recovered
+2 CONC . With such important projects in hand, there was obviously no point yet in undertaking the conquest of Britain.
+2 CONT 
+2 CONT Augustus was determined to be succeeded by someone of his own blood, but he had no sons, only a daughter, Julia, the child of his first wife Scribonia. His nephew Marcellus and his beloved grandsons Gaius and Lucius pre-deceased him, so he reluc
+2 CONC tantly made Tiberius, a man he had never warmed to, his heir.
+2 CONT 
+2 CONT Military disaster, the loss of his grandsons and a troubled economy clouded his last years. He became more dictatorial, exiling the poet Ovid (AD 8), who had mocked his moral reforms. When he died in AD 14 he left behind an account of his achiev
+2 CONC ements, the Res Gestae,, in which he claimed to have restored the republic.
+2 CONT 
+2 CONT In the sense that he had established lasting peace and saved Rome from disintegration, this was true; but in providing that his position should pass to a successor, he had ended the republic for ever. Until the fall of the empire, Rome was rule
+2 CONC d by emperors, not by senate and people; and all the emperors assumed the title Augustus.
+2 CONT 
+2 CONT Augustus was posthumously deified.
+2 CONT 
+2 CONT SURNAME: Also shown as Caesar
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Augustus Gaius Octavius
+2 CONT 
+2 CONT SUFFIX: Also shown as Roman Emperor
+2 CONT 
+2 CONT BIRTH: Also shown as Born 23 Sep 0063 BC
+2 CONT 
+2 CONT DEATH: Also shown as Died 0014
+1 FAMS @F27048@
+1 FAMC @F55358@
+1 FAMS @F27050@
+1 FAMS @F27051@
+1 FAMS @F55368@
+0 @I52766@ INDI
+1 NAME Tiberius Claudius /Nero/
+2 GIVN Tiberius Claudius
+2 SURN Nero
+1 SEX M
+1 BIRT
+2 DATE 16 NOV 0042 BC
+1 DEAT
+2 DATE 16 MAR 0037
+1 NOTE Tiberius Claudius Nero was born on Nov. 16, 42 B.C, the son of Tiberius Claudius Nero and Liviia Drusilla. Through his mother he obtained geneological connections to the Republican houses like Servilii Caepiones, Amilii Lepidi, and Livii Drusi
+2 CONC . In 39 B.C. Tiberius became the stepson of the emperor Octavian when his mother divorced his father and married Octavian. In 32 B.C. he made his first public appearance at the age of nine when he delivered the eulogy at his real father's funera
+2 CONC l. In 29 B.C. Tiberius took part in his step-father Augustus' triumph for the Actium campaign. Tiberius rode at Augustus' left in the triumphal chariot. Two years later he received the plain white "toga virilis,"1 or gown of manhood. At age seve
+2 CONC nteen Tiberius became a quaestor and he stood for the praetorship and consulship five years before the age which was required by law. In 20 B.C. he oversaw one of Augustus' greatest successes, the formal return of the legionary eagles by the Par
+2 CONC thians. The eagles had been lost by Marcus Licinius Crassus in 53 B.C., Decidius Saxa  in 40 B.C., and Marcus Antony in 36 B.C. Tiberius may have been granted proconsular power in order to carry out the mission of retrieving the eagles. In 13 B.
+2 CONC C. he was elected consul. He then served on active duty with his brother, Drusus Claudius Nero, fighting the alpine tribes. In 19 B.C. he served for one year as the governor of Gallia Comata. In either 20 or 19 B.C. Tiberius happily married Vips
+2 CONC ania Agrippina who bore them a son, Drusus. In 12 B.C. Marcus Vipsanius Agrippa died, and Augustus forced Tiberius to divorce Vipsania, and to marry Agrippa's widow and Octavian's daughter, Julia . It was not a very happy marriage, and there wer
+2 CONC e no children. Augustus forbade Tiberius from even seeing Vipsania after an embarrassing public display.
+2 CONT 
+2 CONT His Early Reign
+2 CONT 
+2 CONT On September 18, 14 A.D. Tiberius took power. He was evasive when the Senate asked him to take power, and he claimed that he was too old for all of the responsibilities, and asked if he could just have some of them. The Senators ended up havin
+2 CONC g to beg him to accept the emperorship, and after pleading he finally did accept.1 As Tiberius' reign went on he took away a lot of the Senatorial power, and he reduced of the peoples voting rights. Under Tiberius the Senators were chosen by oth
+2 CONC er Senators who were choosing on the requests of Tiberius. Tiberius also started putting Senators on trial for treason in order to protect himself. Most of these trials resulted in convictions, and witnesses would often times testify falsely i
+2 CONC n order to get money. If the prosecution won the case, the prosecutor, and the witnesses were all paid money.2 Tiberius allowed all of this to go on, and he used to penal code to hide himself and his real intentions. Thereafter Tiberius had diff
+2 CONC iculty cooperating with the Senate. Tiberius' actions left the Senate feeling confused and unsure of his actions, and his decisions often times scared the Senate. Tiberius always hoped that the Senate would act on what he implied he wanted, an
+2 CONC d not on what exactly he told them he wanted.
+2 CONT 
+2 CONT Tiberius seems to have been a good ruler in the beginning. He did not try to conquer anymore of Germany, but he did hold on to the Rhine Frontier. Thus following the Augustan policy of not expanding the borders of the empire. During his early re
+2 CONC ign, Tiberius had his adopted son Germanicus removed from command of his forces in the Rhine region, which indicated that Germanicus was probably opposing Tiberius. In 19 A.D. Tiberius' adopted son Germanicus died while ruling over Rome's Easter
+2 CONC n Empire. Tiberius's friend Cn. Calpurnias Piso was put on trial for the death of Germanicus, but Tiberius would not help his friend. Piso was convicted and executed. Some say that Tiberius had Germanicus killed to destroy any opposition that mi
+2 CONC ght come from a potential successor. Whatever the motives were, it is a fact that after the death of Germanicus, Tiberius raised his real son Drusus higher and higher on his list of successors. As Tiberius' reign went on, he became more and mor
+2 CONC e paranoid, and he interpreted jokes and meaningless comments about him as plots against him. It got so bad that he forgot how to socialize with other people. The only person that Tiberius trusted was the man who was out to destroy him, Lucius A
+2 CONC elius Sejanus 3
+2 CONT 
+2 CONT Sejanus was the Praetorian Prefect during Tiberius' reign. Sejanus was a twisted and evil man who used Tiberius to gain power for himself. Sejanus encouraged Tiberius to suspect plots against him, and Tiberius became more paranoid due to Sejanus
+2 CONC ' warnings. Sejanus made Tiberius feel very uncomfortable in Rome. He advised the emperor to retire to Capri. Tiberius did so, and he never set foot in Rome again. With Tiberius gone Sejanus increased his own power and self promotion.4
+2 CONT 
+2 CONT 1 Ivar Lissnar, translated by Maxwell J. Brownjohn, The Caesars Might and Madness (New York; Capricon Books; 1958; Page 85.
+2 CONT 2IBID. Page 86.
+2 CONT 3IBID. Page 87.
+2 CONT 4 Michael Grant, The Twelve Caesars (New York; Charles Scribner's Sons, 1975), Page 97.
+2 CONT 
+2 CONT 
+2 CONT The Last Years of His Reign
+2 CONT 
+2 CONT Tiberius spent his last years mostly at Misenum and Capri. Once he retired from Rome, Tiberius only tried twice to re-enter the city. The first time he sailed up the Tiber in a trireme to the pleasure grounds near Julius Caesar's artificial lake
+2 CONC .1 When the walls around the city appeared in the distance he turned around, for some unknown reason. The next time he tried to return to the city, he came by the Appian Way. He reached the 7th mile marker, and he turned back because he was advi
+2 CONC sed that the discovery of a dead, half-eaten snake, that he used to hand-feed was a bad omen. When Tiberius came across the snake, a soothsayer advised him to beware of the mob, so Tiberius decided to turn back. Tiberius then returned to Campani
+2 CONC a, but he fell ill at Astura. His condition gradually worsened. Despite his deteriorating condition, Tiberius never let other people know the seriousness of his illness. At Circeii, however, he felt well enough to throw javelins at a wild boar i
+2 CONC n the arena, from his imperial box. This little display of athletics caused him to twist the muscles in his side. Finally Tiberius reached Misenum, where he lived out the rest of his days. In Misenum Tiberius read that some of the people he ha
+2 CONC d sent to trial were to be set free. Outraged, he decided to head back to Capri, which was the only place where he felt safe enough to send a strict or harsh message. His journey to Capri had to be postponed because of bad weather and the worsen
+2 CONC ing of his illness. Not long afterwards Tiberius Claudius Nero died on March 16, 37 A.D. in the country house that had belonged to Lucullus . It was almost twenty-three years after he had taken power. Tiberius was seventy-seven years old.2
+2 CONT 
+2 CONT 1Gaius Tranquillus Seutonius, translated by Robert Graves, The Twelve Caesars (Great Britain: Penquin Books, 1957), P. 144.
+2 CONT 2IBID., Page 145.
+2 CONT 
+2 CONT 
+2 CONT The Succession
+2 CONT 
+2 CONT Up until the time of his death, his successor remained uncertain. The situation seemed to be the same as it had been when Tiberius succeeded Augustus. Tiberius' adopted son, Germanicus, headed the list, but he died prematurely in 19 A.D. The nex
+2 CONC t in line was Tiberius' natural son Drusus, who gained Tribunian Power in 21 A.D., but he too died young in 23 A.D. It was later discovered that Sejanus helped organize Drusus' death.1 Tiberius then had Germanicus' sons Nero and Drusus as the ne
+2 CONC xt persons on his list for succession, but Tiberius would not allow them to be included in the New Year's prayer for the safety of the emperor, because it brought back unhappy memories of his stepfather who had been responsible for Gaius and Luc
+2 CONC ius Caesar. Drusus played a major role in the death of his brother Nero. Both of the boys had ambitions to succeed Tiberius as emperor. Drusus decided that the best way to solve the problem was to have his brother killed. By 33 Tiberius had narr
+2 CONC owed his list of successors down to two, Caligula and Tiberius Gemellus, the surviving grandson of the princeps. Tiberius leaned toward Caligula because he wanted to protect his grandson from the wrath of Caligula. Tiberius knew that if he chos
+2 CONC e his grandson over Caligula, then Caligula would be bitter, and would most likely kill Tiberius' grandson, and take the throne for himself. Tiberius may have also favored Caligula to honor the spirit of Augustus.2 Caligula's elevation on Tiberi
+2 CONC us' list of successors can be credited largely to the new Praetorian Prefect Sutorius Macro. In 33 Caligula gained quaestorship and priesthood. Tiberius knew that there was no hope for Rome under Caligula, but he also knew that if he selected hi
+2 CONC s grandson Tiberius Gemellus as his successor, Caligula would most certainly kill his grandson, and usurp his power and title.3 In 37 Tiberius, whose physical condition was grave, stopped at the villa of Luccullus in Misenum. There he fainted, a
+2 CONC nd Caligula, eager to become emperor, may have sent Macro to smother the ailing Tiberius. Whether due to natural causes or Macro's treachery, Tiberius died and Caligula became the new emperor.4
+2 CONT 
+2 CONT 1David Shotter, Tiberius Caesar, (London and New York: Routledge, 1992), Page 66.
+2 CONT 2IBID., Page 67.
+2 CONT 3IBID., Page 68.
+2 CONT 4IBID., Page 69.
+2 CONT Bibliography
+2 CONT Fagan, Garret G., "De Imperatoribus Romanis, Tiberius" (1997; http://orb.rhodes.edu/encyclop/early/De_Imp/tiberius.html).
+2 CONT Grant, Michael. The Twelve Caesars. New York: Charles Scribner's Sons, 1975.
+2 CONT Lissnar, Ivar. translated by Brownjohn, Maxwell J. The Caesars Might and Madness. New York: Capricon Books, 1958.
+2 CONT Seutonius, Gaius Tranquillus. translated by Graves, Robert. Twelve Caesars. Great Britain: Penquin Books, 1957.
+2 CONT Shotter, David. Tiberius Caesar. London and New York: Routledge, 1992.
+1 FAMS @F27073@
+1 FAMS @F27074@
+1 FAMC @F27071@
+0 @I52768@ INDI
+1 NAME Vipsania /Agrippina/
+2 GIVN Vipsania
+2 SURN Agrippina
+1 SEX F
+1 FAMS @F27073@
+0 @I52770@ INDI
+1 NAME Julia //
+2 GIVN Julia
+1 SEX F
+1 DEAT
+2 DATE 0014
+2 PLAC Rhegium
+1 NOTE Julia was born in 39 B.C. She was the daughter of Augustus Caesar and Scribonia. In 25 B.C. Julia married Marcus Claudius Marcellus. However, Marcellus died prematurely in 23 B.C. After the death of Marcellus Julia remarried to Marcus Vipsaniu
+2 CONC s Agrippa, and with him she bore two sons, Gaius and Lucius Caesar. Julia also had three other children with Agrippa, Agrippa Postumus, Julia, and Agrippina. In 12 B.C. Agrippa died and Julia married Tiberius for political reasons. While marrie
+2 CONC d to Tiberius, her private life became the scandal of Rome. Augustus found her actions to be appalling, especially since he stressed the importance of moral values. So Tiberius divorced her, and Augustus banished her first to the island of Panda
+2 CONC taria, and after that to Rhegium where she died in 14 A.D.
+1 FAMS @F27074@
+0 @I52756@ INDI
+1 NAME Agrippina the elder //
+2 GIVN Agrippina the elder
+1 SEX F
+1 BIRT
+2 DATE 0014 BC
+1 DEAT
+2 DATE 0033
+2 PLAC Pandatoria
+1 NOTE Vipsania Agrippina, or Agrippina the Elder as she was known, was born in 14 B.C. Her parents were M. Vipsanius Agrippa and Iulia, the daughter of Augustus. Agrippina the Elder married Germanicus in 5 B.C. During her marriage to Germanicus, she b
+2 CONC ore nine children. Agrippina stayed with Germanicus on the Rhine from 14 to 16 A.D., and they lived together in the East from 18 until Germanicus' death a year later in 19. After Germanicus' death Agrippina moved back to Rome where she lived unt
+2 CONC il 29. During those years in Rome her relations with the emperor, Tiberius, were always bad. Agrippina suspected that Tiberius was responsible for the death of her husband, and for that reason she really disliked him. In 26 Tiberius refused to l
+2 CONC et her leave Rome, when she wanted to go and remarry. In 29 Tiberius ordered her arrest, and the Senate banished her to the island of Pandatoria, where she starved to death in 33. She was survived by her one son Gaius, the future emperor, and he
+2 CONC r three daughters Iulia Agrippina, Iulia Drusilla, and Iulia.1
+2 CONT 1Simon Hornblower and Antony Spawforth, Ed., The Oxford Classical Dictionary (Oxford, New York: Oxford University Press, 1996), p. 1601.
+1 FAMS @F27043@
+0 @I52721@ INDI
+1 NAME Antonia /Minor/
+2 GIVN Antonia
+2 SURN Minor
+2 NICK The Younger
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 0036 BC
+1 DEAT
+2 DATE 0037
+1 NOTE The daughter of Antony and Augustus' sister Octavia, Antonia was born in 36 BC. She married Drusus the Elder and bore him many children including Germanicus and Claudius. When Drusus died in 9 BC Antonia resisted pressure to re-marry and was ver
+2 CONC y influential during the reign of Tiberius. She inherited much property and connections from her father when he died and many princes and ambassadors from the East could often be seen in her house. She died in 37 AD, but no post-humus honors wer
+2 CONC e bestowed upon her until the reign of her son Claudius.
+2 CONT 
+2 CONT SURNAME: Also shown as Augusta
+2 CONT 
+2 CONT DEATH: Also shown as Died 0038
+1 FAMC @F27044@
+1 FAMS @F27042@
+0 @I52722@ INDI
+1 NAME Mark /Antony/ the Triumvir
+2 GIVN Mark
+2 SURN Antony
+2 NSFX the Triumvir
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 0082 BC
+2 PLAC Egypt
+1 DEAT
+2 DATE 30 AUG BC
+2 PLAC Alexandria, Egypt
+1 NOTE This descent is speculative and taken from trees shown on various web sites. The dates are suspect when descending to Clodmir IV, King of the Franks , as some will be before BC but I will try to clarify them by further research.
+2 CONT 
+2 CONT Also spelled Marc Anthony, Latin Marcus Antonius Roman general under Julius Caesar  and later triumvir (43?30 BC), who, with Cleopatra, queen of Egypt, was defeated by Octavian (the future emperor Augustus) in the last of the civil wars that des
+2 CONC troyed the Roman Republic.
+2 CONT 
+2 CONT Antony, Mark
+2 CONT 
+2 CONT Early life and career 
+2 CONT 
+2 CONT Mark Antony was the son and grandson of men of the same name. His father was called Creticus because of his military operations in Crete, and his grandfather, one of the leading orators of his day, was vividly portrayed as a speaker in Cicero'
+2 CONC s De oratore. After a somewhat dissipated youth, the future triumvir served with distinction in 57?54 as a cavalry commander under Aulus Gabinius in Judaea and Egypt. He then joined the staff of Julius Caesar, to whom he was related on his mothe
+2 CONC r's side, and served with him for much of the concluding phase of Caesar's conquest of central and northern Gaul and its aftermath (54?53, 52?50). In 51 Antony held the minor office of quaestor, an office of financial administration that gave hi
+2 CONC m a place in the Senate, and he was subsequently elected to the politically influential priesthood of the augurs.
+2 CONT 
+2 CONT Civil war and triumvirate. 
+2 CONT 
+2 CONT In 49, the year in which the  Civil War broke out between Pompey and Caesar, Antony became tribune of the people (an official with the traditional function of protecting the plebeians from arbitrary actions of the magistrates) and vigorously sup
+2 CONC ported Caesar in the Senate. He fled from Rome to his patron's headquarters after receiving threats of violence. After Antony had fought in the brief Italian campaign in which Pompey was forced to evacuate the Italian peninsula, Caesar left hi
+2 CONC m in charge of Italy, a post he again occupied in 48?47 as Master of the Horse (the dictator's assistant) after the decisive battle at Pharsalus  (in Thessaly) in which he had commanded Caesar's left wing.
+2 CONT 
+2 CONT Thereafter, because his methods as regent of Italy had displeased Caesar, he was removed from the post and was without employment until 44 when he became consul as the dictator's colleague. After Caesar's murder, he used a variety of methods, in
+2 CONC cluding the falsification of the dead man's papers, to control events and to arouse the people against Caesar's assassins, Marcus Brutus  and Cassius In June, Antony was granted a five-year governorship of northern and central Transalpine Gaul (
+2 CONC Gallia Comata) and Cisalpine Gaul (northern Italy). Despite his growing power and popularity among the people, the orator Cicero attacked him fiercely in a series of speeches from September 44 to April 43 BC (he never tired of saying that Anton
+2 CONC y should have been murdered also), and the 19-year-old Octavian, Caesar's great-nephew and adopted son, gradually emerged as a rival. In April 43 a coalition of Octavian, the two consuls of the year, and Decimus Brutus (another of the former con
+2 CONC spirators against Caesar) defeated Antony at Mutina (Modena ) and compelled him to withdraw into the southern part (Narbonensis) of Transalpine Gaul. There, however, he was joined by a number of leading commanders including Marcus Aemilius Lepid
+2 CONC us, who, after Antony, had been Caesar's Master of the Horse. In early November Octavian met Antony and Lepidus in Bononia (Bologna ), and the three entered into an official five-year autocratic pact, the second triumvirate  (November 43). The e
+2 CONC nemies of the triumvirs, including the orator Cicero, were proscribed and executed, and in the following year Marcus Brutus and Cassius killed themselves after their defeat at the Battle of Philippi, in which Antony greatly distinguished himsel
+2 CONC f as a commander. The republican cause was now dead.
+2 CONT 
+2 CONT The triumvirs had agreed to divide the empire; so Antony proceeded to take up the administration of the eastern provinces. He first summoned Cleopatra, the queen of Egypt , to Tarsus (southeastern Asia Minor) to answer reports that she had assis
+2 CONC ted their enemies. She successfully exonerated herself, and Antony spent the winter of 41?40 as her lover at Alexandria. In spite of the romantic accounts of ancient authors, however, she did not at this stage establish a permanent dominance ove
+2 CONC r him, since he made no move to see her again for more than three years.
+2 CONT 
+2 CONT Early in 40 he received two pieces of bad news: that his brother Lucius Antonius  and his third wife, Fulvia, on their own initiative and without success, had revolted against Octavian, thus setting off the Perusine War (after the central poin
+2 CONC t of the rising, Perusia , the modern Perugia); and that the Parthians , the eastern neighbours of the empire, had invaded Roman Syria. In spite of the latter information, Antony first proceeded to Italy, where he became reconciled to Octavia
+2 CONC n  at Brundusium (Brindisi), and, since Fulvia had died in the meantime, he married Octavian's sister Octavia. The two triumvirs agreed that Herod , who had fled from Judaea to escape the Parthians and their Jewish allies, should be encouraged t
+2 CONC o retake the country and become its king. In the following year they concluded the short-lived Treaty of Misenum  with Pompey's son Sextus  Pompeius, who because of his control of wide areas of the Mediterranean had been pirating Roman ships.
+2 CONT 
+2 CONT Accompanied by Octavia, Antony then proceeded to Athens, where he was enthusiastically greeted and hailed as the New Dionysus, mystic god not only of wine but also of happiness and immortality. In 38 Antony's lieutenant Publius Ventidius won a d
+2 CONC ecisive victory over the Parthians, and, in the following year, Herod was able to reestablish himself at Jerusalem. Meanwhile, however, further differences had arisen between Antony and Octavian, and, although these were ostensibly settled by th
+2 CONC e Treaty of Tarentum, which prolonged the triumvirate for a further five years, Antony sent Octavia back to Italy from Corcyra (modern Corfu, or Kérkira) when he left again for the east and arranged for Cleopatra to join him in Syria. Henceforwa
+2 CONC rd, apart from his absences on land campaigns, they lived together for the remaining seven years of their lives.
+2 CONT 
+2 CONT Alliance with Cleopatra. 
+2 CONT 
+2 CONT Religious propaganda declared Cleopatra the New Isis, or Aphrodite, to his New Dionysus, and it is possible (but unlikely) that they contracted an Egyptian marriage: it would not have been valid in Roman law since Romans could not marry foreigne
+2 CONC rs. Apart from their undoubted mutual affection, Cleopatra needed Antony in order to revive the old boundaries of the Ptolemaic kingdom (though her efforts to convince him to give her Herod's Judaea failed), and Antony needed Egypt as a source o
+2 CONC f supplies and funds for his planned attack on Parthia. His invasion, however, of Parthia's ally Media Atropatene (southwest of the Caspian) in 36 BC ended in a retreat involving heavy losses. On his return to Syria, Cleopatra met him with mone
+2 CONC y and supplies. Octavian, exploiting the occasion and the contrast of Antony's failure with the decisive victory he himself?or rather his admiral Agrippa?had won against Sextus Pompeius, sent Octavia to Antony along with troops and provisions. B
+2 CONC ut the soldiers fell far short of the numbers Antony expected (and were owed by his fellow-triumvir), and he then made a future breach between the two leaders almost inevitable by ordering Octavia to return to Rome.
+2 CONT 
+2 CONT The break was accelerated in 34, when he celebrated a successful expedition to Armenia by appearing in a triumphal  procession through the streets of Alexandria, a proceeding regarded by Romans as an impious parody of their traditional Triumph
+2 CONC . A few days later he staged a ceremony at which Cleopatra was pronounced Queen of Kings, her son and joint monarch Ptolemy XV Caesar, or Caesarion (for Cleopatra, and now Antony, claimed that Julius Caesar had fathered the boy), was declared Ki
+2 CONC ng of Kings, and the two sons and a daughter that Cleopatra had borne to Antony were also given imposing royal titles. The exact significance and substantiality of these Donations are disputable, but critics interpreted them as involving the tra
+2 CONC nsfer of Roman territories into alien, Greek, hands. In the next year, 33, the Roman leaders launched unprecedented, savage propaganda attacks upon one another, including the production by Octavian of a document (of dubious though possible authe
+2 CONC nticity) that purported to be a will of Antony favouring the children of Cleopatra and providing for his own burial at Alexandria.
+2 CONT 
+2 CONT In 32 the triumvirate had officially ended, although Antony continued to call himself triumvir on his coins. Both consuls at Rome, however, happened to support Antony, and now, threatened by Octavian, they left for his headquarters, bringing num
+2 CONC erous, probably more than 200, Roman senators with them. After Antony had officially divorced Octavia, her brother formally broke off the ties of personal friendship with him and declared war, not against him but against Cleopatra. Antony succes
+2 CONC sively established his headquarters at Ephesus (Selçuk), Athens, and Patras (Pátrai) and marshalled his principal fleet in the gulf of Ambracia (northwestern Greece). More naval detachments occupied a long line of posts along the west coast of G
+2 CONC reece. But Octavian's admiral Agrippa and then Octavian himself, succeeded in sailing from Italy across the Ionian Sea and effecting landings, and Agrippa captured decisive points all along the line.
+2 CONT 
+2 CONT As Antony lost more ground, the morale of his advisers and fighting forces deteriorated, a process aided by Cleopatra's insistence on being present at his headquarters against the wishes of many of his leading Roman supporters, thus providing Oc
+2 CONC tavian with fresh propaganda fuel. Because of this lack of unity and the inexperience of Antony's crews, the decisive battle was lost before it ever began. It took place off Actium  outside the Ambracian Gulf, on Sept. 2, 31 BC. Antony suffere
+2 CONC d the inevitable defeat, but Cleopatra, by prearranged plan rather than treachery, broke through the enemy line with her 60 ships (carrying her and Antony's treasury) and, joined by her lover, made for Egypt. It was nearly a year before Octavia
+2 CONC n reached them there, but soon after his arrival, when resistance proved impossible, first Antony and then Cleopatra committed suicide (August 30 BC).
+2 CONT 
+2 CONT Personality. 
+2 CONT 
+2 CONT Antony was a man of considerable ability and impressive appearance, far more genial than his adversary but not quite equal to Octavian's exceptional efficiency and energy and, in particular, unfit or unwilling to grasp the moment for action. Nev
+2 CONC ertheless, he was an outstanding leader of men and a competent general, though, in the end, not such a successful admiral as the experienced Agrippa. As a politician, he was astute enough?aided by a talent for florid oratory?but gradually lost t
+2 CONC ouch with Roman feeling and fatally lacked the cold deliberateness of Octavian. Since the latter proved victorious in his struggle for power, it is his interpretation of events, rather than Antony's, that has remained lodged in the history books
+2 CONC . Cicero had earlier depicted Antony as a drunken, lustful debauchee?though his adulteries may have been less extensive than Octavian's. More significantly for history, the outcome of the battle off Actium made certain that Octavian's Roman-Ital
+2 CONC ian policy prevailed throughout the empire, and the Antonian theme of Greco-Roman collaboration was not given a trial until the emperor Constantine captured Byzantium three centuries later.
+2 CONT 
+2 CONT Roman general under Julius Caesar and later triumvir (43-30 BC), who, with Cleopatra, queen of Egypt, was defeated by Octavian (the future emperor Augustus) in the last of the civil wars that destroyed the Roman Republic.
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Marcus Antonius III
+2 CONT 
+2 CONT DEATH: Also shown as Died suicide.
+2 CONT 
+2 CONT DEATH: Also shown as Died 0030 BC
+1 FAMC @F27047@
+1 FAMS @F27045@
+1 FAMS @F27046@
+1 FAMS @F27044@
+1 FAMS @F55355@
+1 FAMS @F55356@
+0 @I52727@ INDI
+1 NAME Creticus /Creticus/ Praetor of Rome
+2 GIVN Creticus
+2 SURN Creticus
+2 NSFX Praetor of Rome
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 103 BC
+1 DEAT
+2 DATE 0071 BC
+2 PLAC Crete
+1 NOTE He took care of the granaries, made war unsuccessfully upon the Cretans and died of grief.
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Marcus Antonius II
+1 FAMC @F55359@
+1 FAMS @F27047@
+1 FAMS @F55357@
+0 @I124148@ INDI
+1 NAME Marcus Antonius I "The Orator" // Praetor of Rome
+2 GIVN Marcus Antonius I "The Orator"
+2 NSFX Praetor of Rome
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 143 BC
+1 DEAT
+2 DATE 0087 BC
+1 NOTE Great orator as referred to in Cicero's "De Oratore". Reign of terror when Marius captured Rome in 0087 BC
+1 FAMC @F55364@
+1 FAMS @F55359@
+0 @I124149@ INDI
+1 NAME Gaius I /Antonius/
+2 GIVN Gaius I
+2 SURN Antonius
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 170 BC
+1 FAMS @F55364@
+0 @I124144@ INDI
+1 NAME Julia //
+2 GIVN Julia
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 100 BC
+1 FAMS @F55357@
+0 @I52728@ INDI
+1 NAME Lucius /Antonius/
+2 GIVN Lucius
+2 SURN Antonius
+1 SEX M
+1 FAMC @F27047@
+0 @I52729@ INDI
+1 NAME Fulvia //
+2 GIVN Fulvia
+1 SEX F
+1 DEAT
+2 DATE 0040 BC
+1 FAMS @F27045@
+0 @I52732@ INDI
+1 NAME Cleopatra VII // Queen of Egypt
+2 GIVN Cleopatra VII
+2 NSFX Queen of Egypt
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 0069 BC
+2 PLAC Egypt
+1 DEAT
+2 DATE 30 AUG BC
+2 PLAC Egypt
+1 NOTE Cleopatra 
+2 CONT 
+2 CONT Daughter of the Pharaoh
+2 CONT 
+2 CONT Cleopatra VII was born in 69 B.C. in Alexandria, which was then the capital of Egypt. Her father was Egypt's pharaoh, Ptolemy XII, nicknamed Auletes or "Flute-Player." Cleopatra's mother was probably Auletes's sister, Cleopatra V Tryphaena. (I
+2 CONC t was commonplace for members of the Ptolemaic dynasty to marry their siblings.)
+2 CONT 
+2 CONT There was another Cleopatra in the family - Cleopatra VII's elder sister, Cleopatra VI. Cleopatra VII also had an older sister named Berenice; a younger sister, Arsinoe; and two younger brothers, both called Ptolemy. The family was not truly Egy
+2 CONC ptian, but Macedonian. They were descended from Ptolemy I, a general of Alexander the Great who became king of Egypt after Alexander's death in 323 B.C.
+2 CONT 
+2 CONT Ptolemy XII was a weak and cruel ruler, and in 58 B.C. the people of Alexandria rebelled and overthrew him. He fled to Rome while his eldest daughter, Berenice, took the throne. She married a cousin but soon had him strangled so that she could m
+2 CONC arry another man, Archelaus. At some point during Berenice's three-year reign Cleopatra VI died of unknown causes. In 55 B.C. Ptolemy XII reclaimed his throne with the help of the Roman general Pompey. Berenice was beheaded (her husband was exec
+2 CONC uted, as well).
+2 CONT Cleopatra VII was now the pharaoh's oldest child. When her father died in 51 B.C., leaving his children in Pompey's care, Cleopatra and her brother Ptolemy XIII inherited the throne. 
+2 CONT 
+2 CONT Queen of Egypt
+2 CONT 
+2 CONT Cleopatra was 17 or 18 when she became the queen of Egypt. She was far from beautiful, despite her glamorous image today. She is depicted on ancient coins with a long hooked nose and masculine features. Yet she was clearly a very seductive woman
+2 CONC . She had an enchantingly musical voice and exuded charisma. She was also highly intelligent. She spoke nine languages (she was the first Ptolemy pharaoh who could actually speak Egyptian!) and proved to be a shrewd politician.
+2 CONT 
+2 CONT In compliance with Egyptian tradition Cleopatra married her brother and co-ruler, Ptolemy XIII, who was about 12 at the time. But it was a marriage of convenience only, and Ptolemy was pharaoh in name only. For three years he remained in the bac
+2 CONC kground while Cleopatra ruled alone.
+2 CONT 
+2 CONT Ptolemy's advisors - led by a eunuch named Pothinus - resented Cleopatra's independence and conspired against her. In 48 B.C. they stripped Cleopatra of her power and she was forced into exile in Syria. Her sister Arsinoe went with her. 
+2 CONT 
+2 CONT Cleopatra and Caesar
+2 CONT 
+2 CONT Determined to regain her throne, Cleopatra amassed an army on Egypt's border. At this time Pompey was vying with Julius Caesar for control of the Roman Empire. After losing the battle of Pharsalos he sailed to Alexandria, pursued by Caesar, to s
+2 CONC eek Ptolemy's protection. But Ptolemy's advisors thought it would be safer to side with Caesar, and when Pompey arrived he was stabbed to death while the pharaoh watched.
+2 CONT Three days later Caesar reached Alexandria. Before he entered the city, Ptolemy's courtiers brought him a gift - Pompey's head. But Pompey had once been Caesar's friend, and Caesar was appalled by his brutal murder. He marched into the city, sei
+2 CONC zed control of the palace, and began issuing orders. Both Ptolemy and Cleopatra were to dismiss their armies and meet with Caesar, who would settle their dispute. But Cleopatra knew that if she entered Alexandria openly, Ptolemy's henchmen woul
+2 CONC d kill her. So she had herself smuggled to Caesar inside an oriental rug. When the rug was unrolled, Cleopatra tumbled out. It is said that Caesar was bewitched by her charm, and became her lover that very night.
+2 CONT 
+2 CONT When Ptolemy saw Caesar and Cleopatra together the next day, he was furious. He stormed out of the palace, shouting that he had been betrayed. Caesar had Ptolemy arrested, but the pharaoh's army - led by the eunuch Pothinus and Cleopatra's siste
+2 CONC r Arsinoe - laid seige to the palace.
+2 CONT 
+2 CONT In hopes of appeasing the attackers Caesar released Ptolemy XIII, but the Alexandrian War continued for almost six months. It ended when Pothinus was killed in battle and Ptolemy XIII drowned in the Nile while trying to flee. Alexandria surrende
+2 CONC red to Caesar, who captured Arsinoe and restored Cleopatra to her throne. Cleopatra then married her brother Ptolemy XIV, who was eleven or twelve years old.
+2 CONT 
+2 CONT Soon after their victory Cleopatra and Caesar enjoyed a leisurely two-month cruise on the Nile. The Roman historian Suetonius wrote that they would have sailed all the way to Ethiopia if Caesar's troops had agreed to follow him. Cleopatra may ha
+2 CONC ve become pregnant at this time. She later gave birth to a son, Ptolemy XV, called Caesarion or "Little Caesar." It has been suggested that Caesar wasn't really Caesarion's father - despite his promiscuity, Caesar had only one other child - bu
+2 CONC t Caesarion strongly resembled Caesar, and Caesar acknowledged Caesarion as his son.
+2 CONT 
+2 CONT After the cruise Caesar returned to Rome, leaving three legions in Egypt to protect Cleopatra. A year later he invited Cleopatra to visit him in Rome. She arrived in the autumn of 46 B.C., accompanied by Caesarion and her young brother/husband
+2 CONC , Ptolemy XIV. In September Caesar celebrated his war triumphs by parading through the streets of Rome with his prisoners, including Cleopatra's sister Arsinoe. (Caesar spared Arsinoe's life, but later Mark Antony had her killed at Cleopatra's r
+2 CONC equest.)
+2 CONT 
+2 CONT Cleopatra lived in Caesar's villa near Rome for almost two years. Caesar showered her with gifts and titles. He even had a statue of her erected in the temple of Venus Genetrix. His fellow Romans were scandalized by his extra-marital affair (Cae
+2 CONC sar was married to a woman named Calpurnia). It was rumored that Caesar intended to pass a law allowing him to marry Cleopatra and make their son his heir. It was also rumored that Caesar - who had accepted a lifetime dictatorship and sat on a g
+2 CONC olden throne in the Senate - intended to become the king of Rome.
+2 CONT 
+2 CONT On March 15, 44 B.C. a crowd of conspirators surrounded Caesar at a Senate meeting and stabbed him to death. Knowing that she too was in danger, Cleopatra quickly left Rome with her entourage. Before or immediately after their return to Egypt, P
+2 CONC tolemy XIV died, possibly poisoned at Cleopatra's command. Cleopatra then made Caesarion her co-regent.
+2 CONT 
+2 CONT Cleopatra and Mark Antony
+2 CONT 
+2 CONT Caesar's assassination caused anarchy and civil war in Rome. Eventually the empire was divided among three men: Caesar's great-nephew Octavian, who later became the emperor Augustus; Marcus Lepidus; and Marcus Antonius, better known today as Mar
+2 CONC k Antony.
+2 CONT 
+2 CONT In 42 B.C. Mark Antony summoned Cleopatra to Tarsus (in modern-day Turkey) to question her about whether she had assisted his enemies. Cleopatra arrived in style on a barge with a gilded stern, purple sails, and silver oars. The boat was saile
+2 CONC d by her maids, who were dressed as sea nymphs. Cleopatra herself was dressed as Venus, the goddess of love. She reclined under a gold canopy, fanned by boys in Cupid costumes.
+2 CONT 
+2 CONT Antony, an unsophisticated, pleasure-loving man, was impressed by this blatant display of luxury, as Cleopatra had intended. Cleopatra entertained him on her barge that night, and the next night Antony invited her to supper, hoping to outdo he
+2 CONC r in magnificence. He failed, but joked about it in his good-natured, vulgar way. Cleopatra didn't seem to mind his tasteless sense of humor - in fact, she joined right in. Like Caesar before him, Antony was enthralled. Forgetting his responsibi
+2 CONC lities, he accompanied Cleopatra to Alexandria and spent the winter with her there.
+2 CONT 
+2 CONT The Greek writer Plutarch wrote of Cleopatra, "Plato admits four sorts of flattery, but she had a thousand. Were Antony serious or disposed to mirth, she had at any moment some new delight or charm to meet his wishes; at every turn she was upo
+2 CONC n him, and let him escape her neither by day nor by night. She played at dice with him, drank with him, hunted with him; and when he exercised in arms, she was there to see. At night she would go rambling with him to disturb and torment people a
+2 CONC t their doors and windows, dressed like a servant-woman, for Antony also went in servant's disguise . . . However, the Alexandrians in general liked it all well enough, and joined good-humouredly and kindly in his frolic and play."
+2 CONT 
+2 CONT Finally, "rousing himself from sleep, and shaking off the fumes of wine," Antony said goodbye to Cleopatra and returned to his duties as a ruler of the Roman empire. Six months later Cleopatra gave birth to twins, Cleopatra Selene and Alexande
+2 CONC r Helios. It was four years before she saw their father again. During that time Antony married Octavian's half-sister, Octavia. They had three children.
+2 CONT 
+2 CONT In 37 B.C., while on his way to invade Parthia, Antony enjoyed another rendezvous with Cleopatra. He hurried through his military campaign and raced back to Cleopatra. From then on Alexandria was his home, and Cleopatra was his life. He marrie
+2 CONC d her in 36 B.C. and she gave birth to another son, Ptolemy Philadelphus.
+2 CONT 
+2 CONT Meanwhile, back in Rome, Octavia remained loyal to her bigamous husband. She decided to visit Antony, and when she reached Athens she received a letter from him saying that he would meet her there. However, Cleopatra was determined to keep Anton
+2 CONC y away from his other wife. She cried and fainted and starved herself and got her way. Antony cancelled his trip, and Octavia returned home without seeing her husband.
+2 CONT 
+2 CONT The Roman people were disgusted by the way Antony had treated Octavia. They were also angry to hear that Cleopatra and Antony were calling themselves gods (the New Isis and the New Dionysus). Worst of all, in 34 B.C. Antony made Alexander Helio
+2 CONC s the king of Armenia, Cleopatra Selene the queen of Cyrenaica and Crete, and Ptolemy Philadelphus the king of Syria. Caesarion was proclaimed the "King of Kings," and Cleopatra was the "Queen of Kings."
+2 CONT 
+2 CONT Outraged, Octavian convinced the Roman Senate to declare war on Egypt. In 31 B.C. Antony's forces fought the Romans in a sea battle off the coast of Actium, Greece. Cleopatra was there with sixty ships of her own. When she saw that Antony's cumb
+2 CONC ersome, badly-manned galleys were losing to the Romans' lighter, swifter boats, she fled the scene. Antony abandoned his men to follow her. Although it is possible that they had prearranged their retreat, the Romans saw it as proof that Antony w
+2 CONC as enslaved by his love of Cleopatra, unable to think or act on his own.
+2 CONT 
+2 CONT For three days Antony sat alone in the prow of Cleopatra's ship, refusing to see or speak to her. They returned to Egypt, where Antony lived alone for a time, brooding, while Cleopatra prepared for an invasion by Rome. When Antony received wor
+2 CONC d that his forces had surrendered at Actium and his allies had gone over to Octavian, he left his solitary home and returned to Cleopatra to party away their final days.
+2 CONT Cleopatra began experimenting with poisons to learn which would cause the most painless death. She also built a mausoleum to which she moved all of her gold, silver, emeralds, pearls, ebony, ivory, and other treasure. 
+2 CONT 
+2 CONT In 30 B.C. Octavian reached Alexandria. Mark Antony marched his army out of the city to meet the enemy. He stopped on high ground to watch what he expected would be a naval battle between his fleet and the Roman fleet. Instead he saw his fleet s
+2 CONC alute the Romans with their oars and join them. At this Antony's cavalry also deserted him. His infantry was soon defeated and Antony returned to the city, shouting that Cleopatra had betrayed him. Terrified that he would harm her, Cleopatra fle
+2 CONC d to the monument that housed her treasures and locked herself in, ordering her servants to tell Antony she was dead. Believing it, Antony cried out, "Now, Antony, why delay longer? Fate has snatched away your only reason for living."
+2 CONT 
+2 CONT He went to his room and opened his coat, exclaiming that he would soon be with Cleopatra. He ordered a servant named Eros to kill him, but Eros killed himself instead. "Well done, Eros," Antony said, "you show your master how to do what you didn
+2 CONC 't have the heart to do yourself." Antony stabbed himself in the stomach and passed out on a couch. When he woke up he begged his servants to put him out of his misery, but they ran away. At last Cleopatra's secretary came and told him Cleopatr
+2 CONC a wanted to see him.
+2 CONT 
+2 CONT Overjoyed to hear Cleopatra was alive, Antony had himself carried to her mausoleum. Cleopatra was afraid to open the door because of the approach of Octavian's army, but she and her two serving women let down ropes from a window and pulled him u
+2 CONC p. Distraught, Cleopatra laid Antony on her bed and beat her breasts, calling him her lord, husband and emperor. Antony told her not to pity him, but to remember his past happiness. Then he died.
+2 CONT 
+2 CONT The Death of Cleopatra
+2 CONT 
+2 CONT When Octavian and his men reached her monument Cleopatra refused to let them in. She negotiated with them through the barred door, demanding that her kingdom be given to her children. Octavian ordered one man to keep her talking while others se
+2 CONC t up ladders and climbed through the window. When Cleopatra saw the men she pulled out a dagger and tried to stab herself, but she was disarmed and taken prisoner. Her children were also taken prisoner and were treated well.
+2 CONT 
+2 CONT Octavian allowed Cleopatra to arrange Antony's funeral. She buried him with royal splendor. After the funeral she took to her bed, sick with grief. She wanted to kill herself, but Octavian kept her under close guard. One day he visited her and s
+2 CONC he flung herself at his feet, nearly naked, and told him she wanted to live. Octavian was lulled into a false sense of security.
+2 CONT 
+2 CONT Cleopatra was determined to die - perhaps because she had lost Mark Antony, perhaps because she knew Octavian intended to humiliate her, as her sister Arsinoe had been humiliated, by marching her through Rome in chains. With Octavian's permissio
+2 CONC n she visited Antony's tomb. Then she returned to her mausoleum, took a bath, and ordered a feast. While the meal was being prepared a man arrived at her monument with a basket of figs. The guards checked the basket and found nothing suspicious
+2 CONC , so they allowed the man to deliver it to Cleopatra.
+2 CONT 
+2 CONT After she had eaten, Cleopatra wrote a letter, sealed it, and sent it to Octavian. He opened it and found Cleopatra's plea that he would allow her to be buried in Antony's tomb. Alarmed, Octavian sent messengers to alert her guards that Cleopatr
+2 CONC a planned to commit suicide. But it was too late. They found the 39-year old queen dead on her golden bed, with her maid Iras dying at her feet. Her other maid, Charmion, was weakly adjusting Cleopatra's crown. "Was this well done of your lady
+2 CONC , Charmion?" one of the guards demanded.
+2 CONT 
+2 CONT "Extremely well," said Charmion, "as became the descendent of so many kings." And she too fell over dead. 
+2 CONT 
+2 CONT Two pricks were found on Cleopatra's arm, and it was believed that she had allowed herself to be bitten by an asp (a kind of poisonous snake) that was smuggled in with the figs. As she had wished, she was buried beside Antony. 
+2 CONT 
+2 CONT Cleopatra was the last pharaoh; after her death Egypt became a Roman province. Because Caesarion was Julius Caesar's son and might pose a threat to Octavian's power, Octavian had the boy strangled by his tutor. Cleopatra's other children were se
+2 CONC nt to Rome to be raised by Octavia. Cleopatra Selene married King Juba II of Mauretania and had two children, Ptolemy and Drusilla. No one knows what happened to Alexander Helios and Ptolemy Philadelphus. They may have been murdered at the orde
+2 CONC r of King Herod I of Judea.
+2 CONT 
+2 CONT Another Biography of Cleopatra VII
+2 CONT 
+2 CONT HER ANCESTORS:  
+2 CONT 
+2 CONT Cleopatra VII Philopates ("glory to her father") was a very popular name among the Ptolemy Dynasty, but the seventh was the most famous, and a legend in her time. She wasn't an Egyptian. Her bloodlines were Macedonian, Persian, and Greek. Her fa
+2 CONC ther was Ptolemy XII Nothos ("the Bastard"), the illegitimate son of Ptolemy XI by one of his concubines. It is said that Ptolemy XI was forced to marry his own elderly stepmother, who was also his cousin. Scholars of Egyptology also believe tha
+2 CONC t her mother was Cleopatra V, the wife and sister of Ptolemy XII, and she died during Cleopatra VII's birth, or soon afterwards, of complications of childbirth.
+2 CONT 
+2 CONT Cleopatra's ancestry is said to connect back to Alexander the Great, who ruled Egypt in 332 B.C., and founded the city of Alexandria. After Alexander's death on June 10, 323 B.C., his staff officer, Ptolemy, declared himself him in 3-4 B.C., an
+2 CONC d called himself "Soter I" (Soter menaing savior). Ptolemy I Soter had a strong hooked nose that genetic trait of his line. Ptolemy XII Auletes ("the flute") had Soter's large nose and was Cleo's father. After her mother's death, Ptolemy marrie
+2 CONC d his second (unknown) wife and she gave him two sons.
+2 CONT By 305 B.C. Ptolemy became ruler of Egypt and founded the Ptolemaic Dynasty of twelve kings, of the same name, and Cleopatra VII. In this time, wealthy Egyptians tried to gain a Greek education and the Greeks influenced their art and architectur
+2 CONC e (A. J. Spencer, Death in Egypt. London: Penguin Books, 1991, 25). The Ptolemies continued the old Egyptian ideals and built temples to their gods, and those of Egypt. After Anthony and Cleopatra's death in 30 B.C,, Egypt came under Roman rul
+2 CONC e and they constructed monuments with Roman Emperors as Pharaoh, as in Egypt rule.
+2 CONT 
+2 CONT THE LEGEND: 
+2 CONT 
+2 CONT Most historians seem to agree that Cleopatra, Queen of the Egypt, was born on January 13, 69 B.C. and died, by her own hand on August 12, 30/31 B.C. (at age 39), and is buried in the royal mausoleum at the Sema at Alexandria with Marc Anthony. S
+2 CONC he was said to have been found, after her suicide, wearing a flowing gossamer veil with her jewels and ladies (Charmion and Iras)and eunuch laying around her body (also dead). There are two popular opinions (1) that she used an asp to kill herse
+2 CONC lf (2) that she poisoned herself. In either case she most likely did not suffer before her death. She lay on a bed of gold, when Octavian's men broke down the door. Octavian (Caesar's heir) had denounced Mark Anthony in the Senate and in 30 B.C
+2 CONC . he declared war on Cleopatra. Anthony and Cleopatra spent the winter in Samos, Before Cleopatra's death, Octavian told Cleo she could survive if she killed Anthony. When Cleopatra refused, Octavian had plans to kill Anthony and imprison Cleo
+2 CONC . She tried hunger strikes and suicide, which Octavian stopped. She managed to get a message to Mark Anthony (most likely part of the plan to entrap Anthony) about her impending suicide. When Anthony got the message, he was told she was dead. H
+2 CONC e then came to her prison hoping to find a way to see her one more time. As Anthony approached her prison, in the temple, Octavian's men were waiting and Anthony was mortally wounded. Mark Anthony then found out Cleopatra was still alive and ha
+2 CONC d his men use pulleys and a rope to raise his dying body up to the window in Cleo's prison. Her ladies and her pulled Anthony into the room, where she was held, and he died in her arms. At that moment, much like in Shakespeare's "Romeo and Julie
+2 CONC t," she killed herself.
+2 CONT 
+2 CONT She was a woman of great legends, and it is not clear if all these legends were true. However, we do know that she married her two half-brothers, as was the way of the Ptolemy empire. She married Ptolemy XIII (who was later drowned while runnin
+2 CONC g from Caesar's troops)and Ptolemy XIV, then eleven (11) years old (who was later poisoned) Both of Cleopatra's younger half brothers were born to her father's second wife.
+2 CONT 
+2 CONT CAESAR: 
+2 CONT 
+2 CONT Cleopatra's first meeting with Caesar was in order to get his help - to make her brother reconcile, with her, and allow her back into Egypt from her exile. This event was the famous Cleo in a rug ploy. After this meeting Caesar was so taken wit
+2 CONC h this nubile young woman of twenty-one that he had her brother drowned in the Nile River, while he was in his battle armor. He was trying to escape Caesar's forces who were descending upon he and his men.
+2 CONT 
+2 CONT Since Cleopatra was the wife of a boy of twelve (12), Caesar knew that she was still a virgin and that intrigued him. Julius Caesar, at this meeting, was approximately 52 years old and without an heir. Cleo bewitched Julius Caesar with her youth
+2 CONC ful appearance and impressed him with her craftiness (she engineered the murder of both her sister and brother-husband). Cleopatra had already been the Queen of Lower Egypt since age seventeen (17). Caesar saw their union as a extremely powerfu
+2 CONC l and sensual experience.
+2 CONT 
+2 CONT Her only real love seemed to have been Julius Caesar (48-44), who she felt was her match in power and ambition. In 45 B.C. Cleopatra lived openly with Julius Caesar in Rome, and her statue was in Rome's Temple of Venus. 
+2 CONT 
+2 CONT She had one child by Julius Caesar, Ptolemy XV Caesarion was born around 44 B.C. Caesar was killed on the Ides of March. Cleo fled Rome and headed back to Egypt, then she killed her brother, Ptolemy XIV and put her son, Ptolemy XV on the Egyptia
+2 CONC n throne. Later on, when her son's life was threatened, Cleopatra sent him to India to study, as told to us by the histories of Plutarch.
+2 CONT 
+2 CONT ANTHONY: 
+2 CONT 
+2 CONT Two years after Caesar's death she found Mark Anthony (40-30 B.C.) attractive and she took him as her lover and he sired three of her children, and left his first wife Fulvia in Rome. 
+2 CONT 
+2 CONT HER CHILDREN BY MARK ANTHONY: 
+2 CONT 
+2 CONT (1)Alexander Helios (B: 40 B.C.)... twin of Selene. 
+2 CONT (2) Cleopatra Selene (B: 40 B.C.)...twin of Alexander Helios 
+2 CONT (3) Ptolemy Philadelphus (B: 36 B.C.)commisioned the Pharos of Alexandria to be built. 
+2 CONT 
+2 CONT Mark Anthony lead a sordid life. Mark Anthony married (1) Fulvia (he was her third husband). Fulvia's first husband was named Curio, a friend of Mark Anthony's, with whom he reputedly had a homosexual relationship. Fulvio died in 40 B.C. right b
+2 CONC efore Mark decided to marry Cleopatra, and thus legitimize their children in 40 B.C.
+2 CONT Mark Anthony then married (3) Octavia (then a widow), sister of Octavian, Julius Caesar's heir. This marriage took place as Cleopatra was giving birth to his last child, Ptolemy Philedephus, in 36 B.C. 
+2 CONT 
+2 CONT CLEOPATRA AS A MOTHER: 
+2 CONT 
+2 CONT Cleo had Philostratus (a philosopher) and Nicolaus (a historian) as tutors to her four children. 
+2 CONT 
+2 CONT Cleopatra was of swathy, dark complexion, taking after her grandmother, a Seleucid, with some Persian blood. She had luxurious copper hair (most likely made that color by the use of henna). She reign from 51-49 B.C. and 48-30 B.C. (Foreman, Laur
+2 CONC a, Cleopatra's Palace: In Search of a Legend. New York: Discovery Books, 1999).
+2 CONT Cleopatra continued to hire thinkers, poets, and scientists to her court and she continued her own education as well, studying philosophy and traveling to other lands. Above all, Cleopatra was clever, intelligent, and politically oriented. She u
+2 CONC nderstood and spoke Egyptian, Greek, Hebrew, Arabic, and Persian.
+2 CONT 
+2 CONT WHAT BECAME OF HER CHILDREN?: 
+2 CONT 
+2 CONT Cleopatra's three children, by Mark Anthony, were thought to have been raised by Mark Anthony's third wife, Octavia ( Leon, Vickie, Uppity Women of Ancient Times. New York: MJF Books, 1994, 88-89) Cleopatra of Cyrene or Selene (meaning "moon") r
+2 CONC uled from 33-31 B.C. She was Anthony and Cleo's daughter. She ruled Armenia, Media, and Parthia with her twin brother, Alexander. Octavia, sister of Octavian, arranged a marriage for this Cleopatra with Juba, King of Numidia, who was considere
+2 CONC d a gifted ruler, and she was made Queen of Mauretania, on the site of present day Morocco. They reigned for nearly 50 years and had two children. Her brother, Alexander, was made co-ruler with her. Ptolemy Phoenica was made ruler of Cilicia an
+2 CONC d Syria
+2 CONT 
+2 CONT BIRTH: Also shown as Born Alexandria.
+2 CONT 
+2 CONT DEATH: Also shown as Died suicide.
+2 CONT 
+2 CONT DEATH: Also shown as Died 0030 BC
+1 FAMS @F27046@
+1 FAMS @F27054@
+0 @I124152@ INDI
+1 NAME Pulvia //
+2 GIVN Pulvia
+1 SEX F
+1 SOUR @S727@
+1 FAMS @F55355@
+0 @I124153@ INDI
+1 NAME Antonia //
+2 GIVN Antonia
+1 SEX F
+1 SOUR @S727@
+1 FAMS @F55356@
+0 @I52723@ INDI
+1 NAME Octavia /Minor/
+2 GIVN Octavia
+2 SURN Minor
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 0064 BC
+1 DEAT
+2 DATE 0011 BC
+1 NOTE Sister of Emperor Augustus
+1 FAMC @F55358@
+1 FAMC @F27048@
+1 FAMS @F27044@
+0 @I124150@ INDI
+1 NAME Gaius IV /Octavius/
+2 GIVN Gaius IV
+2 SURN Octavius
+1 TITL Senator
+1 SEX M
+1 SOUR @S727@
+1 FAMS @F55358@
+0 @I124169@ INDI
+1 NAME Gaius III /Octovius/
+2 GIVN Gaius III
+2 SURN Octovius
+1 SEX M
+1 SOUR @S727@
+1 FAMS @F55365@
+0 @I52790@ INDI
+1 NAME Atia /Caesar/
+2 GIVN Atia
+2 SURN Caesar
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 0090 BC
+1 DEAT
+2 DATE 0043 BC
+1 NOTE 
+2 CONT 
+2 CONT SURNAME: Also shown as Balbus
+1 FAMS @F27048@
+1 FAMS @F55358@
+0 @I3298@ INDI
+1 NAME Atius /Balbus/
+2 GIVN Atius
+2 SURN Balbus
+1 TITL Senator
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 105 BC
+1 NOTE 
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Marcus Atius
+1 FAMS @F2944@
+0 @I52791@ INDI
+1 NAME Julia /Caesar/
+2 GIVN Julia
+2 SURN Caesar
+1 SEX F
+1 SOUR @S727@
+1 BIRT
+2 DATE 102 BC
+1 DEAT
+2 DATE 0051 BC
+1 NOTE 
+2 CONT 
+2 CONT SURNAME: Also shown as Caesaria
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Julia I
+1 FAMC @F27057@
+1 FAMS @F2944@
+0 @I52784@ INDI
+1 NAME Gaius Julius /Caesar/
+2 GIVN Gaius Julius
+2 SURN Caesar
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 124 BC
+1 DEAT
+2 DATE 0084 BC
+2 PLAC Pisa, Italy
+1 NOTE 
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Gaius Julius Ii
+1 FAMC @F55370@
+1 FAMS @F27057@
+0 @I124162@ INDI
+1 NAME Gaius Julius I /Caesar/
+2 GIVN Gaius Julius I
+2 SURN Caesar
+1 SEX M
+1 SOUR @S727@
+1 BIRT
+2 DATE 163 BC
+1 FAMS @F55370@
+0 @I52786@ INDI
+1 NAME Aurelia //
+2 GIVN Aurelia
+1 SEX F
+1 SOUR @S727@
+1 NOTE 
+2 CONT 
+2 CONT GIVEN_NAMES: Also shown as Marcia
+1 FAMC @F27078@
+1 FAMS @F27057@
+0 @I52787@ INDI
+1 NAME C /Marius/
+2 GIVN C
+2 SURN Marius
+1 SEX M
+1 FAMS @F27078@
+0 @I52789@ INDI
+1 NAME Fulcinia //
+2 GIVN Fulcinia
+1 SEX F
+1 FAMS @F27078@
+0 @I52788@ INDI
+1 NAME Gaius /Marius/
+2 GIVN Gaius
+2 SURN Marius
+1 SEX M
+1 FAMC @F27078@
+0 @I52733@ INDI
+1 NAME Julius /Caesar/
+2 GIVN Julius
+2 SURN Caesar
+1 SEX M
+1 BIRT
+2 DATE 12 JUL 100 BC
+1 DEAT
+2 DATE 15 MAR 0044 BC
+2 PLAC assassinated
+1 NOTE Julius Caesar was born in Rome on July 12, 100 Bc, and he was assassinated on the ides of March, the 15th of March, in 44Bc. He was born to Gaius Julius Caesar and Aurelia putting him in probably the most prestigious and strong rooted clans, th
+2 CONC e Julian clan. His uncle by marriage (oxford classical, Hornblower p.925) was the famous military leader and seven times consul, Gaius Marius  and in an effort to keep Julius from becoming a great man in the history of Rome, Marius appointed hi
+2 CONC m flamen diales, or priest of Jupiter. As a young man, Caesar distinguished himself in roman society. He could declaim and recite poems very well. He also wrote poetry and became a favorite among the women of Rome. His first wife was Cornelia wh
+2 CONC om he married early. She was the daughter of Lucius Cornelius Cinna , therefore, Caesar was associated with the popular party in his early political career. At first life was great for him in Rome; he was young, well liked, and he had his wife
+2 CONC , but soon Caesar heard of Sulla's  hostility toward him and he fled to Bythinia, under orders from the praetor of Asia, where he sought to raise a fleet under King Nicomedes, which was his first military campaign, in 81Bc (Caesars-might and mad
+2 CONC ness-Brownjohn p. 48). Later Caesar's enemies accused him of giving in to Nicomedes's unnatural desires. In an effort to disprove these rumors Caesar allegedly tried to have an affair with every patrician woman in Rome. Gaius Suetonius Tranquill
+2 CONC ius  wrote, "Not even in the provinces were married women safe from him." When he left Asia, pirates captured him and demanded a ransom of 20 talents (Ceasars-might and madness p. 49). Arrogant and confident, Caesar mocked them and he laughed a
+2 CONC t their demands. He told them that they did not know whom they had caught and told them his ransom should have been much more. Caesar manipulated the pirates and he began to have so much control over them that they would stop talking or making n
+2 CONC oise upon his demands if he was trying to sleep or read. He warned these pirates that when freed, he would find them and kill them. They should have heeded his warning, because upon his release, Caesar gathered men and went to find the pirates
+2 CONC . After defeating them he crucified the pirates.
+2 CONT 
+2 CONT Julius Caesar
+2 CONT Ruthlessly ambitious, Julius Caesar used war, intrigue and political guile to make himself the most powerful man in Rome. Too powerful for some. Find out the facts about his rise and fall.
+2 CONT 
+2 CONT Roman Republic 
+2 CONT When Caesar was born in 100BC, Rome ruled much of the Mediterranean. It was a Republic ruled by officials called magistrates (the most senior of which were two consuls) who were elected by assemblies of the people. Magistrates held office for on
+2 CONC e year before joining Rome's powerful advisory council, the Senate. Caesar would later fight these institutions to become dictator of Rome.
+2 CONT 
+2 CONT Rise to power 
+2 CONT Hailing from a prominent family, Caesar quickly rose to political power. He was elected into many public offices and, in 63BC, bribed his way to become Pontifex Maximus (high priest). He financed himself by plundering Rome's Spanish provinces. 
+2 CONT 
+2 CONT Caesar as consul 
+2 CONT Popular with the army and the people, Caesar was elected joint consul with Bibulus in 60BC. But he had many enemies in the Senate, including the orators Cato the Younger and Cicero, who feared his growing strength. Caesar sidelined Bibulus and t
+2 CONC ook steps to limit the power of the Senate.
+2 CONT 
+2 CONT Triumvirate 
+2 CONT In 59BC, Caesar formed a coalition (Triumvirate) with two important Roman citizens: Crassus, a rich banker and Pompey, Rome's leading general. They controlled Rome's public affairs and divided the provinces between them. 
+2 CONT 
+2 CONT Growing power 
+2 CONT The Triumvirate gave Caesar the Roman provinces in northern Europe and several legions. Between 58 and 50BC, Caesar enlarged his powerbase by conquering Gaul (much of modern France and Belgium). He even invaded Britain twice. 
+2 CONT 
+2 CONT Dictator 
+2 CONT The Triumvirate ended when Crassus was killed fighting the Parthians in the east. In 50BC, the Senate, with support from Pompey, demanded that Caesar return to Rome without his army and surrender his office. Caesar, fearing that he would be pu
+2 CONC t on trial, invaded Italy, defeated Pompey and the Senate, and became sole ruler.
+2 CONT 
+2 CONT Murder 
+2 CONT Caesar's problem was that he became too powerful, alienating men who previously had a share of power. On 15 March, 44BC, a group of Republicans stabbed Caesar to death in the Senate. 
+2 CONT 
+2 CONT Legacy 
+2 CONT By concentrating the power of the Republic in one man, Caesar opened the way for the creation of the Roman Empire ruled by an emperor. The first of these was his adopted successor, Octavian, in 31BC.
+1 FAMS @F27054@
+1 FAMS @F27056@
+1 FAMC @F27057@
+0 @I52743@ INDI
+1 NAME Calpurnia //
+2 GIVN Calpurnia
+1 SEX F
+1 FAMS @F27056@
+0 @I52792@ INDI
+1 NAME Scribonia //
+2 GIVN Scribonia
+1 SEX F
+1 BIRT
+2 DATE 0070 BC
+1 DEAT
+2 DATE 0016
+1 NOTE Scribonia (70 BC/68 BC-16) was the daughter of Lucius Scribonius Libo and Cornelia Sulla, the granddaughter of Pompey the Great and Lucius Cornelius Sulla. Her brother of the same name was consul and died in 34 BC.
+2 CONT 
+2 CONT Life
+2 CONT Little is known of Scribonia's early life. According to Suetonius, her first two marriages were to former consuls. Her first husband is unknown, though it had been suggested that he was Gnaeus Cornelius Lentulus Marcellinus (consul 56 BC), as th
+2 CONC ere is an inscription that refers to freedmen (post 39 BC) of Scribonia and her son Cornelius Marcellinus [2][3], indicating that she had a son from her previous marriage and that he was living with her after she divorced her third husband. He m
+2 CONC ay have died young and ignored by historians. Her second husband was Publius Cornelius Scipio Salvito[4]. They had a daughter Cornelia Scipio who married Lucius Aemilius Paullus who served as a censor. Scribonia may have also been the mother t
+2 CONC o Publius Cornelius Scipio, cousul in 16 BC. Salvito was a supporter of Pompey the Great.
+2 CONT 
+2 CONT In 40 BC Scribonia was forced to divorce her husband and marry Octavian, who was younger than her by several years. Octavian in turn divorced his wife Clodia, marrying Scribonia to cement a political alliance with her uncle Sextus Pompeius. Thei
+2 CONC r daughter Julia the Elder was born in 39 BC, probably in October, and on that very same day Octavian divorced her [5]. Their marriage had not been a happy one; Octavian felt she nagged him too much. She never remarried. Cassius Dio and Marcus V
+2 CONC elleius Paterculus says that when her youngest child, Julia, was sent into exile for adultery and treason, she requested that she be allowed to accompany her. [6]
+2 CONT 
+2 CONT When Tiberius came into power, he separated Scribonia from her daughter, and allegedly starved Julia to death. When Scribonia died is unknown. It is mainly placed two years after Julia and Augustus. In Seneca, she is mentioned as being alive an
+2 CONC d in full possession of her wits as late as the end of 16 when she tried to convince her nephew Marcus Scribonius Libo not to commit suicide and face his punishment.
+2 CONT 
+2 CONT No one knows what Scribonia was really like as her image as a shrew was likely to have been the end product of propaganda to divert the potentially scandalous circumstances of her divorce from Augustus. Seneca describes her as a gravis femina; g
+2 CONC ravis meaning dignified” and “severe”. Modern scholars are divided on her character; while some describe her as "tiresome" and "morose" [7] most others view her as an ideal example of a Roman matron as she clearly had the "composure" and "calmne
+2 CONC ss" to look after depressed and suicidal characters such as her daughter and nephew [8][9]. Sextus Propertius praises her motherhood referring to her as "sweet mother Scribonia" in Cornelia Scipio's funeral elegy in 16 BC.
+2 CONT 
+2 CONT 
+2 CONT Scribonia's marriages and issues
+2 CONT Her first husband, Gnaeus Cornelius Lentulus Marcellinus 
+2 CONT Cornelius Marcellinus 
+2 CONT Her second husband, Publius Cornelius Scipio Salvito 
+2 CONT Publius Cornelius Scipio (consul of 16 BC) 
+2 CONT Cornelia Scipio 
+2 CONT Her third husband, Augustus 
+2 CONT Julia the Elder (wife of Agrippa and Tiberius)
+1 FAMS @F27050@
+0 @I124160@ INDI
+1 NAME Clodia /Pulchra/
+2 GIVN Clodia
+2 SURN Pulchra
+1 SEX F
+1 BIRT
+2 DATE 0057 BC
+1 NOTE Clodia Pulchra, also known as Claudia (born 57 BC/56 BC-?) was the daughter of Fulvia (later wife of Mark Antony) and her first husband Publius Clodius Pulcher. She was the step-daughter of Mark Antony and half sister of Marcus Antonius Antyllu
+2 CONC s and Iullus Antonius.
+2 CONT 
+2 CONT Mark Antony was her mother's third husband. As Clodius had done previously, Antony was happy to accept her money to boost his career. Following Julius Caesar's assassination in March 15, 44 BC, Antony formed the second triumvirate with Octavia
+2 CONC n and Lepidus and embarked on a savage proscription. To solidify the political alliance, Fulvia offered her daughter, Clodia, to young Octavian as wife, while Lepidus offered his wife's niece Servilia. Subsequently, Octavian chose Clodia.
+2 CONT 
+2 CONT Not much is known about their marriage and little information survives about Clodia. These actions caused political and social unrest, but when Octavian asked for a divorce from Clodia, Fulvia herself decided to take action. Together with Luciu
+2 CONC s Antonius, her brother-in-law, she raised eight legions in Italy to fight for Antonius' rights against Octavian. The army occupied Rome for a short time, but eventually retreated to Perusia (modern Perugia). Octavian besieged Fulvia and Luciu
+2 CONC s Antonius in the winter of 41 - 40 BC, starving them into surrender. Fulvia was exiled to Sicyon, where she died of a sudden illness.
+2 CONT 
+2 CONT Octavian divorced Clodia to marry Scribonia, with whom he would have his only child, Julia. His marriage with Clodia was never consummated, he returned her to her mother with a letter informing her that he was returning her in "mint" condition.
+2 CONT 
+2 CONT Clodia Pulchra's subsequent fate is not known.
+1 FAMS @F55368@
+0 @I52731@ INDI
+1 NAME Emperor Augustus /Octavian/
+2 GIVN Emperor Augustus
+2 SURN Octavian
+1 SEX M
+1 BIRT
+2 DATE 23 SEP 0063 BC
+1 DEAT
+2 DATE 0014
+1 NOTE The Emperor Augustus    27 BC-AD 14
+2 CONT 
+2 CONT The first and perhaps greatest of the Roman emperors, Augustus ended a bloody civil war, ruled with wisdom and power, and united and kept peace in Rome for many years.
+2 CONT 
+2 CONT Augustus was born with the name "Octavian." Well educated in philosophy, rhetoric, and military skills as a boy, he was adopted by his uncle Julius Caesar and became his heir. When Caesar was assassinated, Octavian raised an army to claim his in
+2 CONC heritance and avenge his uncle's murder. At the battle of Actium in 31 BC, he defeated the last of his opponents, Mark Anthony, and took control of Rome.
+2 CONT 
+2 CONT To legitimate his power, the Senate named him Imperium proconsulare maius infinitum in 23 BC, which gave him control over the provinces and the army. He saw taking control as the only way to sustain the empire. Even though it was a nominally a r
+2 CONC epublic, he ran it as an autocracy. He acted in the name of the Senate, and the Senate reflected his will to keep people satisfied that the government was working together.
+2 CONT 
+2 CONT Augustus also kept the people satisfied with their leader and proud of Rome. He built temples to encourage and place importance in Roman religion. He was a patron of the arts, gladly spending money to improve the artwork of Rome, and encourage
+2 CONC d the wealthy class to do the same. To improve the moral climate of the empire, Augustus tried to revive the traditional Roman religion. He also tried to fortify the traditional Roman family by established laws which punished adultery and requir
+2 CONC ed marriage and the remarriage of widows.
+2 CONT 
+2 CONT To more effectively govern the empire, he developed an imperial civil service. To more effectively govern the city of Rome, he divided it into 14 wards, and organized a bureaucracy to control them. The Urban cohorts were his police force for th
+2 CONC e wards, and either senators or Augustus himself served as ward leaders.
+2 CONT 
+2 CONT The military was probably the focal point of his leadership. He had a great military mind, and used his military strength well. He organized the military with himself at the head, and used it to control the frontier regions of the Roman empire a
+2 CONC s well as invade new countries. Among his claims made include Spain, Gaul, Egypt, and Armenia. He also signed a peace treaty with Parthia, showing he used wisdom as well as aggression.
+2 CONT 
+2 CONT Augustus died with honor, and was remembered well by his people. He gave Roman control to his stepson Tiberius for he had no other living male offspring. He was a great leader for the Roman empire. His wisdom and intelligence benefited the peopl
+2 CONC e of his empire, for he was a strong as well as fair ruler.
+2 CONT 
+2 CONT More info:
+2 CONT 
+2 CONT Gaius Octavianus was born on September 23, 63 B.C. His parents were Caius Octavianus, a praetor, and Atia, a niece of the great Julius Caesar by his sister Julia. At the age of four, his father died. In 53 B.C., at the age of twelve, he delivere
+2 CONC d his first funeral oration for his grandmother, Julia. At this same age, he began his first priesthood.
+2 CONT 
+2 CONT Caesar became fond of his great nephew. Octavian even celebrated a few of Caesar's triumphs with him in Rome. Octavius was never possessed strength, and when Caesar saw this weakness, he offered to give him military training at Apollonia, in Epi
+2 CONC rus. Here, he studied not only the arts of war, but philosophy. While at Apollonia at the age of eighteen, Caesar was assassinated.
+2 CONT 
+2 CONT Rise to Power
+2 CONT 
+2 CONT Caesar had willed the position of emperor to Octavian. Octavian traveled to Rome, where he had to deal with his rival, Marc Antony . Antony was Caesar's best friend and had decided that he wanted all of the power. Even though Octavian was wille
+2 CONC d the position of emperor, Antony still felt that it should have been his. The Senate, however, thought differently. They were anxious to snub the ambitious Antony, so they made Octavian a senator and asked for his aid in the wars that had begu
+2 CONC n as a result of Caesar's assassination. Also, Octavian befriended M. Tullius Cicero, a fierce foe of Antony. Tensions between Marc Antony and Octavian eventually erupted into open warfare. The decisive battle came in April of 43 B.C., when Octa
+2 CONC vian fought Antony at Mutina. Octavian won, and as a result, Octavian's troops demanded that he be given a consulship. The Senate reluctantly agreed and Gaius Octavian became Gaius Julius Caesar Octavianus.
+2 CONT 
+2 CONT Career
+2 CONT 
+2 CONT Even though Octavian had defeated Antony, there still was unrest within the city. In order to obtain peace and ensure that there would be no more fighting, Octavius formed the Second Triumvirate with Antony and Marcus Lepidus on November 27, 4
+2 CONC 3 B.C. From this deal, Octavian assumed rule over Africa, Sicily, and Sardinia, leaving Antony control of the East. However, they did not come into power until they defeated the Liberators, the assassins of Julius Caesar, at Philippi in 42 B.C.
+2 CONT 
+2 CONT For political reasons, Octavian married Scribonia. She was a relative of Sextus Pompey, the son of Pompey the Great. Regardless of the importance of the marriage, Octavian eventually divorced Scribonia and married Livia Drusilla . He would liv
+2 CONC e with her for the rest of his life. Meanwhile, Antony married Octavia, Octavian's sister. This move was supposed to help out the relationship between Octavian and Antony.
+2 CONT 
+2 CONT After the death of Caesar, Cleopatra  fled from Rome and went back to Egypt. However, in 41 B.C., Antony summoned Cleopatra to Tarsus to see if she had aided in the conspiracy. According to Plutarch, she didn't just meet him, she seduced him:
+2 CONT 
+2 CONT "She came sailing up the river Cydnus in a ship with a golden 
+2 CONT stern and outspread sails, while silver oars beat time to the music 
+2 CONT of flutes, fifes, and harps. She lay under a canopy of gold cloth,
+2 CONT dressed as Venus in a picture, while beautiful boys like painted 
+2 CONT cupids stood on each side and fanned her. Her maids were dressed 
+2 CONT like sea nymphs and graces, and some were steering the rudder
+2 CONT while others worked the ropes. All manner of sweet perfumes 
+2 CONT were wafted ashore." *
+2 CONT 
+2 CONT In 37 B.C., the Triumvirate signed the Treaty of Tarentum. According to its terms, Octavian took the West, Antony received the East, and Lepidus governed Africa. This would be the last treaty that the Second Triumvirate would sign. Soon thereaft
+2 CONC er, Antony divorced Octavia and ran off to Egypt to be with Cleopatra. This enraged Octavian. However, he could not chase Antony to Egypt because a pirate, Sextus Pompey, was threatening Rome.
+2 CONT 
+2 CONT Finally in 36 B.C., Marcus Agrippa, Octavian's skillful right-hand man, defeated Sextus Pompey at Naulochus. Now Octavian could deal with Antony. However, another problem arose: Lepidus, the third person in the Triumvirate, feared that he was go
+2 CONC ing to lose all of his power, so he revolted. Octavian now had to suppress this revolt before confronting Antony. Octavian defeated Lepidus with no problem and took away his legions and sent him into exile in Circeii. Now, there were only two pe
+2 CONC ople in charge of the Roman Empire.
+2 CONT 
+2 CONT Octavian used his head, though, and decided that a war was not the answer. Antony returned to Rome and took the title of Imperator. He decided that the Empire's boundaries were most important, so he staged campaigns at Illyricum and Dalmatia (35
+2 CONC -33 B.C.) and then proclaimed the boundaries to be safe. While this was happening, Agrippa began a beautification program, which gained a lot of popularity for Octavian.
+2 CONT 
+2 CONT In October of 32 B.C., the western provinces swore allegiance to Octavian. War seemed inevitable and everyone knew it. Octavian tried to lure Antony and his army to an area in southern Italy for a decisive battle. Fearing treachery, Antony lef
+2 CONC t Italy and set up his headquarters at Actium, off the coast of Greece. Antony overlooked a spot near Actium where Octavian could land his ships, so Octavian decided to ferry his troops to Actium.
+2 CONT 
+2 CONT On the morning of September 2, 31 B.C., the battle of Actium began. Antony had over five hundred ships, including one of Cleopatra's squadrons. Nonetheless, a few of Octavian's smaller, faster ships defeated Antony's heavily armored, slow movin
+2 CONC g ships. Upon seeing this, Cleopatra turned her ships around and sailed off toward Egypt. When Antony saw this he left his troops in the heat of battle and chased a woman!
+2 CONT 
+2 CONT Before running off after Cleopatra, Antony had nineteen legions, twelve thousand horses, a huge navy, provinces with inexhaustible resources of treasure and manpower, and a capital in Alexandria that rivaled Rome in wealth and splendor. When h
+2 CONC e ran away, he lost all of this. Once he was gone, Octavian, with the TREMENDOUS help from his skillful advisor, Agrippa, defeated Antony's forces.
+2 CONT 
+2 CONT * - Whether this was the exact time that Antony fell in love with Cleopatra VII is unknown, however, it is rather odd that she would be so alluring just to meet him upon his request!
+2 CONT 
+2 CONT Sole Rule of the Empire
+2 CONT 
+2 CONT After the battle of Actium in 31 B.C., Octavian had complete control of the empire. The wealth of Egypt flowed into his private treasury, and he was now undoubtedly the most powerful man in Rome. He had sixty legions at his command to control th
+2 CONC e empire. Once he obtained full authority, he held the consulship from 31-27 B.C. In 27 B.C. he gave up his powers to the Senate, saying that he would no longer be consul because his perpetual tenure of the office was causing offense and was kee
+2 CONC ping all of the other nobles out of the consulship. His adherents had been carefully briefed to say that Rome could not do without his services, and the people followed these cries and urged him to become dictator.
+2 CONT 
+2 CONT However, he said no. He declined because he knew that if he became dictator, the same thing could happen to him that happened to Caesar: he would have been killed. So, he gave up the dictatorship, but he remained consul and received special comm
+2 CONC and, called imperium, of the most important provinces, which were Spain, Gaul, Syria, and a few others. He also remained the commander-in-chief of the Roman army. Moreover, the imperial provinces, which he did not directly govern, were governe
+2 CONC d by legates who were directly appointed by Octavian. He also received tribuneship for life and was allowed to sit between the two consuls and speak on matters of debate. These two privileges allowed him to wage war, make treaties, and regulat
+2 CONC e Rome's relations with dependent kings of states bordering the frontiers of the empire. Finally, he was given the name Augustus as an honor for so graciously "giving away his powers." Because of his previous actions and because of the position
+2 CONC s that he had held in Rome, Augustus had complete authority. He took the name princeps, or "first citizen," and was the undisputed first citizen for forty-five consecutive years.
+2 CONT 
+2 CONT However, he demonstrated his political astuteness by refusing the dictatorship and the titles that came along with it. During his reign, Augustus had an extensive building program. He built things such as the Ara Pacis, Horologium, the Forum o
+2 CONC f Augustus, the Mausoleum of Augustus , the Theater of Marcelus, the Baths of Agrippa, and the Pantheon . He also made many repairs to existing buildings. There were a couple of statues that were made of him too, the most famous being the Prim
+2 CONC a Porta.* Augustus was completely dedicated to the beautification of Rome.
+2 CONT 
+2 CONT To further his power, he became pontifex maximus in 12 B.C. and was named pater patriae, or father or his country, in 2 B.C. The type of government that he had set up came to be known as principate, or "rule by the first citizen." While maintain
+2 CONC ing a Republican facade, he retained complete authority suntil he died in A.D. 14. His adopted son Tiberius took over his powers as emperor.
+2 CONT 
+2 CONT 
+2 CONT * - The Prima Porta is a larger-than-life size statue. It portrays Augustus addressing his troops. He is in his middle years with a face that is grave and firm. The center of the breastplate has a scene depicting the return of the standards capt
+2 CONC ured from Crassus and Antony by the Partheans. Above, under a figure representing the sky, is the sun in his chariot preceded by the dawn with the moon giving place to them. Below is Mother Earth with a cornucopia and two children, representin
+2 CONC g the prosperity that comes with peace. On either side are Augustus' two particular divine patrons, Apollo with his lyre and Diana on a stag. The Prima Porta is currently in the Vatican.
+1 FAMC @F27048@
+0 @I52783@ INDI
+1 NAME Julius Caesar /Germanicus/
+2 GIVN Julius Caesar
+2 SURN Germanicus
+1 SEX M
+1 BIRT
+2 DATE 24 MAY 0016 BC
+1 DEAT
+2 DATE 10 OCT 0019
+1 NOTE Iulius Caesar Germanicus was born May 24, 15 or 16 B.C. He was the eldest son of Nero Claudius Drusus and Antonia. In 4 B.C. Germanicus was adopted by his uncle Tiberius. Germanicus was married to Agrippina the Elder, the daughter of Agrippina a
+2 CONC nd Iulia. She bore him nine children. When Tiberius when Tiberius was adopted by Augustus, Germanicus came into the line of successors for emperor. Germanicus served under Tiberius in Pannonia from 7-9 A.D., and he served in Germany in 11 A.D. I
+2 CONC n 12 A.D. he was elected consul, and in 13 A.D. he served as commander-in-chief in Gaul and Germany. In 14 A.D. Germanicus led the legions against the Marsi. On May 26, 17 A.D. Tiberius called Germanicus back to Rome with a triumph upon his retu
+2 CONC rn. In 18 A.D. Germanicus began his second consulship, at Nicopolis. In 19 A.D. Germanicus offended Tiberius by entering Egypt, in informal dress, which caused a lot of duress in Rome as well as Egypt. On October 10, 19 A.D. Germanicus fell il
+2 CONC l and died near Antioch. It is believed that Tiberius had Cn. Calpurnias Piso poison Germanicus.1
+2 CONT 1Simon Hornblower and Antony Spawforth, Ed., The Oxford Classical Dictionary, (Oxford, New York: Oxford University Press, 1996). P. 783
+1 FAMC @F27042@
+0 @F27040@ FAM
+1 HUSB @I52719@
+1 WIFE @I52750@
+0 @F27039@ FAM
+1 HUSB @I52719@
+1 WIFE @I52794@
+1 MARR
+2 DATE 0040
+0 @F27041@ FAM
+1 HUSB @I52719@
+1 WIFE @I52751@
+1 MARR
+2 DATE 0049
+0 @F55346@ FAM
+1 HUSB @I52719@
+1 WIFE @I124223@
+0 @F55349@ FAM
+1 HUSB @I52719@
+1 WIFE @I124225@
+0 @F55350@ FAM
+1 HUSB @I52719@
+1 WIFE @I124226@
+0 @F27042@ FAM
+1 HUSB @I52720@
+1 WIFE @I52721@
+1 CHIL @I52719@
+1 CHIL @I52783@
+0 @F27071@ FAM
+1 HUSB @I52765@
+1 WIFE @I52764@
+1 MARR
+2 DATE 0042 BC
+1 DIV Y
+1 CHIL @I52766@
+1 CHIL @I52720@
+0 @F55375@ FAM
+1 HUSB @I124228@
+1 CHIL @I52765@
+0 @F55419@ FAM
+1 HUSB @I124229@
+1 CHIL @I124228@
+0 @F27072@ FAM
+1 HUSB @I52793@
+1 WIFE @I124159@
+1 CHIL @I52764@
+0 @F55353@ FAM
+1 HUSB @I124158@
+1 CHIL @I124159@
+0 @F27051@ FAM
+1 HUSB @I52730@
+1 WIFE @I52764@
+1 MARR
+2 DATE 0039 BC
+0 @F27073@ FAM
+1 HUSB @I52766@
+1 WIFE @I52768@
+1 MARR
+2 DATE 0020 BC
+1 DIV Y
+0 @F27074@ FAM
+1 HUSB @I52766@
+1 WIFE @I52770@
+1 MARR
+2 DATE 0012 BC
+0 @F27043@ FAM
+1 HUSB @I52720@
+1 WIFE @I52756@
+1 MARR
+2 DATE 0005 BC
+0 @F27044@ FAM
+1 HUSB @I52722@
+1 WIFE @I52723@
+1 MARR
+2 DATE 0036 BC
+1 NOTE MARRIAGE: Also shown as Married 0040 BC
+2 CONT 
+2 SOUR @S727@
+1 CHIL @I52721@
+0 @F27047@ FAM
+1 HUSB @I52727@
+1 CHIL @I52722@
+1 CHIL @I52728@
+0 @F55359@ FAM
+1 HUSB @I124148@
+1 CHIL @I52727@
+0 @F55364@ FAM
+1 HUSB @I124149@
+1 CHIL @I124148@
+0 @F55357@ FAM
+1 HUSB @I52727@
+1 WIFE @I124144@
+0 @F27045@ FAM
+1 HUSB @I52722@
+1 WIFE @I52729@
+0 @F27046@ FAM
+1 HUSB @I52722@
+1 WIFE @I52732@
+1 MARR
+2 DATE 0040 BC
+1 NOTE Some sources say married 36 BC.MARRIAGE: Also shown as Married 0037 BC
+2 CONT 
+2 SOUR @S727@
+0 @F55355@ FAM
+1 HUSB @I52722@
+1 WIFE @I124152@
+0 @F55356@ FAM
+1 HUSB @I52722@
+1 WIFE @I124153@
+0 @F27048@ FAM
+1 HUSB @I52730@
+1 WIFE @I52790@
+1 CHIL @I52723@
+1 CHIL @I52731@
+0 @F55358@ FAM
+1 HUSB @I124150@
+1 WIFE @I52790@
+1 CHIL @I52723@
+1 CHIL @I52730@
+0 @F55365@ FAM
+1 HUSB @I124169@
+1 CHIL @I124150@
+0 @F2944@ FAM
+1 HUSB @I3298@
+1 WIFE @I52791@
+1 CHIL @I52790@
+0 @F27057@ FAM
+1 HUSB @I52784@
+1 WIFE @I52786@
+1 CHIL @I52733@
+1 CHIL @I52791@
+0 @F55370@ FAM
+1 HUSB @I124162@
+1 CHIL @I52784@
+0 @F27078@ FAM
+1 HUSB @I52787@
+1 WIFE @I52789@
+1 CHIL @I52786@
+1 CHIL @I52788@
+0 @F27054@ FAM
+1 HUSB @I52733@
+1 WIFE @I52732@
+1 MARR
+2 PLAC father of her child?
+0 @F27056@ FAM
+1 HUSB @I52733@
+1 WIFE @I52743@
+0 @F27050@ FAM
+1 HUSB @I52730@
+1 WIFE @I52792@
+0 @F55368@ FAM
+1 HUSB @I52730@
+1 WIFE @I124160@
+0 @S727@ SOUR
+1 TITL GEDCOM File : 1614552.ged
+1 ABBR GEDCOM File : 1614552.ged
+0 TRLR
