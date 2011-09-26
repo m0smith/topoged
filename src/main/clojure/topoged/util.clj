@@ -1,4 +1,4 @@
-(ns topoged.util )
+(ns topoged.util)
 
 (set! *warn-on-reflection* true)
 
