@@ -15,9 +15,7 @@
          (let [gseq (gedcom-seq ged1)]
            (is (= 2 (count (gedcom-seq geds))))
            (is (= 7 (count gseq)))
-           (is (= "/Father/" (:value (:attrs (first (:content (nth gseq 2))
-                                                  )))))
-           )
-         )
+           (is (= "/Father/" (-> (nth gseq 2) :content first :value)))))
+
 
 
