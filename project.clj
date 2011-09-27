@@ -10,7 +10,6 @@
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
 		 [com.miglayout/miglayout "3.7.3" :classifier "swing"]
-		 [fs "0.2.0"]
-		 [clojure-csv/clojure-csv "1.1.0"]
+		 [clojure-csv/clojure-csv "1.3.2"]
 		 ]
-  :dev-dependencies [[swank-clojure "1.2.0"]])
+  :dev-dependencies [[swank-clojure "1.3.3-20110809.143608-3"]])

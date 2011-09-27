@@ -1,5 +1,4 @@
 (ns topoged.file
-  (:use [clojure.contrib.duck-streams :only (  *buffer-size* )])
   (:import
    (java.io BufferedReader BufferedInputStream BufferedOutputStream File FileInputStream FileOutputStream InputStream OutputStream)
    (java.net MalformedURLException Socket URL URI)))
@@ -94,7 +93,8 @@ closed."
 Based in duck-streams copy"
   [#^InputStream input #^OutputStream output]
   
-  (let [buffer (make-array Byte/TYPE *buffer-size*)
+  (let [buffer-size 1024
+	buffer (make-array Byte/TYPE buffer-size)
 	digest (java.security.MessageDigest/getInstance "MD5")]
     (loop []
       (let [size (.read input buffer)]

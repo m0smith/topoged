@@ -1,7 +1,6 @@
 (ns topoged.gedcom
-  (:use [ clojure.contrib.duck-streams :only (read-lines)])
-  (:use [ clojure.contrib.string :only (split)])
   (:use clojure.pprint)
+  (:require [clojure.string :as str])
   (:require [topoged.util :as util]))
 
 
@@ -12,16 +11,6 @@
   [f]  (if (and (string? f) (> (count f) 6))
          (re-matches #"0 [A-Z][A-Z][A-Z][A-Z]" (subs f 0 6)))
   )
-
-(defn input-seq
-  "Convert the argument into a sequecnce of lines."
-  [f]
-  (if (gedcom? f)
-    (filter #(> (count %) 0) (re-seq #".*" f))
-    (read-lines f))
-    
-  )
-
 
 (defn level? [level] (fn [coll] (= level (first coll))))
 
@@ -67,7 +56,7 @@ the sub-stanzas to the :content of the record"
 (defn gedcom-line-to-record
   "Convert a line from a gedcom file into a vector with level and a map"
   [lineno line]
-  (let [[level preid prerest]  (split #" " 3 line)
+  (let [[level preid prerest]  (str/split line #" " 3)
         [id value] (if (re-matches #"@.*@" preid) [prerest preid] [preid prerest])
         attrmap {:level level :tag id}
 	attrs (GedcomAttrributes. level lineno line) ]
@@ -77,20 +66,36 @@ the sub-stanzas to the :content of the record"
   [[level rec]]  (-> rec :attrs :representation))
 
 
-(defn gedcom-partitions  [f]
+(defn gedcom-partitions  [inseq]
   "Partition the gedcom lines into stanzas"
-  (let [inseq (input-seq f)
-        recordseq (map-indexed #(gedcom-line-to-record (inc %1) %2) inseq)
-        parts (util/partition-starting-every (level? "0")recordseq)]
+  (let [recordseq (map-indexed #(gedcom-line-to-record (inc %1) %2) inseq)
+        parts (util/partition-starting-every (level? "0") recordseq)]
     parts ))
 
- (defn gedcom-seq
-  "Return a sequence of GEDCOM records following the pattern that the XML parsing uses."
-  [f] (map #(assoc (gedcom-reduce-content %) 
-              :source-stanza-representation (reduce str
-						    (interpose \newline
-							       (map source-line %))))
-           (gedcom-partitions f)))
+(defn add-source-stanza [m]
+  (assoc m
+    :source-stanza-representation (reduce str
+					  (interpose \newline
+						     (map source-line m)))))
+
+(defn lines-seq [s]
+  (filter #(> (count %) 0) (re-seq #".*" s)))
+
+(defmulti gedcom-seq #(gedcom? %))
+(defmethod gedcom-seq "0 HEAD" [str]
+	   (let [aseq (lines-seq str)]
+	     (map #(-> % gedcom-reduce-content add-source-stanza)
+		  (gedcom-partitions aseq))))
+(defmethod gedcom-seq :default [f]
+	   (println "llll " (gedcom? f) " llll")
+	   (with-open [rdr (clojure.java.io/reader f)]
+	     (map #(-> % gedcom-reduce-content add-source-stanza)
+		  (gedcom-partitions (line-seq rdr)))))
+
+;  "Return a sequence of GEDCOM records following the pattern that the XML parsing uses."
+;  [f]
+;  (map # (gedcom-reduce-content %) 
+;           (gedcom-partitions f)))
 
 
 (defn parse
