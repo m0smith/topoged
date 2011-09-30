@@ -6,7 +6,7 @@ beginning to make the BigInteger contructor happy"
 	bytes (map byte (.. (BigInteger/valueOf lng) toByteArray))]
     (concat (drop (count bytes) pad) bytes)))
 
-(defn uuid [] (java.util.UUID/randomUUID))
+(defmacro uuid [] `(java.util.UUID/randomUUID))
 
 (defn hibernate-session-factory []
   (println "Crreating session factory")
@@ -30,8 +30,9 @@ beginning to make the BigInteger contructor happy"
     (.buildSessionFactory cfg)))
 
 
-(defn id-factory []
-  (let [^java.util.UUID id (uuid)
+(defn id-factory "Creates a 16 element byte array representation of a uuid"
+  []
+  (let [id (uuid)
 	msb (.getMostSignificantBits id)
 	lsb (.getLeastSignificantBits id)]
     (byte-array (mapcat long-to-bytes [msb lsb]))))
@@ -43,31 +44,33 @@ beginning to make the BigInteger contructor happy"
 	session (.. sf openSession (getSession org.hibernate.EntityMode/MAP))
 	tx (. session beginTransaction)]
 	[session tx]))
-    
+
 (defmacro with-hibernate-tx
-  [bindings & body]
-  `(let ~bindings
-     (try
-       ~@body
-       (finally
-	(let [^org.hibernate.Session session# (first ~(bindings 0))
-	      tx# (second ~(bindings 0))]
-	  (. session# flush)
-	  (. tx# commit)
-	  (. session# close)
-	)))))
+	  [[session tx] & body]
+	  (let [src (gensym "sym") rtnval (gensym "rtnval")]
+	    `(let [~src (begin-tx)
+		   ~(with-meta session {:tag 'org.hibernate.Session}) (first ~src) 
+		   ~tx (second ~src)]
+	       (try
+		 (let [~rtnval  ~@body]
+		   (. ~session flush)
+		   (. ~tx commit)
+		   ~rtnval)
+		 (finally
+		  (. ~session close))))))
 
-(defn add-type [name desc]
-  (with-hibernate-tx [[^org.hibernate.Session session tx] (begin-tx)]
-    (let [entity "Type"
-	  m1 (doto (java.util.HashMap.)
-	       (.put "desc" desc)
-	       (.put "name" name)
-	       (.put "id" (id-factory)))
-	  rtnval (. session save entity  m1)]
-      rtnval)))
+(defmacro add-entity-factory
+  "A macro that creates a function that will add a record of the given entity"
+  [name & columns] 
+  `(fn [~@columns] 
+     (let [entity-name# ~name data# ~(into {"id" '(id-factory)} (map (fn [f] {(str f) f}) columns))]
+       (with-hibernate-tx [session# tx#]
+	 (.save session# entity-name# (java.util.HashMap. data#))))))
 
+(def add-type (add-entity-factory "Type" name desc))
 
 (defn list-types []
-  (with-hibernate-tx [[session tx] (begin-tx)]
+  (with-hibernate-tx [session tx]
     (.. session (createQuery "from Type") list)))
+
+
