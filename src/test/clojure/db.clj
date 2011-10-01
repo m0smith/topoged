@@ -59,15 +59,26 @@ beginning to make the BigInteger contructor happy"
 		 (finally
 		  (. ~session close))))))
 
+
+
+(defmacro add-entity-factory-auto-id
+  "A macro that creates a function that will add a record of the given entity"
+  [name fact & columns]
+  (let [id (gensym "id")]
+    `(fn [~@columns] 
+       (let [~id (~fact) entity-name# ~name data# ~(into {"id" id} (map (fn [f] {(str f) f}) columns))]
+	 (with-hibernate-tx [session# tx#]
+	   (.save session# entity-name# (java.util.HashMap. data#)))))))
+
 (defmacro add-entity-factory
   "A macro that creates a function that will add a record of the given entity"
   [name & columns] 
   `(fn [~@columns] 
-     (let [entity-name# ~name data# ~(into {"id" '(id-factory)} (map (fn [f] {(str f) f}) columns))]
+     (let [entity-name# ~name data# ~(into {} (map (fn [f] {(str f) f}) columns))]
        (with-hibernate-tx [session# tx#]
 	 (.save session# entity-name# (java.util.HashMap. data#))))))
 
-(def add-type (add-entity-factory "Type" name desc))
+(def add-type (add-entity-factory-auto-id "Type" id-factory name desc))
 
 (defn list-types []
   (with-hibernate-tx [session tx]
