@@ -47,8 +47,11 @@ beginning to make the BigInteger contructor happy"
 	[session tx]))
 
 (defmacro with-hibernate-tx
+  "Execute body in the context of a hibernate trasnascton.  The session and tx parameters are
+set with the hibernate session and a transaction.  The transaction is commited unless an Exception is
+thrown in body.  If there is an unhandled exception thrown in body, the transaction will be rolled back.  The session is also closed regardless of any exceptions"
   [[session tx] & body]
-  (let [src (gensym "sym") rtnval (gensym "rtnval")]
+  (let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex")]
     `(let [~src (begin-tx)
 	   ~(with-meta session {:tag 'org.hibernate.Session}) (first ~src) 
 	   ~tx (second ~src)]
@@ -57,8 +60,14 @@ beginning to make the BigInteger contructor happy"
 	   (. ~session flush)
 	   (. ~tx commit)
 	   ~rtnval)
+	 (catch java.lang.Exception ~ex
+	   (try
+	     (if (and ~tx (.isActive ~tx))
+	       (.rollback ~tx))
+	     (finally (throw ~ex))))
 	 (finally
-	  (. ~session close))))))
+	  (if (and ~session (. ~session isOpen))
+	    (.close ~session)))))))
 
 
 
@@ -83,6 +92,7 @@ beginning to make the BigInteger contructor happy"
 	 (.save session# entity-name# (java.util.HashMap. data#))))))
 
 (def add-type (add-entity-factory-auto-id "Type" id-factory name desc))
+
 (def add-type-group (add-entity-factory-auto-id "TypeGroup" id-factory group_type rel_type  type_group_members))
 
 (defn fetch-by-id [table id]
