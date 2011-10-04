@@ -8,7 +8,7 @@ beginning to make the BigInteger contructor happy"
 
 (defmacro uuid [] `(java.util.UUID/randomUUID))
 
-(defn hibernate-session-factory []
+(defn hibernate-session-factory-xxx []
   (println "Crreating session factory")
   (let [cfg (org.hibernate.cfg.AnnotationConfiguration.) ]
     (doto cfg
@@ -27,7 +27,21 @@ beginning to make the BigInteger contructor happy"
       (.setProperty "hibernate.generate_statistics" "true")
       (.setProperty "hibernate.use_sql_comments" "false")
       (.addFile "src/test/resources/Type.hbm.xml")
-      (.addFile "src/test/resources/TypeGroup.hbm.xml"))
+      ;;(.addFile "src/test/resources/TypeGroup.hbm.xml")
+      )
+    (.. cfg getProperties (store (java.io.FileWriter. "src/test/resources/hibernate.properties") "Hibernate Config"))
+    (.buildSessionFactory cfg)))
+
+
+(defn hibernate-session-factory []
+  (let [props (doto (java.util.Properties.)
+		(.load (java.io.FileReader. "src/test/resources/hibernate.properties"))
+		)
+	cfg (doto (org.hibernate.cfg.AnnotationConfiguration.)
+	      (.addProperties props)
+	      (.addFile "src/test/resources/Type.hbm.xml")
+	      ;;(.addFile "src/test/resources/TypeGroup.hbm.xml")
+	      )]
     (.buildSessionFactory cfg)))
 
 
