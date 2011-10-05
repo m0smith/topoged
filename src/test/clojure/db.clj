@@ -8,6 +8,9 @@ beginning to make the BigInteger contructor happy"
 
 (defmacro uuid [] `(java.util.UUID/randomUUID))
 
+
+
+
 (defn hibernate-session-factory-xxx []
   (println "Crreating session factory")
   (let [cfg (org.hibernate.cfg.AnnotationConfiguration.) ]
@@ -27,7 +30,7 @@ beginning to make the BigInteger contructor happy"
       (.setProperty "hibernate.generate_statistics" "true")
       (.setProperty "hibernate.use_sql_comments" "false")
       (.addFile "src/test/resources/Type.hbm.xml")
-      ;;(.addFile "src/test/resources/TypeGroup.hbm.xml")
+      (.addFile "src/test/resources/TypeGroup.hbm.xml")
       )
     (.. cfg getProperties (store (java.io.FileWriter. "src/test/resources/hibernate.properties") "Hibernate Config"))
     (.buildSessionFactory cfg)))
@@ -40,10 +43,51 @@ beginning to make the BigInteger contructor happy"
 	cfg (doto (org.hibernate.cfg.AnnotationConfiguration.)
 	      (.addProperties props)
 	      (.addFile "src/test/resources/Type.hbm.xml")
-	      ;;(.addFile "src/test/resources/TypeGroup.hbm.xml")
+	      (.addFile "src/test/resources/TypeGroup.hbm.xml")
 	      )]
     (.buildSessionFactory cfg)))
 
+(defn hibernate-properties-config []
+  (let [props (doto (java.util.Properties.)
+		(.load (java.io.FileReader. "src/test/resources/hibernate.properties"))
+		)
+	cfg (doto (org.hibernate.cfg.AnnotationConfiguration.)
+	      (.addProperties props)
+	      (.addFile "src/test/resources/Type.hbm.xml")
+	      (.addFile "src/test/resources/TypeGroup.hbm.xml")
+	      )]
+    cfg))
+
+
+(defn init [cfg-fn]
+  (let [hsf (memoize #(.buildSessionFactory cfg-fn))]
+    (letfn[(begin-tx []
+		     (let [^org.hibernate.impl.SessionFactoryImpl sf (hsf)
+			   session (.. sf openSession (getSession org.hibernate.EntityMode/MAP))
+			   tx (. session beginTransaction)]
+		       [session tx]))]
+      (defmacro with-hibernate-tx
+	"Execute body in the context of a hibernate trasnascton.  The session and tx parameters are
+set with the hibernate session and a transaction.  The transaction is commited unless an Exception is
+thrown in body.  If there is an unhandled exception thrown in body, the transaction will be rolled back.  The session is also closed regardless of any exceptions"
+	[[session tx] & body]
+	(let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex")]
+	  `(let [~src (begin-tx)
+		 ~(with-meta session {:tag 'org.hibernate.Session}) (first ~src) 
+		 ~tx (second ~src)]
+	     (try
+	       (let [~rtnval  ~@body]
+		 (. ~session flush)
+		 (. ~tx commit)
+		 ~rtnval)
+	       (catch java.lang.Exception ~ex
+		 (try
+		   (if (and ~tx (.isActive ~tx))
+		     (.rollback ~tx))
+		   (finally (throw ~ex))))
+	       (finally
+		(if (and ~session (. ~session isOpen))
+		  (.close ~session))))))))))
 
 (defn id-factory "Creates a 16 element byte array representation of a uuid"
   []
@@ -60,7 +104,7 @@ beginning to make the BigInteger contructor happy"
 	tx (. session beginTransaction)]
 	[session tx]))
 
-(defmacro with-hibernate-tx
+(defmacro with-hibernate-tx-old
   "Execute body in the context of a hibernate trasnascton.  The session and tx parameters are
 set with the hibernate session and a transaction.  The transaction is commited unless an Exception is
 thrown in body.  If there is an unhandled exception thrown in body, the transaction will be rolled back.  The session is also closed regardless of any exceptions"
