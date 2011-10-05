@@ -2,15 +2,30 @@
   (:import [org.slf4j LoggerFactory]))
 
 
+(defprotocol LoggerNameFactory
+  (logger-name [src] "" ))
+
+(extend-type clojure.lang.Namespace
+  LoggerNameFactory
+  (logger-name [namespace] (str namespace)))
+
+(extend-type String
+  LoggerNameFactory
+  (logger-name [namespace]  namespace))
+    
 
 (def log-factory
      (letfn [(logger [name]
 		     (println "creating logger" name)
-		     (LoggerFactory/getLogger name))]
+		     (LoggerFactory/getLogger (logger-name name)))]
        (memoize logger)))
 
 (defmacro with-log [[ logger] & body]
-  `(let [~logger (log-factory (str *ns*))] ~@body ))
+  `(let [~logger (log-factory *ns*)] ~@body ))
+
+(defmacro with-named-log [[ name logger] & body]
+  `(let [~logger (log-factory ~name)] ~@body ))
+
 
 (defn log-error
   "Designed to be used within with-log.  The log argument is the logger.  If the first objs is a Throwable
