@@ -1,11 +1,10 @@
 (ns db
-  (:use [org.satta.glob])
   (:require [topoged.util :as util])
   (:require [topoged.hibernate :as hib]))
 
 (hib/init #(do (println "init")
-	   ( hib/hibernate-properties-config "src/test/resources/hibernate.properties"
-					     "src/test/resources/*.hbm.xml")))
+	   (hib/hibernate-properties-config "src/test/resources/hibernate.properties"
+					    "src/test/resources/*.hbm.xml")))
 
 (defn id-factory "Creates a 16 element byte array representation of a uuid"
   []
