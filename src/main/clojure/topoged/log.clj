@@ -1,7 +1,6 @@
 (ns topoged.log
   (:import [org.slf4j LoggerFactory]))
 
-
 (defprotocol LoggerNameFactory
   (logger-name [src] "" ))
 
@@ -14,6 +13,22 @@
   (logger-name [namespace]  namespace))
     
 
+(defprotocol LoggerFormatter
+  (format [src] "Convert src into a String sutible for log files" ))
+
+(extend-type String
+  LoggerFormatter
+  (format [obj] obj))
+
+(extend-type Object
+  LoggerFormatter
+  (format [obj] (str obj)))
+
+(extend-type nil
+  LoggerFormatter
+  (format [obj] "nil"))
+
+
 (def log-factory
      (letfn [(logger [name]
 		     (println "creating logger" name)
@@ -23,11 +38,11 @@
 (defmacro with-log [[logger] & body]
   `(let [~logger (log-factory *ns*)] ~@body ))
 
-(defmacro with-named-log [[ name logger] & body]
+(defmacro with-named-log [[name logger] & body]
   `(let [~logger (log-factory ~name)] ~@body ))
 
 (defn ^String space-separated [ args ]
-  (apply str (interpose " "  args)))
+  (apply str (interpose " "  (map format args))))
 
 (defmacro log* [logger level objxs]
   (let [alogger (gensym "logger")]

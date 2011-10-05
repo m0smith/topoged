@@ -35,7 +35,7 @@ thrown in body.  If there is an unhandled exception thrown in body, the transact
   (let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex") log (gensym "log")]
     `(let [~src (begin-tx)
 	   ~(with-meta session {:tag 'org.hibernate.Session}) (first ~src) 
-	   ~tx (second ~src)]
+	   ~(with-meta tx {:tag 'org.hibernate.Transaction}) (second ~src)]
        (try
 	 (let [~rtnval  ~@body]
 	   (. ~session flush)
