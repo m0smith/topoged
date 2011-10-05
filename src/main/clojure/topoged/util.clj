@@ -24,3 +24,13 @@
       (let [[a b] (split-with (complement f) xs)]
         (cons (cons x a) (partition-starting-every f b)))))) 
 
+
+(defn long-to-bytes 
+  "convert a long into a sequence of 8 bytes. The zeroes are padded to the 
+beginning to make the BigInteger constructor happy"
+  [^long lng]
+  (let [pad (repeat 8 (byte 0))
+	bytes (map byte (.. (BigInteger/valueOf lng) toByteArray))]
+    (concat (drop (count bytes) pad) bytes)))
+
+(defmacro uuid [] `(java.util.UUID/randomUUID))
