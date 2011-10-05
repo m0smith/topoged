@@ -42,7 +42,9 @@
   `(let [~logger (log-factory ~name)] ~@body ))
 
 (defn ^String space-separated [ args ]
-  (apply str (interpose " "  (map format args))))
+  "Concatenate the members of agrs separated by spaces.  Apply format to each member of args.
+   See the LoggerFormatter protocol."
+  (apply str (interpose " " (map format args))))
 
 (defmacro log* [logger level objxs]
   (let [alogger (gensym "logger")]
