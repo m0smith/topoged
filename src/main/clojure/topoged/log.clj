@@ -20,7 +20,7 @@
 		     (LoggerFactory/getLogger (logger-name name)))]
        (memoize logger)))
 
-(defmacro with-log [[ logger] & body]
+(defmacro with-log [[logger] & body]
   `(let [~logger (log-factory *ns*)] ~@body ))
 
 (defmacro with-named-log [[ name logger] & body]
