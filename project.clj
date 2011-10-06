@@ -18,5 +18,5 @@
 		 [clojure-csv/clojure-csv "1.3.2"]
 		 [clj-glob "1.0.0"]
 		 ]
-  :dev-dependencies [[swank-clojure "1.3.3-20110809.143608-3"]
+  :dev-dependencies [[swank-clojure "1.3.3"]
 		     [lein-eclipse "1.0.0"]])
