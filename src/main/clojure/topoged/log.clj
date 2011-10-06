@@ -12,21 +12,29 @@
   LoggerNameFactory
   (logger-name [namespace]  namespace))
     
+(extend-type Class
+  LoggerNameFactory
+  (logger-name [namespace]  (.getName namespace)))
+    
+(extend-type Object
+  LoggerNameFactory
+  (logger-name [namespace]  (logger-name (.getClass namespace))))
+    
 
 (defprotocol LoggerFormatter
-  (format [src] "Convert src into a String sutible for log files" ))
+  (log-formatter [src] "Convert src into a String sutible for log files" ))
 
 (extend-type String
   LoggerFormatter
-  (format [obj] obj))
+  (log-formatter [obj] obj))
 
 (extend-type Object
   LoggerFormatter
-  (format [obj] (str obj)))
+  (log-formatter [obj] (str obj)))
 
 (extend-type nil
   LoggerFormatter
-  (format [obj] "nil"))
+  (log-formatter [obj] "nil"))
 
 
 (def log-factory
@@ -44,7 +52,7 @@
 (defn ^String space-separated [ args ]
   "Concatenate the members of agrs separated by spaces.  Apply format to each member of args.
    See the LoggerFormatter protocol."
-  (apply str (interpose " " (map format args))))
+  (apply str (interpose " " (map log-formatter args))))
 
 (defmacro log* [logger level objxs]
   (let [alogger (gensym "logger")]
