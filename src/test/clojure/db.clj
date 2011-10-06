@@ -2,9 +2,12 @@
   (:require [topoged.util :as util])
   (:require [topoged.hibernate :as hib]))
 
-(hib/init #(do (println "init")
-	   (hib/hibernate-properties-config "src/test/resources/hibernate.properties"
-					    "src/test/resources/*.hbm.xml")))
+;(hib/init #(do (println "init")
+;(hib/hibernate-properties-config "src/test/resources/hibernate.properties"
+;				 "src/test/resources/*.hbm.xml"
+					;)))
+
+(hib/init #(.configure (org.hibernate.cfg.Configuration.)))
 
 (defn id-factory "Creates a 16 element byte array representation of a uuid"
   []
