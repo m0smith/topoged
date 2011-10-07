@@ -20,11 +20,15 @@
 
 (defn init [cfg-fn]
   (let [hsf (memoize #(.buildSessionFactory ( cfg-fn)))]
-    (letfn [( begin-tx-local []
-			     (let [^org.hibernate.impl.SessionFactoryImpl sf (hsf)
-				   session (.. sf openSession (getSession org.hibernate.EntityMode/MAP))
-				   tx (. session beginTransaction)]
-			       [session tx]))]
+    (letfn [( begin-tx-local
+	      []
+	      (try
+		(let [^org.hibernate.impl.SessionFactoryImpl sf (hsf)
+		      session (.. sf openSession (getSession org.hibernate.EntityMode/MAP))
+		      tx (. session beginTransaction)]
+		  [session tx])
+		(catch Exception ex
+		  (log/with-log [logger] (log/log-error logger ex "Failed to start transaction")))))]
       (intern 'topoged.hibernate 'begin-tx begin-tx-local))))
 
 (defmacro with-hibernate-tx
