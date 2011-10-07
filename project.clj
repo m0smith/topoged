@@ -1,5 +1,5 @@
 (defproject topoged "1.0.0-SNAPSHOT"
-  :description "FIXME: write"
+  :description "Topoged"
   :target-dir "target/"
 
   :source-path "src/main/clojure"
@@ -9,6 +9,7 @@
   :dev-resources-path "src/test/resources"
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
+		 [org.clojure/tools.logging "0.2.3"]
 		 [com.miglayout/miglayout "3.7.3" :classifier "swing"]
 		 [org.hibernate/hibernate-annotations "3.4.0.GA"]
 		 [org.slf4j/slf4j-api "1.6.2"]
