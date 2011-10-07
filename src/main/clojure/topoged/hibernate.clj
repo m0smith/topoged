@@ -1,7 +1,7 @@
 (ns topoged.hibernate
-  (:use [org.satta.glob])
+  (:use [org.satta.glob :only (glob)])
   (:require [topoged.util :as util])
-  (:require [topoged.log :as log]))
+  (:use [clojure.tools.logging :only (info error )]))
 
 
 (defn hibernate-properties-config
@@ -36,7 +36,7 @@
 set with the hibernate session and a transaction.  The transaction is commited unless an Exception is
 thrown in body.  If there is an unhandled exception thrown in body, the transaction will be rolled back.  The session is also closed regardless of any exceptions"
   [[session tx] & body]
-  (let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex") log (gensym "log")]
+  (let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex")]
     `(let [~src (begin-tx)
 	   ~(with-meta session {:tag 'org.hibernate.Session}) (first ~src) 
 	   ~(with-meta tx {:tag 'org.hibernate.Transaction}) (second ~src)]
@@ -50,9 +50,8 @@ thrown in body.  If there is an unhandled exception thrown in body, the transact
 	     (if (and ~tx (.isActive ~tx))
 	       (.rollback ~tx))
 	     (finally
-	      (log/with-log [~log]
-		(log/log-error ~log ~ex "Rollback failed")
-		(throw ~ex)))))
+	      	(error ~ex "Rollback failed")
+		(throw ~ex))))
 	 (finally
 	  (if (and ~session (. ~session isOpen))
 	    (.close ~session)))))))

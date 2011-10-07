@@ -1,5 +1,5 @@
 (defproject topoged "1.0.0-SNAPSHOT"
-  :description "FIXME: write"
+  :description "Topoged"
   :target-dir "target/"
 
   :source-path "src/main/clojure"
@@ -9,6 +9,7 @@
   :dev-resources-path "src/test/resources"
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
+		 [org.clojure/tools.logging "0.2.3"]
 		 [com.miglayout/miglayout "3.7.3" :classifier "swing"]
 		 [org.hibernate/hibernate-annotations "3.4.0.GA"]
 		 [org.slf4j/slf4j-api "1.6.2"]
@@ -18,5 +19,5 @@
 		 [clojure-csv/clojure-csv "1.3.2"]
 		 [clj-glob "1.0.0"]
 		 ]
-  :dev-dependencies [[swank-clojure "1.3.3-20110809.143608-3"]
+  :dev-dependencies [[swank-clojure "1.3.3"]
 		     [lein-eclipse "1.0.0"]])
