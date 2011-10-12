@@ -1,5 +1,6 @@
 (ns topoged.gedcom
   (:use clojure.pprint)
+  (:use [ clojure.java.io :only [reader]])
   (:require [clojure.string :as str])
   (:require [topoged.util :as util]))
 
@@ -79,18 +80,17 @@ the sub-stanzas to the :content of the record"
 						     (map source-line m)))))
 
 (defn lines-seq [s]
-  (filter #(> (count %) 0) (re-seq #".*" s)))
+  (let [lines (line-seq s)]
+    (filter #(> (count (re-seq #".*" %)) 0) lines)))
 
-(defmulti gedcom-seq #(gedcom? %))
-(defmethod gedcom-seq "0 HEAD" [str]
+(defmulti gedcom-seqx #(gedcom? %))
+(defmethod gedcom-seqx "0 HEAD" [str]
 	   (let [aseq (lines-seq str)]
 	     (map #(-> % gedcom-reduce-content add-source-stanza)
 		  (gedcom-partitions aseq))))
-(defmethod gedcom-seq :default [f]
-	   (println "llll " (gedcom? f) " llll")
-	   (with-open [rdr (clojure.java.io/reader f)]
-	     (map #(-> % gedcom-reduce-content add-source-stanza)
-		  (gedcom-partitions (line-seq rdr)))))
+(defn gedcom-seq [aseq]
+	   (map #(-> % gedcom-reduce-content add-source-stanza)
+		(gedcom-partitions (lines-seq aseq))))
 
 ;  "Return a sequence of GEDCOM records following the pattern that the XML parsing uses."
 ;  [f]
@@ -100,7 +100,9 @@ the sub-stanzas to the :content of the record"
 
 (defn parse
   "Parse a GEDCOM file and produce an structure similar to the xml parse."
-  [f] { :tag :GEDCOM :content (gedcom-seq f)} )
+  [f] (with-open [rdr (reader f)]
+	(let [content (reduce conj [] (gedcom-seq rdr))]
+	  { :tag :GEDCOM :content content})) )
 
 
 (defn INDI [f]
