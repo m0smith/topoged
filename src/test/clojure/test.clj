@@ -1,4 +1,5 @@
 (ns test
+  (:use [ clojure.java.io :only [reader]])
   (:use [clojure.test :only [run-tests deftest is]])
   (:use [topoged.gedcom :only [gedcom? gedcom-seq]])
   )
@@ -11,11 +12,15 @@
          (is (not (gedcom? ged1)))
          )
 
-(deftest gedcom-seq-test []
-         (let [gseq (gedcom-seq ged1)]
-           (is (= 2 (count (gedcom-seq geds))))
+(deftest gedcom-seq-on-string-test []
+	 (let [s (re-seq #".*" geds)]
+	   (prn s)
+	   (is (= 2 (count (gedcom-seq  s))))))
+
+(deftest gedcom-seq-on-file-test []
+         (let [gseq (gedcom-seq (line-seq (reader ged1)))]
            (is (= 7 (count gseq)))
            (is (= "/Father/" (-> (nth gseq 2) :content first :value)))))
 
-
+(deftest model-id [])
 

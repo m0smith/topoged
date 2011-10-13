@@ -28,7 +28,7 @@
 		      tx (. session beginTransaction)]
 		  [session tx])
 		(catch Exception ex
-		  (log/with-log [logger] (log/log-error logger ex "Failed to start transaction")))))]
+		  (error ex "Failed to start transaction"))))]
       (intern 'topoged.hibernate 'begin-tx begin-tx-local))))
 
 (defmacro with-hibernate-tx

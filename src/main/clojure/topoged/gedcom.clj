@@ -80,8 +80,7 @@ the sub-stanzas to the :content of the record"
 						     (map source-line m)))))
 
 (defn lines-seq [s]
-  (let [lines (line-seq s)]
-    (filter #(> (count (re-seq #".*" %)) 0) lines)))
+  (filter #(> (count %) 0) s))
 
 (defmulti gedcom-seqx #(gedcom? %))
 (defmethod gedcom-seqx "0 HEAD" [str]
