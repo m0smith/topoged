@@ -1,6 +1,7 @@
 (ns topoged.test.entity
-  (:use [ clojure.java.io :only [reader]])
-  (:use [ topoged.gedcom :only [gedcom-seq]]))
+  (:use [clojure.java.io :only [reader writer input-stream output-stream]]
+	[topoged.file :only (copy-md5)]
+	[topoged.gedcom :only [gedcom-seq]]))
 
 (def dispatch {
 	       :HEAD #(println (:tag %))
@@ -21,6 +22,7 @@
 
 (defstruct TYPE :TYPE_ID :TYPE_NAME)
 (defstruct SOURCE :SOURCE_ID :TYPE_ID)
+(defstruct REPRESENTAITON :SOURCE_ID :TYPE_ID :CONTENT :COMMENTS)
 
 
 (defn update-state [state key value]
@@ -45,6 +47,7 @@
      {
       :type, #{
 	       (struct TYPE "GEDCOM" "GEDCOM")
+	       (struct TYPE "MD5" "MD5")
 	       }
       :source, #{
 		(struct SOURCE "GEDCOM" "GEDCOM")
@@ -52,7 +55,24 @@
       })
 
 (defn process-gedcom [f]
-  (with-open [rdr (reader f)]
-    (reduce handler initial-state  (gedcom-seq (line-seq rdr)))))
+  (let [out-name "/tmp/f.ged"
+	md5 (let [in  f
+		  out out-name]
+	      (copy-md5 in out))
+	state (merge initial-state
+		     {:representation
+		      #{
+			(struct REPRESENTAITON "GEDCOM" "MD5" md5)
+			(struct REPRESENTAITON "GEDCOM" "text/plain" (slurp out-name))
+			}
+		      })]
+    (with-open [rdr (reader out-name)]
+      (reduce handler state  (gedcom-seq (line-seq rdr))))))
+
+(defn to-csv [m]
+  (for [entry m]
+    [ (name  (key entry))
+      (keys (first (val entry)))
+      ]))
 
 
