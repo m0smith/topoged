@@ -19,8 +19,8 @@
 	(conjv coll x)))
   )
 
-(defstruct topoged-type :id :name)
-(defstruct source :id :type-id)
+(defstruct TYPE :TYPE_ID :TYPE_NAME)
+(defstruct SOURCE :SOURCE_ID :TYPE_ID)
 
 
 (defn update-state [state key value]
@@ -33,12 +33,7 @@
 
 
 (defmulti handler (fn [rtnval rec] (:tag rec)))
-(defmethod handler :HEAD [rtnval rec]
-	   (let [atype (struct topoged-type "GEDCOM" "GEDCOM")
-		 asource (struct source "GEDCOM" (:id atype))]
-	     (-> rtnval
-		 (update-state :type atype)
-		 (update-state :source asource))))
+(defmethod handler :HEAD [state rec] state)
 
 (defmethod handler :SUBM [rtnval rec] (println (:tag rec)) rtnval)
 (defmethod handler :INDI [rtnval rec] (println (:tag rec)) rtnval)
@@ -46,9 +41,18 @@
 (defmethod handler :TRLR [rtnval rec] (println (:tag rec)) rtnval)
 (defmethod handler :default [rtnval rec] (println "ERROR" (:tag rec))rtnval)
 
+(def initial-state
+     {
+      :type, #{
+	       (struct TYPE "GEDCOM" "GEDCOM")
+	       }
+      :source, #{
+		(struct SOURCE "GEDCOM" "GEDCOM")
+		}
+      })
 
 (defn process-gedcom [f]
   (with-open [rdr (reader f)]
-    (reduce handler {}  (gedcom-seq rdr))))
+    (reduce handler initial-state  (gedcom-seq (line-seq rdr)))))
 
 
