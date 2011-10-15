@@ -34,6 +34,7 @@
 (defstruct PERSONA :PERSONA_ID)
 (defstruct PERSONA_SOURCE :PERSONA_ID :SOURCE_ID)
 (defstruct PERSONA_ATTRIBUTE :PERSONA_ID :ATTRIBUTE_ID)
+(defstruct ATTRIBUTE_ATTRIBUTE :PARENT_ATTRIBUTE_ID :MEMBER_ATTRIBUTE_ID)
 (defstruct ATTRIBUTE :ATTRIBUTE_ID :TYPE_ID :VALUE)
 
 
@@ -120,42 +121,62 @@
   (fn [state rec]
     (let [persona-id (:value rec)
 	  state (-> state
-		    (update-state  :PERSONA
+		    (update-state  :persona
 				   (struct PERSONA persona-id ))
 		    (update-state  :repository_source
 				   (struct PERSONA_SOURCE persona-id (:SOURCE_ID source-zero))))]
-      (reduce #(let [line-number (get-in %2 [:attrs :line-number])
-		     rep (get-in %2 [:attrs :representation]) 
-		     tag (:tag %2)
-		     source-id (str "SOURCE" line-number)] 
-		 (-> %1
-		     (update-state :source
-				   (struct SOURCE
-					   source-id
-					   "LINE"))
-		     (update-state :source_within_source
-				   (struct SOURCE_WITHIN_SOURCE
-					   (:SOURCE_ID source-zero)
-					   source-id
-					   line-number))
-		     (update-state :representation
-				   (struct REPRESENTAITON
-					   source-id
-					   "text/plain"
-					   rep))
-		     (update-state :attribute
-				   (struct ATTRIBUTE
-					   (str "ATTR" line-number)
-					   (name tag)
-					   (:value %2)
-					   ))
-		     (update-state :type
-				   (struct TYPE (name tag) (name tag)))
-		     (update-state :persona_attribute
-				   (struct PERSONA_ATTRIBUTE persona-id
-					   (str "ATTR" line-number)))))
-	      
-	      state (:content rec)))))
+      (letfn [(persona-attribute [state line-number]
+				 (update-state state :persona_attribute
+					       (struct PERSONA_ATTRIBUTE persona-id
+						       (str "ATTR" line-number))))
+	      (attr-attribute [attr-id]
+			      (fn [state line-number]
+				(update-state state :attribute_attribute
+					      (struct ATTRIBUTE_ATTRIBUTE attr-id
+						      (str "ATTR" line-number)))))
+	      (attr-attribute-x [attr-id]
+			      (fn [state line-number]
+				(prn line-number)
+				state))
+	      (content-handler [attr-parent-func]
+			       (fn [state rec]
+				 (let [line-number (get-in rec [:attrs :line-number])
+				       rep (get-in rec [:attrs :representation]) 
+				       tag (:tag rec)
+				       source-id (str "SOURCE" line-number)] 
+				   (-> state
+				       (update-state :source
+						     (struct SOURCE
+							     source-id
+							     "LINE"))
+				       (update-state :source_within_source
+						     (struct SOURCE_WITHIN_SOURCE
+							     (:SOURCE_ID source-zero)
+							     source-id
+							     line-number))
+				       (update-state :representation
+						     (struct REPRESENTAITON
+							     source-id
+							     "text/plain"
+							     rep))
+				       (update-state :attribute
+						     (struct ATTRIBUTE
+							     (str "ATTR" line-number)
+							     (name tag)
+							     (:value rec)
+							     ))
+				       (update-state :type
+						     (struct TYPE (name tag) (name tag)))
+				       (attr-parent-func line-number)
+				       (reduce-content rec (attr-attribute  (str "ATTR" line-number)))
+				       ))))
+	      (reduce-content [state rec func]
+			      (let [content (:content rec)]
+				(if (seq content)
+				  (let [ch (content-handler func)]
+				    (reduce ch state content))
+				  state)))]
+	(reduce-content state rec persona-attribute)))))
 
 (defn process-gedcom [f]
   (let [out-name "/tmp/f.ged"
