@@ -120,11 +120,24 @@
 (defn indi-handler [source-zero]
   (fn [state rec]
     (let [persona-id (:value rec)
+	  line-number (get-in rec [:attrs :line-number])
+	  source-id (str "SOURCE" line-number)
+	  rep (get-in rec [:attrs :representation]) 
 	  state (-> state
 		    (update-state  :persona
 				   (struct PERSONA persona-id ))
-		    (update-state  :repository_source
-				   (struct PERSONA_SOURCE persona-id (:SOURCE_ID source-zero))))]
+		    (update-state :source (struct SOURCE source-id "LINE"))
+		    (update-state :source_within_source
+				  (struct SOURCE_WITHIN_SOURCE
+					  (:SOURCE_ID source-zero)
+					  source-id line-number))
+		    (update-state :representation
+				  (struct REPRESENTAITON
+					  source-id
+					  "text/plain"
+					  rep))
+		    (update-state  :persona_source
+				   (struct PERSONA_SOURCE persona-id source-id)))]
       (letfn [(persona-attribute [state line-number]
 				 (update-state state :persona_attribute
 					       (struct PERSONA_ATTRIBUTE persona-id
@@ -134,10 +147,6 @@
 				(update-state state :attribute_attribute
 					      (struct ATTRIBUTE_ATTRIBUTE attr-id
 						      (str "ATTR" line-number)))))
-	      (attr-attribute-x [attr-id]
-			      (fn [state line-number]
-				(prn line-number)
-				state))
 	      (content-handler [attr-parent-func]
 			       (fn [state rec]
 				 (let [line-number (get-in rec [:attrs :line-number])
@@ -171,11 +180,9 @@
 				       (reduce-content rec (attr-attribute  (str "ATTR" line-number)))
 				       ))))
 	      (reduce-content [state rec func]
-			      (let [content (:content rec)]
-				(if (seq content)
-				  (let [ch (content-handler func)]
-				    (reduce ch state content))
-				  state)))]
+			      (if-let [content (seq (:content rec))]
+				(reduce (content-handler func) state content)
+				state))]
 	(reduce-content state rec persona-attribute)))))
 
 (defn process-gedcom [f]
