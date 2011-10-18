@@ -25,6 +25,10 @@
 
 (defstruct PERSONA :PERSONA_ID)
 (defstruct PERSONA_SOURCE :PERSONA_ID :SOURCE_ID :ID_IN_SOURCE)
+
+(defstruct GROUP :GROUP_ID :TYPE_ID)
+(defstruct GROUP_SOURCE :GROUP_ID :SOURCE_ID :ID_IN_SOURCE)
+
 (defstruct ATTRIBUTE_ATTRIBUTE :PARENT_ATTRIBUTE_ID :MEMBER_ATTRIBUTE_ID)
 (defstruct ATTRIBUTE :ATTRIBUTE_ID :TYPE_ID :VALUE)
 
@@ -95,7 +99,7 @@
 					   ))
 		     (update-state :type
 				   (struct TYPE (name tag) (name tag)))
-		     (update-state :repository_attribute
+		     (update-state :attribute_owner
 				   (struct ATTRIBUTE_OWNER repo-id "REPOSITORY"
 					   (str "ATTR" line-number)))))
 	      
@@ -122,7 +126,7 @@
 		    (update-state  :persona_source
 				   (struct PERSONA_SOURCE persona-id source-id persona-id)))]
       (letfn [(persona-attribute [state line-number]
-				 (update-state state :persona_attribute
+				 (update-state state :attribute_owner
 					       (struct ATTRIBUTE_OWNER persona-id "PERSONA"
 						       (str "ATTR" line-number))))
 	      (attr-attribute [attr-id]
@@ -168,6 +172,73 @@
 				state))]
 	(reduce-content state rec persona-attribute)))))
 
+(defn fam-handler [source-zero]
+  (fn [state rec]
+    (let [group-id (:value rec)
+		  line-number (get-in rec [:attrs :line-number])
+		  source-id (str "SOURCE" line-number)
+		  rep (get-in rec [:attrs :representation]) 
+		  state (-> state
+			    (update-state :group (struct GROUP group-id "FAMILY"))
+		    (update-state :source (struct SOURCE source-id "LINE"))
+		    (update-state :source_within_source
+				  (struct SOURCE_WITHIN_SOURCE
+					  (:SOURCE_ID source-zero)
+					  source-id line-number))
+		    (update-state :representation
+				  (struct REPRESENTAITON
+					  source-id
+					  "text/plain"
+					  rep))
+		    (update-state  :group_source
+				   (struct GROUP_SOURCE group-id source-id group-id)))]
+      (letfn [(group-attribute [state line-number]
+				 (update-state state :attribute_owner
+					       (struct ATTRIBUTE_OWNER group-id "GROUP"
+						       (str "ATTR" line-number))))
+	      (attr-attribute [attr-id]
+			      (fn [state line-number]
+				(update-state state :attribute_attribute
+					      (struct ATTRIBUTE_ATTRIBUTE attr-id
+						      (str "ATTR" line-number)))))
+	      (content-handler [attr-parent-func]
+			       (fn [state rec]
+				 (let [line-number (get-in rec [:attrs :line-number])
+				       rep (get-in rec [:attrs :representation]) 
+				       tag (:tag rec)
+				       source-id (str "SOURCE" line-number)] 
+				   (-> state
+				       (update-state :source
+						     (struct SOURCE
+							     source-id
+							     "LINE"))
+				       (update-state :source_within_source
+						     (struct SOURCE_WITHIN_SOURCE
+							     (:SOURCE_ID source-zero)
+							     source-id
+							     line-number))
+				       (update-state :representation
+						     (struct REPRESENTAITON
+							     source-id
+							     "text/plain"
+							     rep))
+				       (update-state :attribute
+						     (struct ATTRIBUTE
+							     (str "ATTR" line-number)
+							     (name tag)
+							     (:value rec)
+							     ))
+				       (update-state :type
+						     (struct TYPE (name tag) (name tag)))
+				       (attr-parent-func line-number)
+				       (reduce-content rec (attr-attribute  (str "ATTR" line-number)))
+				       ))))
+	      (reduce-content [state rec func]
+			      (if-let [content (seq (:content rec))]
+				(reduce (content-handler func) state content)
+				state))]
+	(reduce-content state rec group-attribute)))))
+
 (defn process-gedcom [f]
   (let [out-name "/tmp/f.ged"
 	source-zero (struct SOURCE "SOURCE0" "GEDCOM")
@@ -194,6 +265,7 @@
 				     source-zero}})
 		  :SUBM (subm-handler source-zero)
 		  :INDI (indi-handler source-zero)
+		  :FAM (fam-handler source-zero)
 		  })]
     (with-open [rdr (reader out-name)]
       (reduce handler state  (gedcom-seq (line-seq rdr))))))
@@ -206,12 +278,14 @@
       (println s))))
 
 (defn to-csv [m]
-  (apply str (map seq-csv (mapcat identity
-				  (for [key (sort (filter (complement #{:forward}) (keys m)))]
-				    (let [recs (m key)
-					  kys (keys (first recs))]
-				      (concat [[ ""] [ ""] [ (name key)] (map name kys)]
-					      (for [rec recs]
-						(map #(get %1 %2) (repeat rec) kys)))))))))
+  (apply str
+	 (map seq-csv
+	      (mapcat identity
+		      (for [key (sort (filter (complement #{:forward}) (keys m)))]
+			(let [recs (m key)
+			      kys (keys (first recs))]
+			  (concat [[ ""] [ ""] [ (str "TABLE: " (name key))] (map name kys)]
+				  (for [rec (sort-by #(vec (map % kys)) recs)]
+				    (map get (repeat rec) kys)))))))))
 
 
