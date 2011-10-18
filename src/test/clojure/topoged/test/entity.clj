@@ -1,18 +1,9 @@
-(ns topoged.test.entity
+(ns topoged.test.entity  
   (:use [clojure.java.io :only [reader writer input-stream output-stream]]
 	[clojure.contrib.seq-utils :only (find-first)]
 	[clojure.pprint :only (pprint)]
 	[topoged.file :only (copy-md5)]
 	[topoged.gedcom :only [gedcom-seq]]))
-
-(def dispatch {
-	       :HEAD #(println (:tag %))
-	       :SUBM #(println (:tag %))
-	       :INDI #(println (:tag %))
-	       :FAM #(println (:tag %))
-	       :TRLR #(println (:tag %))
-	       })
-
 
 (defn conjv
   ( [coll x] (conj (if coll coll #{}) x))
@@ -29,11 +20,11 @@
 (defstruct REPRESENTAITON :SOURCE_ID :TYPE_ID :CONTENT :COMMENTS)
 (defstruct REPOSITORY :REPOSITORY_ID :TYPE_ID )
 (defstruct REPOSITORY_SOURCE :REPOSITORY_ID :SOURCE_ID :CALL_NUMBER :DESCRIPTION)
-(defstruct REPOSITORY_ATTRIBUTE :REPOSITORY_ID :ATTRIBUTE_ID)
+(defstruct ATTRIBUTE_OWNER :OWNER_ID :OWNER_TYPE_ID :ATTRIBUTE_ID)
+
 
 (defstruct PERSONA :PERSONA_ID)
-(defstruct PERSONA_SOURCE :PERSONA_ID :SOURCE_ID)
-(defstruct PERSONA_ATTRIBUTE :PERSONA_ID :ATTRIBUTE_ID)
+(defstruct PERSONA_SOURCE :PERSONA_ID :SOURCE_ID :ID_IN_SOURCE)
 (defstruct ATTRIBUTE_ATTRIBUTE :PARENT_ATTRIBUTE_ID :MEMBER_ATTRIBUTE_ID)
 (defstruct ATTRIBUTE :ATTRIBUTE_ID :TYPE_ID :VALUE)
 
@@ -46,20 +37,13 @@
   (let [types (:type state)]
     (first (filter #(= (:id %) name) types))))
 
-
-(defmulti handler (fn [rtnval rec] (:tag rec)))
-(defmethod handler :HEAD [state rec] state)
-
-(defmethod handler :SUBM [rtnval rec] (println (:tag rec)) rtnval)
-(defmethod handler :INDI [rtnval rec] (println (:tag rec)) rtnval)
-(defmethod handler :FAM [rtnval rec] (println (:tag rec)) rtnval)
-(defmethod handler :TRLR [rtnval rec] (println (:tag rec)) rtnval)
-(defmethod handler :default [rtnval rec] (println "ERROR" (:tag rec))rtnval)
-
 (def initial-state
      {
       :type, #{
 	       (struct TYPE "GEDCOM" "GEDCOM")
+	       (struct TYPE "REPOSITORY" "REPOSITORY")
+	       (struct TYPE "PERSONA" "PERSONA")
+	       (struct TYPE "GROUP" "GROUP")
 	       (struct TYPE "MD5" "MD5")
 	       (struct TYPE "text/plain" "text/plain")
 	       }
@@ -112,7 +96,7 @@
 		     (update-state :type
 				   (struct TYPE (name tag) (name tag)))
 		     (update-state :repository_attribute
-				   (struct REPOSITORY_ATTRIBUTE repo-id
+				   (struct ATTRIBUTE_OWNER repo-id "REPOSITORY"
 					   (str "ATTR" line-number)))))
 	      
 	      state (:content rec)))))
@@ -120,12 +104,11 @@
 (defn indi-handler [source-zero]
   (fn [state rec]
     (let [persona-id (:value rec)
-	  line-number (get-in rec [:attrs :line-number])
-	  source-id (str "SOURCE" line-number)
-	  rep (get-in rec [:attrs :representation]) 
-	  state (-> state
-		    (update-state  :persona
-				   (struct PERSONA persona-id ))
+		  line-number (get-in rec [:attrs :line-number])
+		  source-id (str "SOURCE" line-number)
+		  rep (get-in rec [:attrs :representation]) 
+		  state (-> state
+					(update-state :persona (struct PERSONA persona-id ))
 		    (update-state :source (struct SOURCE source-id "LINE"))
 		    (update-state :source_within_source
 				  (struct SOURCE_WITHIN_SOURCE
@@ -137,10 +120,10 @@
 					  "text/plain"
 					  rep))
 		    (update-state  :persona_source
-				   (struct PERSONA_SOURCE persona-id source-id)))]
+				   (struct PERSONA_SOURCE persona-id source-id persona-id)))]
       (letfn [(persona-attribute [state line-number]
 				 (update-state state :persona_attribute
-					       (struct PERSONA_ATTRIBUTE persona-id
+					       (struct ATTRIBUTE_OWNER persona-id "PERSONA"
 						       (str "ATTR" line-number))))
 	      (attr-attribute [attr-id]
 			      (fn [state line-number]
