@@ -198,10 +198,20 @@
     (with-open [rdr (reader out-name)]
       (reduce handler state  (gedcom-seq (line-seq rdr))))))
 
+(defn seq-csv [s]
+  (let [q "\""]
+    
+    (if (seq s)
+      (str q (apply str  (interpose  (str q "," q) s)) q \newline)
+      (println s))))
+
 (defn to-csv [m]
-  (for [entry m]
-    [ (name  (key entry))
-      (keys (first (val entry)))
-      ]))
+  (apply str (map seq-csv (mapcat identity
+				  (for [key (sort (filter (complement #{:forward}) (keys m)))]
+				    (let [recs (m key)
+					  kys (keys (first recs))]
+				      (concat [[ ""] [ ""] [ (name key)] (map name kys)]
+					      (for [rec recs]
+						(map #(get %1 %2) (repeat rec) kys)))))))))
 
 
