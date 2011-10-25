@@ -284,8 +284,9 @@
 		      (for [key (sort (filter (complement #{:forward}) (keys m)))]
 			(let [recs (m key)
 			      kys (keys (first recs))]
-			  (concat [[ ""] [ ""] [ (str "TABLE: " (name key))] (map name kys)]
+			  (concat [[ ""] [ ""] [ (str "TABLE: " (.toUpperCase (name key)))] (map name kys)]
 				  (for [rec (sort-by #(vec (map % kys)) recs)]
 				    (map get (repeat rec) kys)))))))))
 
 
+(defn simp [] (spit "doc/simple.csv" (to-csv (process-gedcom "src/test/resources/simple.ged"))))
