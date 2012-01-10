@@ -32,9 +32,12 @@
       (intern 'topoged.hibernate 'begin-tx begin-tx-local))))
 
 (defmacro with-hibernate-tx
-  "Execute body in the context of a hibernate trasnascton.  The session and tx parameters are
-set with the hibernate session and a transaction.  The transaction is commited unless an Exception is
-thrown in body.  If there is an unhandled exception thrown in body, the transaction will be rolled back.  The session is also closed regardless of any exceptions"
+  "Execute body in the context of a hibernate trasnascton.
+ The session and tx parameters are set with the hibernate session and
+a transaction.  The transaction is commited unless an Exception is
+thrown in body.  If there is an unhandled exception thrown in body,
+the transaction will be rolled back.  The session is also closed
+regardless of any exceptions"
   [[session tx] & body]
   (let [src (gensym "src") rtnval (gensym "rtnval") ex (gensym "ex")]
     `(let [~src (begin-tx)
