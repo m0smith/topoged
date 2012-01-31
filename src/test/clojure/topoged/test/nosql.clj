@@ -23,6 +23,18 @@
 
 (def cache memoize)
 
+(defn conjv
+  ( [coll x] (conj (if coll coll []) x))
+  ( [coll x & xs]
+      (if xs
+        (recur (conjv coll x) (first xs) (rest xs))
+        (conjv coll x)))
+  )
+
+(defn assoc-in-vector [ m keys value]
+  (let [oldval (get-in m keys)]
+    (assoc-in m keys (conjv oldval value)))
+  )
 
 (defn- write-json-java-util-uuid [x #^java.io.PrintWriter out escape-unicode?]
 (.print out (json/json-str (str x))))
@@ -54,13 +66,28 @@
       }
      {
       :_id "369696f5-37e6-11e1-b86c-0800200c9a66"
-      :friendly "MD5"
+      :friendly "HUSBAND"
       }
-     { :_id "369696f6-37e6-11e1-b86c-0800200c9a66" }
-     { :_id "369696f7-37e6-11e1-b86c-0800200c9a66" }
-     { :_id "369696f8-37e6-11e1-b86c-0800200c9a66" }
-     { :_id "369696f9-37e6-11e1-b86c-0800200c9a66" }
-     { :_id "369696fa-37e6-11e1-b86c-0800200c9a66" }
+     {
+      :_id "369696f6-37e6-11e1-b86c-0800200c9a66"
+      :friendly "WIFE"
+      }
+     {
+      :_id "369696f7-37e6-11e1-b86c-0800200c9a66"
+      :friendly "CHILD"
+      }
+     {
+      :_id "369696f8-37e6-11e1-b86c-0800200c9a66"
+      :friendly "FAMILY"
+      }
+     {
+      :_id "369696f9-37e6-11e1-b86c-0800200c9a66"
+      :friendly "GROUP"
+      }
+     {
+      :_id "369696fa-37e6-11e1-b86c-0800200c9a66"
+      :friendly "PARENT"
+      }
      { :_id "369696fb-37e6-11e1-b86c-0800200c9a66" }
      { :_id "369696fc-37e6-11e1-b86c-0800200c9a66" }
      { :_id "369696fd-37e6-11e1-b86c-0800200c9a66" }
@@ -88,10 +115,37 @@
 (def friendly
   (cache
    (fn [friendlyid]
-     (let [rtnval (clutch/get-view view-server-name view-name :friendly {:key friendlyid} )]
+     (let [rtnval (clutch/get-view view-server-name view-name
+                                   :friendly {:key friendlyid} )]
        (if (seq rtnval) (:id (first rtnval))
-            (throw (IllegalArgumentException. (str "No such friendly:" friendlyid))))))))
+           (throw (IllegalArgumentException.
+                   (str "No such friendly:" friendlyid))))))))
 
+(defn lineage-roles [lineage-group role]
+  (let [
+        lineage (:lineage lineage-group)]
+    (filter #(= role (:role %)) lineage)))
+
+(defn children [lineage-group]
+  (lineage-roles lineage-group (friendly "CHILD")))
+
+(defn parents [lineage-group]
+  (lineage-roles lineage-group (friendly "PARENT")))
+
+(defn lineage-tree [id primary-role member-role]
+  (when id
+    (lazy-seq
+     (let [families (clutch/get-view view-server-name view-name
+                                     :lineage {:key [primary-role id]} )]
+       (for [family (vec families)
+             member (map :member (lineage-roles (:value family) member-role)) ]
+         (cons member (lineage-tree member primary-role member-role)))))))
+
+(defn ancestors [id]
+  (lineage-tree id (friendly "CHILD") (friendly "PARENT")))
+
+(defn descendants [id]
+  (lineage-tree id (friendly "PARENT") (friendly "CHILD")))
 
 (defn handler-factory [m]
   (fn [state rec]
@@ -104,7 +158,8 @@
 
 (defn indi-handler [source]
   (fn [state rec]
-    (let [PERSONA (friendly "PERSONA")
+    (let [id (uuid)
+          PERSONA (friendly "PERSONA")
           handlers (handler-factory
                     { 
                      :NAME #(assoc % :name (:value %2))
@@ -114,10 +169,37 @@
         (clutch/put-document (reduce handlers
                                      {:type PERSONA
                                       :source source
-                                      :_id (:value rec)}
-                                     (:content rec)))))
-    state ))
+                                      :_id id}
+                                     (:content rec))))
+      (assoc-in state [:id-in-source (:value rec)] id)) ))
 
+(defn family-member [type lineage-type order-fn]
+  (fn [state doc-rec]
+    (let [id (get-in state [:id-in-source (:value doc-rec)])
+          [state order] (order-fn state)]
+      (-> state
+          (assoc-in-vector [:doc :members] {:role type :member id})
+          (assoc-in-vector [:doc :lineage] {:role lineage-type :member id :order order})))))
+
+(defn fam-handler [source]
+  (fn [state rec]
+    (let [HUSBAND (friendly "HUSBAND")
+          WIFE    (friendly "WIFE")
+          CHILD   (friendly "CHILD")
+          GROUP   (friendly "GROUP")
+          FAMILY  (friendly "FAMILY")
+          PARENT  (friendly "PARENT")
+          handlers (handler-factory
+                    {
+                     :HUSB (family-member HUSBAND PARENT #(vector % 1))
+                     :WIFE (family-member WIFE PARENT #(vector % 2))
+                     :CHIL (family-member CHILD CHILD #(vector (update-in % [:order] inc) (:order %)))
+                     })
+          basedoc { :_id (uuid) :source source :type GROUP :group-type FAMILY :members [] :lineage []}
+          new-state (reduce handlers (assoc state :doc  basedoc :order 0) (:content rec))]
+      (clutch/put-document topoged-db ( :doc new-state))
+      (println (:doc new-state)))
+    state))
 
 (defn head-handler [source gedcom-file md5]
   (fn [state rec]
@@ -154,14 +236,23 @@
   (clutch/delete-database topoged-db)
   (clutch/create-database topoged-db)
   (load-types)
-  ;;(clutch/configure-view-server view-server-name (view-server/view-server-exec-string)))
+  
+  (clutch/configure-view-server view-server-name (view-server/view-server-exec-string))
   (clutch/save-view
    view-server-name view-name
-   (clutch/view-server-fns :clojure
-			   {:friendly
-			    {:map (fn [doc]
-				    (when (:friendly doc)
-				      [[(:friendly doc) (:_id doc)]]))}})))
+   (clutch/view-server-fns
+    :clojure
+    {:friendly
+     {:map (fn [doc]
+             (when (:friendly doc)
+               [[(:friendly doc) (:_id doc)]]))}
+      :lineage
+     {:map (fn [doc]
+             (when (:lineage doc)
+               (vec (for [element (:lineage doc)]
+                      [[ (:role element) (:member element)] doc]))))
+      }
+     })))
   
 
 
@@ -178,6 +269,7 @@
                   :HEAD (head-handler source-zero out-name md5)
                   :INDI (indi-handler source-zero)
                   :SUBM (indi-handler source-zero)
+                  :FAM (fam-handler source-zero)
                   })]
     (with-open [rdr (reader out-name)]
       (reduce handler state (gedcom-seq (line-seq rdr))))))
