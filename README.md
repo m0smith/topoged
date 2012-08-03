@@ -1,13 +1,13 @@
 # topoged
 
-FIXME: write description
+Genealogy 2.0: Taking genealogy and family history into Web 2.0.
 
 ## Usage
 
-FIXME: write
+No usage yet...
 
 ## License
 
-Copyright (C) 2010 FIXME
+Copyright (C) 2012 Matthew O. Smith
 
 Distributed under the Eclipse Public License, the same as Clojure.

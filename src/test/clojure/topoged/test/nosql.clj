@@ -4,7 +4,6 @@
   (:require (com.ashafa.clutch
               [http-client :as http-client]
               [utils :as utils]
-              
               [view-server :as view-server]))
   (:use [clojure.java.io :only [reader writer input-stream output-stream]]
 	[clojure.contrib.seq-utils :only (find-first)]
@@ -16,6 +15,7 @@
 
 
 (def gedcom-file "src/test/resources/simple.ged")
+(def claudius-gedcom-file "src/test/resources/TiberiusClaudiusCaesarAugustusGermanicusClaudiusEmperorofRome.ged")
 (def initial-state {})
 (def topoged-db "http://localhost:5984/topoged")
 (def view-server-name "topoged")
@@ -121,6 +121,9 @@
            (throw (IllegalArgumentException.
                    (str "No such friendly:" friendlyid))))))))
 
+(defn names [skip limit]
+  (clutch/get-view view-server-name view-name :name {:limit limit :skip skip :include_docs true})  )
+
 (defn lineage-roles [lineage-group role]
   (let [
         lineage (:lineage lineage-group)]
@@ -139,7 +142,8 @@
                                      :lineage {:key [primary-role id]} )]
        (for [family (vec families)
              member (map :member (lineage-roles (:value family) member-role)) ]
-         (cons member (lineage-tree member primary-role member-role)))))))
+         (cons (clutch/get-document topoged-db member)
+               (lineage-tree member primary-role member-role)))))))
 
 (defn ancestors [id]
   (lineage-tree id (friendly "CHILD") (friendly "PARENT")))
@@ -246,6 +250,10 @@
      {:map (fn [doc]
              (when (:friendly doc)
                [[(:friendly doc) (:_id doc)]]))}
+     :name
+     {:map (fn [doc]
+             (when (:name doc)
+               [[(:name doc) (:_id doc)]]))}
       :lineage
      {:map (fn [doc]
              (when (:lineage doc)
