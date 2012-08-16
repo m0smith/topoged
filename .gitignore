@@ -2,7 +2,7 @@ target
 classes
 lib
 derby.log
-.lein-failures
+.lein*
 *~
 *#*#
 .#*

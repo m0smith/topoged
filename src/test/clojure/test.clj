@@ -5,6 +5,8 @@
   )
 
 (def ged1 "src/test/resources/simple.ged")
+(def ged2 "src/test/resources/TiberiusClaudiusCaesarAugustusGermanicusClaudiusEmperorofRome.ged")
+
 (def geds "0 HEAD\n0 @FATHER@ INDI\n1 NAME /Father/")
 
 (deftest gedcom?-test []
@@ -22,5 +24,11 @@
            (is (= 7 (count gseq)))
            (is (= "/Father/" (-> (nth gseq 2) :content first :value)))))
 
+(deftest gedcom2 []
+  (let [gseq (gedcom-seq (line-seq (reader ged2)))]
+           (is (= 89 (count gseq)))
+           (is (= "Tiberius Claudius Caesar Augustus Germanicus /Claudius/ Emperor of Rome" (-> (nth gseq 2) :content first :value))))
+  )
 (deftest model-id [])
+
 

@@ -3,9 +3,7 @@
 	[topoged.viewer.status]
 	[topoged.service.plugin.info]
 	[topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
-	[topoged.file :only (input-stream output-stream copy-md5)]
-	[topoged.gedoverse
-	 :only ( log persona-agent)])
+	[topoged.gedoverse :only ( log persona-agent)])
   (:import
    (java.io File InputStream OutputStream)
    (javax.swing DefaultListModel JFileChooser JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
@@ -68,7 +66,7 @@
       ;;(.setDefaultCloseOperation (JFrame/EXIT_ON_CLOSE))
       (.setVisible true))))
      
-
+(defn -main [] ( viewer-app))
 
 ;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)
 
