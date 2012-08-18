@@ -9,5 +9,5 @@
 (def ged2 "src/test/resources/TiberiusClaudiusCaesarAugustusGermanicusClaudiusEmperorofRome.ged")
 
 (deftest testit []
-  (import-gedcom ged1 (java.util.UUID/randomUUID) (agent {}))
-  (send topoged.gedoverse/source-agent (fn [x] {})))
+  (import-gedcom ged1 (java.util.UUID/randomUUID) (agent {} ) (agent {}) )
+)

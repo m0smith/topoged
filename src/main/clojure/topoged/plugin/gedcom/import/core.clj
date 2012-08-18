@@ -6,7 +6,7 @@
 	[topoged.gedoverse]
 	[topoged.service.plugin.ui :only (ui-choose-file ui-status)]
 	[topoged.gedcom]
-    [clojure.java.io :only [input-stream output-stream]])
+    [clojure.java.io :only [input-stream output-stream reader]])
   (:import
    (java.io File InputStream OutputStream)
    (javax.swing JFileChooser JLabel)))
@@ -22,17 +22,15 @@
 (defmethod handle-record :FAM [uuid rec status]
 	   (fam-handler uuid rec status))
 (defmethod handle-record :INDI [uuid rec status]
-	   (do (println "INDI " uuid (:tag rec)) (indi-handler uuid rec status)))
+	   (do  (indi-handler uuid rec status)))
 (defmethod handle-record :default [uuid record status] (println (str "skipping " (:tag record))) record)
 
 (defn process-gedcom [uuid gedseq status-agent]
-  (println "GEDSEQ start")
-  (println "GEDSEQ:" (first gedseq))
   (doall (map #(handle-record uuid % status-agent) gedseq)))
 
 
 
-(defn import-gedcom [file uuid status-agent]
+(defn import-gedcom [file uuid status-agent source-agent]
   (let [tempfile (File/createTempFile "topoged-" ".ged")
         md5 (with-open [^InputStream r (input-stream file)
                         ^OutputStream w (output-stream tempfile)]
@@ -46,9 +44,10 @@
         (send source-agent add-source {:id uuid
                                        :source file
                                        :md5 md5} status-agent)
-        (process-gedcom uuid (gedcom-seq tempfile) status-agent)
-        (await persona-agent source-agent group-agent)
-        (send status-agent (fn [f] (assoc f 0 "Completed"))))))) 
+        (let [gseq (gedcom-seq (line-seq (reader tempfile)))]
+          (process-gedcom uuid gseq status-agent)
+          (await persona-agent source-agent group-agent)
+          (send status-agent (fn [f] (assoc f 0 "Completed")))))))) 
 
 
 
@@ -62,7 +61,7 @@
        (add-watch status-agent :panel
 		  #(.setText label (apply format (cons "%s  I:%,d F:%,d S:%,d" %4))))
 		  ;;#(.setText label (format "%s  I:%,d F:%,d S:%,d" %4)))
-       (import-gedcom file uuid status-agent))))
+       (import-gedcom file uuid status-agent source-agent))))
 
 	; ((persona-cause #(update-list-model list-model)))
 	; ((persona-cause

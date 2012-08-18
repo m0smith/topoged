@@ -7,7 +7,7 @@
   (:import
    (java.io File InputStream OutputStream)
    (javax.swing DefaultListModel JFileChooser JFrame JMenu JMenuBar JMenuItem JLabel JList JPanel JScrollPane ListModel SwingUtilities Timer)
-   (java.awt BorderLayout)))
+   (java.awt BorderLayout TextArea Font Color)))
 
 (set! *warn-on-reflection* true)
 
@@ -32,11 +32,19 @@
     sub-panel))
 
 
+;;TextArea text = new TextArea();
+;;        Font font = new Font("Serif", Font.ITALIC, 20);
+;;        text.setFont(font);
+;;        text.setForeground(Color.blue);
+;;        f.add(text, BorderLayout.CENTER);
+
 (defn viewer-app []
   ""
-  (let [frame  (JFrame. "Topoged Viewer")
-	^JPanel status-info (doto (JPanel.) (.add (JLabel. "Status:")))
-	^JPanel view-panel  (JPanel.)
+  (let [frame  (JFrame. "Topoged Viewer .1")
+        ^JPanel status-info (doto (JPanel.) (.add (JLabel. "Status:")))
+        ^JPanel view-panel  (doto ( JLabel. "Topoged .1")
+                              (.setFont (Font. "Serif" Font/ITALIC, 72))
+                              (.setForeground Color/BLUE))
 	close-window (fn []  (.dispose frame))
 	plugin-info (create-plugin-info frame view-panel)]
 
@@ -45,27 +53,29 @@
     (doto frame
       (.setContentPane
        (doto (JPanel.)
-	 (.setLayout (BorderLayout.))
-	 (.add view-panel BorderLayout/CENTER)
-	 (.add (doto (JPanel.)
-		 (.add status-info))
-	       BorderLayout/SOUTH)))
+         (.setSize 400 600)
+         (.setLayout (BorderLayout.))
+         (.add view-panel BorderLayout/CENTER)
+         (.add (doto (JPanel.)
+                 (.add status-info))
+               BorderLayout/SOUTH)))
       (.setJMenuBar
        (doto (JMenuBar.)
-	 (.add (doto (JMenu. "File")
-		 (.add (doto (JMenuItem. "Import")
-			 (with-action _
-			   (let [f (gedcom-import-action (assoc plugin-info :status (add-sub-panel status-info)))]
-			     (println @f)))))
-			    
-		 (.add (doto (JMenuItem. "Exit")
-			 (with-action _ (close-window))))))))
-		
-      (.setSize 200 200)
+         (.add (doto (JMenu. "File")
+                 (.add (doto (JMenuItem. "Import")
+                         (with-action _
+                           (let [f (gedcom-import-action (assoc plugin-info :status (add-sub-panel status-info)))]
+                             (println @f)))))
+                 
+                 (.add (doto (JMenuItem. "Exit")
+                         (with-action _ (close-window))))))))
+      
+      (.setBounds 300 300 600 800)
+      (.setSize 400 600)
       (.pack)
-      ;;(.setDefaultCloseOperation (JFrame/EXIT_ON_CLOSE))
+      (.setDefaultCloseOperation (JFrame/EXIT_ON_CLOSE))
       (.setVisible true))))
-     
+
 (defn -main [] ( viewer-app))
 
 ;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)
