@@ -2,14 +2,14 @@
   :description "Topoged"
   :target-dir "target/"
 
-  :source-path "src/main/clojure"
+  :source-paths ["src/main/clojure"]
   :library-path "target/dependency"
-  :test-path "src/test/clojure"
-  :resources-path "src/main/resources" 
+  :test-paths ["src/test/clojure"]
+  :resources-paths ["src/main/resources"]
   :dev-resources-path "src/test/resources"
   :main topoged.viewer.frame
   :extra-classpath-dirs [ "/usr/lib/jvm/jdk1.7.0/lib/tools.jar" ]
-  :dependencies [[org.clojure/clojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.5.0-RC1"]
                  [com.ashafa/clutch "0.3.0"]
                  [org.clojure/tools.logging "0.2.3"]
                  [org.slf4j/slf4j-api "1.6.2"]
