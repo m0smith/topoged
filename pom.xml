@@ -1,106 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http//www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/maven-v4_0_0.xsd">
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.m0smith</groupId>
-  <artifactId>topoged-clj</artifactId>
+  <groupId>topoged</groupId>
+  <artifactId>topoged</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <url>http://www.software-ninja.com/</url>
-  <description>Topoged in Clojure</description>
-  <name>${artifactId}</name>
-  <licenses>
-    <license>
-      <name>Eclipse Public License 1.0</name>
-      <url>http://opensource.org/licenses/eclipse-1.0.php</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <dependencies>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojure</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.clojure</groupId>
-      <artifactId>clojure-contrib</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>swank-clojure</groupId>
-      <artifactId>swank-clojure</artifactId>
-      <version>1.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.miglayout</groupId>
-      <artifactId>miglayout</artifactId>
-      <version>3.7.3</version>
-      <classifier>swing</classifier>
-    </dependency>
-    <dependency>
-      <groupId>clojure-csv</groupId>
-      <artifactId>clojure-csv</artifactId>
-      <version>1.1.0</version>
-    </dependency>
-  </dependencies>
+  <name>topoged</name>
+  <description>Topoged</description>
+  <scm>
+    <tag>af0d7a51ba27c7961531ca5610cd22d40f08e236</tag>
+  </scm>
+  <build>
+    <sourceDirectory>src/main/clojure</sourceDirectory>
+    <testSourceDirectory>src/test/clojure</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+  </build>
   <repositories>
     <repository>
-      <id>ibiblio</id>
-      <url>http://mirrors.ibiblio.org/pub/mirrors/maven2</url>
+      <id>central</id>
+      <url>http://repo1.maven.org/maven2</url>
     </repository>
     <repository>
       <id>clojars</id>
-      <url>http://clojars.org/repo</url>
-    </repository>
-    <repository>
-      <id>clojure-snapshots</id>
-      <url>http://build.clojure.org/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>clojure-releases</id>
-      <url>http://build.clojure.org/releases</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
+      <url>http://clojars.org/repo/</url>
     </repository>
   </repositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>com.theoryinpractise</groupId>
-        <artifactId>clojure-maven-plugin</artifactId>
-        <version>1.3.3</version>
-        <executions>
-          <execution>
-            <id>compile-clojure</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>test-clojure</id>
-            <phase>test</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <dependencies>
+    <dependency>
+      <groupId>swank-clojure</groupId>
+      <artifactId>swank-clojure</artifactId>
+      <version>1.4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>lein-eclipse</groupId>
+      <artifactId>lein-eclipse</artifactId>
+      <version>1.0.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ashafa</groupId>
+      <artifactId>clutch</artifactId>
+      <version>0.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>tools.logging</artifactId>
+      <version>0.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>clj-glob</groupId>
+      <artifactId>clj-glob</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>data.codec</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+  </dependencies>
 </project>
+
+<!-- This file was autogenerated by Leiningen.
+  Please do not edit it directly; instead edit project.clj and regenerate it.
+  It should not be considered canonical data. For more information see
+  https://github.com/technomancy/leiningen -->

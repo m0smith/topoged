@@ -1,15 +1,15 @@
 (ns topoged.viewer.frame
+  (:require [topoged.data.inmemory :as db])
   (:use [topoged.gedcom :only (gedcom-seq)]
 	[topoged.viewer.status]
 	[topoged.service.plugin.info]
 	[topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
-	[topoged.gedoverse :only (log persona-agent)]
-        [seesaw core graphics]))
+    [seesaw core graphics]))
 
   
-(defn display-personas []
-  (let [p @persona-agent]
-    (sort-by first (map (fn [x] [(:name (val x)) (key x)]) (seq p)))))
+;; (defn display-personas []
+;;   (let [p @persona-agent]
+;;     (sort-by first (map (fn [x] [(:name (val x)) (key x)]) (seq p)))))
 
 ;; (defmacro with-action [component event & body]
 ;;   `(. ~component addActionListener
@@ -74,22 +74,30 @@
 
 (def status-bar (label :text "STATUS" :h-text-position :center))
 
+
+(defn render-name-item
+  [renderer {:keys [value]}]
+  (config! renderer :text (second value)))
+
+(def lb (listbox :model [[ 1 "Emtpy"]] :renderer render-name-item))
+
 (def top-frame (border-panel
                 :size [500 :by 500]
                 :center (left-right-split
-                         (scrollable (listbox :model ["Foo" "Bar" "Yum"]))
+                         (scrollable lb)
                          "PEDIGREE")
                 :north (label :text "TOPOGED" :h-text-position :center)
                 :south status-bar))
 
 (defn a-import-gedcom-handler [e]
   (let [pi (create-plugin-info top-frame top-frame)]
-    (println pi)
-    (println (gedcom-import-action (assoc pi :status status-bar)))))
+    (gedcom-import-action (assoc pi :status status-bar))
+    (config! lb :model (sort-by second (db/persona-names)))))
 
 
 (defn a-settings-handler [e]
   (println e))
+
 
 (def file-menu
   (menu :text "File"
