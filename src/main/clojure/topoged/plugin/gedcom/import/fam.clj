@@ -1,47 +1,45 @@
 (ns topoged.plugin.gedcom.import.fam
-  (:use [topoged.gedoverse :only (add group-agent)]
-	[topoged.util :only (apply-symbol)]
-	[topoged.plugin.gedcom.import.util]
-	))
+    (:require [topoged.data.inmemory :as db])
+    (:use [topoged.plugin.gedcom.import.util]))
 
-(set! *warn-on-reflection* true)
+(defmulti fam-record-handler (fn [_ rec __] (:tag rec))) 
 
-(defmulti record-handler (fn [_ rec __] (:tag rec))) 
+(defmethod fam-record-handler :HUSB [process-state record group]
+  (println "HUSB" record)
+  (let [{:keys [value]} record
+        id (get process-state value)]
+    (update-in (assoc group :father id)
+               [:parents] assoc 0 id)))
 
-(defmethod record-handler :HUSB [uuid record group]
-	   (let [id (new-id uuid record)]
-	     (update-in (assoc group :father id)
-			[:parents] assoc 0 id)))
+(defmethod fam-record-handler :WIFE [process-state record group]
+  (let [{:keys [value]} record
+        id (get process-state value)]
+    (update-in (assoc group :mother id)
+               [:parents] assoc 1 id)))
 
+(defmethod fam-record-handler :CHIL [process-state record group]
+  (let [{:keys [value]} record
+        id (get process-state value)]
+    (update-in group [:children] conj id)))
 
-(defmethod record-handler :WIFE [uuid record group]
-	   (let [id (new-id uuid record)]
-	     (update-in (assoc group :mother id)
-			[:parents] assoc 1 id)))
+(defmethod fam-record-handler :default [process-state record group] group)
 
-(defmethod record-handler :CHIL [uuid record group]
-	   (let [id (new-id uuid record)]
-	     (update-in group [:children] conj id)))
-
-(defmethod record-handler :default [uuid record group] group)
-
-(defstruct group-struct :type :id :source :idInSource :parents :children)
-
-
-(defn fam-handler [uuid record status-agent]
-  "status-agent [message indi-count fam-count sour-count]"
+(defn fam-handler [sourceId process-state record]
+  ""
   (loop [coll (:content record)
-	 group (struct group-struct :family (new-id uuid record)
-		       uuid (source-id record)
-		       [nil nil] [])]
-
+         group {:sourceId sourceId
+                :parents []
+                :children []}]
+    (println "FAM:" record (count coll))    
     (if (seq coll)
-      (let [f (first coll)
-	    new-group (record-handler uuid f group)]
-	(recur (rest coll) (if new-group new-group group)))
+      (let [[f & r] coll
+            new-group (fam-record-handler process-state f group)]
+        (recur r (if new-group new-group group)))
       (do
-	(send group-agent add-group group status-agent)))))
-	  
+        (println "GROUP : " group)
+        (db/add-lineage-group group)
+        process-state))))
+
       
       
     

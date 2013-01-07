@@ -12,22 +12,26 @@
    (java.io File InputStream OutputStream)
    (javax.swing JFileChooser JLabel)))
 
-(set! *warn-on-reflection* true)
+;;(set! *warn-on-reflection* true)
 
-(defmulti handle-record (fn [_ rec] (:tag rec))) 
+(defmulti handle-record (fn [_ __ rec] (:tag rec))) 
 
 (remove-method handle-record :FAM)
-;;(remove-method handle-record :INDI)
+(remove-method handle-record :INDI)
 (remove-method handle-record :default)
 
-;;(defmethod handle-record :FAM [uuid rec]
-;;	   (fam-handler uuid rec status))
-(defmethod handle-record :INDI [sourceId rec]
-  (do  (indi-handler sourceId rec)))
-(defmethod handle-record :default [sourceId record] (println (str "skipping " (:tag record))) record)
+(defmethod handle-record :FAM [sourceId process-state rec]
+  (fam-handler sourceId process-state rec))
+
+(defmethod handle-record :INDI [sourceId process-state rec]
+  (indi-handler sourceId process-state rec))
+
+(defmethod handle-record :default [sourceId process-state record]
+  (println (str "skipping " (:tag record)))
+  process-state)
 
 (defn process-gedcom [sourceId gedseq]
-  (doall (map #(handle-record sourceId %) gedseq)))
+  (reduce (partial handle-record sourceId) {} gedseq))
 
 (defn import-gedcom [file]
   (let [tempfile (File/createTempFile "topoged-" ".ged")
@@ -39,7 +43,7 @@
         (println (str "MD5 not found" md5))
         (let [source (db/add-source :source file :md5 md5)
               gseq (gedcom-seq (line-seq (reader tempfile)))]
-          (process-gedcom (:id source) gseq)
+          (println (process-gedcom (:id source) gseq))
           db/db)))))
 
 (defn gedcom-import-action [plugin-info]

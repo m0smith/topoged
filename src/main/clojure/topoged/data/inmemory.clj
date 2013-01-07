@@ -9,6 +9,9 @@
 (def source-keys [] )
 (def source-type :SOURCE)
 
+(def lineage-keys [:sourceId :parents :children] )
+(def lineage-type :GROUP)
+
 (defn illegal-args [msg]
   (throw (IllegalArgumentException. msg)))
 
@@ -27,9 +30,6 @@
       m
       (illegal-args (str "Missing required keys: " kys)))))
 
-
-
-
 (defn add-entity [req-keys type args ]
   (let [m (validate-args req-keys args)
         m (assoc m :type type :id (uuid))]
@@ -41,6 +41,9 @@
 
 (defn add-source [ & args ]
   (add-entity source-keys source-type args))
+
+(defn add-lineage-group [ & args ]
+  (add-entity lineage-keys lineage-type [(assoc (first args) :groupType :LINEAGE)]))
 
 (defn entity-query-pred [type pred & kys]
   (for [ent @db :when (and (#{type} (:type ent)) (pred ent))]

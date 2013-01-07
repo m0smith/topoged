@@ -91,7 +91,7 @@
 
 (defn a-import-gedcom-handler [e]
   (let [pi (create-plugin-info top-frame top-frame)]
-    (gedcom-import-action (assoc pi :status status-bar))
+     (gedcom-import-action (assoc pi :status status-bar))
     (config! lb :model (sort-by second (db/persona-names)))))
 
 
