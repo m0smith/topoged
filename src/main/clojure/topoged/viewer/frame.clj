@@ -81,11 +81,29 @@
 
 (def lb (listbox :model [[ 1 "Emtpy"]] :renderer render-name-item))
 
+(def pedigree-panel
+  (grid-panel :border "Pedigree"))
+
+(defn build-pedigree-panel "return root-panel"
+  [id root-panel offset]
+  ;(println "build-pedigree-panel:" id)
+  (let [child (first (db/entity :id id))
+        [father mother] (db/parents-of id)]
+    ;(println "build-pedigree-panel:" father mother child)
+    (when child
+      (config! root-panel :items nil)
+      (config! root-panel
+               :border [2 (str offset) 2] 
+               :north (apply str (take 25 (:name child)))
+               :west (build-pedigree-panel father (border-panel) (* 2 offset))
+               :east (build-pedigree-panel mother (border-panel) (inc (* 2 offset)))))
+    root-panel))
+
 (def top-frame (border-panel
                 :size [500 :by 500]
                 :center (left-right-split
                          (scrollable lb)
-                         "PEDIGREE")
+                         pedigree-panel)
                 :north (label :text "TOPOGED" :h-text-position :center)
                 :south status-bar))
 
@@ -103,7 +121,7 @@
   (menu :text "File"
         :items
         [
-         (action :handler a-import-gedcom-handler
+         (action :handler #(future (a-import-gedcom-handler %))
                  :name "Import GEDCOM"
                  :tip "Import a GEDCOM file.")
          (action :handler a-settings-handler
@@ -111,7 +129,14 @@
                  :tip "Setting for TOPOGED.")
          ]))
 
+(defn handle-person-selection [e]
+  (let [panel (build-pedigree-panel (first (selection e)) (border-panel) 1)]
+    (config! pedigree-panel :items [ panel ])))
+           
+
 (defn viewer-app []
+;  (build-pedigree-panel "CHILD" pedigree-panel)
+  (listen lb :selection #(future (handle-person-selection %)))
   (-> (frame :title "Topoged",
              :size [500 :by 500]
              :content top-frame
@@ -120,7 +145,7 @@
                                (menu :text "Reports" :items [])
                                (menu :text "Tasks" :items [])])
              :on-close :exit)
-      pack!
+      ;;pack!
       show!))
 
 (defn -main []

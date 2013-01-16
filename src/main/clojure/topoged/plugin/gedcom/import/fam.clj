@@ -9,13 +9,13 @@
   (let [{:keys [value]} record
         id (get process-state value)]
     (update-in (assoc group :father id)
-               [:parents] assoc 0 id)))
+               [:parents 0] assoc 1 id)))
 
 (defmethod fam-record-handler :WIFE [process-state record group]
   (let [{:keys [value]} record
         id (get process-state value)]
     (update-in (assoc group :mother id)
-               [:parents] assoc 1 id)))
+               [:parents 1] assoc 1 id)))
 
 (defmethod fam-record-handler :CHIL [process-state record group]
   (let [{:keys [value]} record
@@ -28,7 +28,7 @@
   ""
   (loop [coll (:content record)
          group {:sourceId sourceId
-                :parents []
+                :parents [ [0 db/UNDEFINED] [1 db/UNDEFINED]]
                 :children []}]
     (println "FAM:" record (count coll))    
     (if (seq coll)
