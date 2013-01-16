@@ -6,3 +6,9 @@ derby.log
 *~
 *#*#
 .#*
+
+*.launch
+
+.classpath
+
+.project
