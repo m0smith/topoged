@@ -41,7 +41,7 @@
     (if (not-any? identity (db/entity :type db/source-type :md5 md5))
       (do
         (println (str "MD5 not found" md5))
-        (let [source (db/add-source :source file
+        (let [source (db/add-source :source (str file)
                                     :md5 md5
                                     :sourceType db/source-type-gedcom)
               gseq (gedcom-seq (line-seq (reader tempfile)))]

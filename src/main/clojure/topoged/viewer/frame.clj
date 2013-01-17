@@ -1,4 +1,5 @@
 (ns topoged.viewer.frame
+  (:import [java.io FileNotFoundException])
   (:require 
    [topoged.data.common :as db]
    [topoged.data.inmemory])
@@ -81,7 +82,8 @@
   [renderer {:keys [value]}]
   (config! renderer :text (second value)))
 
-(def lb (listbox :model [[ 1 "Emtpy"]] :renderer render-name-item))
+(def lb (listbox 
+                 :renderer render-name-item))
 
 (def pedigree-panel
   (grid-panel :border "Pedigree"))
@@ -111,8 +113,9 @@
 
 (defn a-import-gedcom-handler [e]
   (let [pi (create-plugin-info top-frame top-frame)]
-     (gedcom-import-action (assoc pi :status status-bar))
-    (config! lb :model (sort-by second (db/persona-names)))))
+    (gedcom-import-action (assoc pi :status status-bar))
+    (config! lb :model (sort-by second (db/persona-names)))
+    (db/dbsync)))
 
 
 (defn a-settings-handler [e]
@@ -151,6 +154,8 @@
       show!))
 
 (defn -main []
+  (db/init)
+  (config! lb :model (sort-by second (db/persona-names)))
   (invoke-later (viewer-app)))
 
 ;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)

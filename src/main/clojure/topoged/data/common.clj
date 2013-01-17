@@ -5,6 +5,9 @@
 
 (declare add-to-data-store)
 (declare indatastoreo)
+(declare init)
+(declare shutdown)
+(declare dbsync)
 
 (def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
 (def UNDEFINED nil)
