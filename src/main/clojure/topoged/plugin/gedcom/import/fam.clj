@@ -27,9 +27,7 @@
 (defn fam-handler [sourceId process-state record]
   ""
   (loop [coll (:content record)
-         group {:sourceId sourceId
-                :parents [ [0 db/UNDEFINED] [1 db/UNDEFINED]]
-                :children []}]
+         group (db/init-group sourceId)]
     (println "FAM:" record (count coll))    
     (if (seq coll)
       (let [[f & r] coll
