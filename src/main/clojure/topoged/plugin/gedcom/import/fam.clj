@@ -1,5 +1,6 @@
 (ns topoged.plugin.gedcom.import.fam
-    (:require [topoged.data.inmemory :as db])
+  (:require 
+            [topoged.data.common :as db])
     (:use [topoged.plugin.gedcom.import.util]))
 
 (defmulti fam-record-handler (fn [_ rec __] (:tag rec))) 

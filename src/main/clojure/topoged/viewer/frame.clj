@@ -1,5 +1,7 @@
 (ns topoged.viewer.frame
-  (:require [topoged.data.inmemory :as db])
+  (:require 
+   [topoged.data.common :as db]
+   [topoged.data.inmemory])
   (:use [topoged.gedcom :only (gedcom-seq)]
 	[topoged.viewer.status]
 	[topoged.service.plugin.info]

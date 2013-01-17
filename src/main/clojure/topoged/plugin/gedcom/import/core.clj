@@ -1,6 +1,5 @@
 (ns topoged.plugin.gedcom.import.core
-  (:require [topoged.data.inmemory :as db])
-  (:require [topoged.data.common :as dbc])
+  (:require [topoged.data.common :as db])
   (:use [topoged.file :only ( copy-md5)]
 	[topoged.plugin.gedcom.import.fam :only (fam-handler)]
 	[topoged.plugin.gedcom.import.util :only (add-source)]
@@ -39,12 +38,12 @@
         md5 (with-open [^InputStream  r (input-stream file)
                         ^OutputStream w (output-stream tempfile)]
               (copy-md5 r w))]
-    (if (not-any? identity (db/entity :type dbc/source-type :md5 md5))
+    (if (not-any? identity (db/entity :type db/source-type :md5 md5))
       (do
         (println (str "MD5 not found" md5))
         (let [source (db/add-source :source file
                                     :md5 md5
-                                    :sourceType dbc/source-type-gedcom)
+                                    :sourceType db/source-type-gedcom)
               gseq (gedcom-seq (line-seq (reader tempfile)))]
            (process-gedcom (:id source) gseq))))))
 

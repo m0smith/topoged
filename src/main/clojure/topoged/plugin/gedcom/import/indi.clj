@@ -1,5 +1,5 @@
 (ns topoged.plugin.gedcom.import.indi
-  (:require [topoged.data.inmemory :as db])
+  (:require [topoged.data.common :as db])
   (:use [topoged.plugin.gedcom.import.util]))
 	
 
