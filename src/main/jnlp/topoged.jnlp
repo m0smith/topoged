@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+">
+    <information>
+	  <title>Topoged</title>	
+	  <vendor>topoged.com</vendor>
+    </information>
+	<security>		
+      <all-permissions/>
+	</security>
+    <resources>
+	  <!-- Application Resources -->
+	  <j2se version="1.7+"
+			href="http://java.sun.com/products/autodl/j2se"/>
+	  <jar href="topoged-1.0.0-SNAPSHOT-standalone-signed.jar"
+		   main="true" />
+	  
+    </resources>
+    <application-desc
+		name="topoged"
+		main-class="topoged.viewer.frame"
+         width="300"
+         height="300">
+	</application-desc>
+	<update check="background"/>
+</jnlp>                
