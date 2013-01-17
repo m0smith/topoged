@@ -1,13 +1,13 @@
 (ns topoged.viewer.frame
-  (:import [java.io FileNotFoundException])
-  (:require 
-   [topoged.data.common :as db]
-   [topoged.data.inmemory])
-  (:use [topoged.gedcom :only (gedcom-seq)]
-	[topoged.viewer.status]
-	[topoged.service.plugin.info]
-	[topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
-    [seesaw core graphics]))
+   (:gen-class)
+   (:import [java.io FileNotFoundException])
+   (:require [topoged.data.common :as db]
+             [topoged.data.inmemory])
+   (:use [topoged.gedcom :only (gedcom-seq)]
+         [topoged.viewer.status]
+         [topoged.service.plugin.info]
+         [topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
+         [seesaw core graphics]))
 
   
 ;; (defn display-personas []

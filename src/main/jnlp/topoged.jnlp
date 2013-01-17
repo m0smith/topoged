@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jnlp spec="1.0+">
+<jnlp spec="1.0+" 
+  codebase="http://localhost/topoged/"
+  href="topoged.jnlp">
     <information>
 	  <title>Topoged</title>	
 	  <vendor>topoged.com</vendor>
@@ -22,4 +24,4 @@
          height="300">
 	</application-desc>
 	<update check="background"/>
-</jnlp>                
+</jnlp>                 
