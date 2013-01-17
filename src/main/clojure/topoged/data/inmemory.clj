@@ -3,7 +3,26 @@
   (:use [topoged.util])
   (:use [topoged.data.common]))
 
-(def db (atom []))
+;;
+;; To implement a new data namespace, it is only necessary to implement the following the
+;; functions that reference "data-store", namely:
+;;   add-to-data-store - this function accepts the given map and adds it to the data store.
+;;   indatastoreo      - expects the data-store to look like a seq.  This could be done by
+;;                       pre-searching the database or if using Datomic see
+;;        https://github.com/clojure/core.logic/wiki/Extending-core.logic-%28Datomic-example%29
+
+
+
+;; Database Specific stuff
+
+(def data-store (atom []))
+
+(defn indatastoreo [pm]
+  (membero pm @data-store))
+
+(defn add-to-data-store [m]
+  (swap! data-store conj m))
+
 
 ;;
 ;; Create entities
@@ -22,7 +41,7 @@
 (defn add-entity [req-keys type args ]
   (let [m (validate-args req-keys args)
         m (assoc m :type type :id (uuid))]
-    (swap! db conj m)
+    (add-to-data-store m)
     m))
 
 (defn add-persona [  & args ]
@@ -35,13 +54,17 @@
   (add-entity lineage-keys lineage-type [(assoc (first args) :groupType lineage-group-type)]))
 
 
-;;
+;;          )))))
 ;; Search for records
 ;;
 
-(defn entityo [m r]
+
+(defn entityo
+  "Pass logic variables map and result.  Result will be unified with all records
+that have at least the values in the map specied"
+  [m r]
   (fresh [?pm]
-         (membero ?pm @db)
+         (indatastoreo ?pm)
          (featurec ?pm m)
          (?== r ?pm)))
          
@@ -63,14 +86,15 @@
 (defn persona-names []
   (entityv [:id :name] :type persona-type))
 
-(defn parento [child parent order] 
-  (let [data @db]
-    (fresh [?pm ?parents  ?parentrec ?children]
-           (membero ?pm data)
-           (featurec ?pm {:groupType lineage-group-type :parents ?parents :children ?children})
-           (membero child ?children)
-           (membero ?parentrec ?parents)
-           (?== ?parentrec [order parent]))))
+(defn parento
+  "Unify the child id with the parent id with the parent order (0=father, 1=mother)"
+  [child parent order] 
+  (fresh [?pm ?parents  ?parentrec ?children]
+         (indatastoreo ?pm)                
+         (featurec ?pm {:groupType lineage-group-type :parents ?parents :children ?children})
+         (membero child ?children)
+         (membero ?parentrec ?parents)
+         (?== ?parentrec [order parent])))
 
 (defn grandparento [child grandparent]
   (fresh [?p ?order ?o2]
