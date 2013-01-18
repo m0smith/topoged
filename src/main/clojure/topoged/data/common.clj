@@ -99,8 +99,8 @@
 that have at least the values in the map specied"
   [m r]
   (fresh [?pm]
-         (indatastoreo ?pm)
          (featurec ?pm m)
+         (indatastoreo ?pm)
          (?== r ?pm)))
          
 (defn entity "Return all the entities matching the args"
@@ -125,8 +125,8 @@ that have at least the values in the map specied"
   "Unify the child id with the parent id with the parent order (0=father, 1=mother)"
   [child parent order] 
   (fresh [?pm ?parents  ?parentrec ?children]
-         (indatastoreo ?pm)                
          (featurec ?pm {:groupType lineage-group-type :parents ?parents :children ?children})
+         (indatastoreo ?pm)                
          (membero child ?children)
          (membero ?parentrec ?parents)
          (?== ?parentrec [order parent])))

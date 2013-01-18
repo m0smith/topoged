@@ -6,7 +6,7 @@
 (defmulti fam-record-handler (fn [_ rec __] (:tag rec))) 
 
 (defmethod fam-record-handler :HUSB [process-state record group]
-  (println "HUSB" record)
+  ;(println "HUSB" record)
   (let [{:keys [value]} record
         id (get process-state value)]
     (update-in (assoc group :father id)
@@ -29,13 +29,13 @@
   ""
   (loop [coll (:content record)
          group (db/init-group sourceId)]
-    (println "FAM:" record (count coll))    
+    ;(println "FAM:" record (count coll))    
     (if (seq coll)
       (let [[f & r] coll
             new-group (fam-record-handler process-state f group)]
         (recur r (if new-group new-group group)))
       (do
-        (println "GROUP : " group)
+        ;(println "GROUP : " group)
         (db/add-lineage-group group)
         process-state))))
 
