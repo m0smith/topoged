@@ -4,9 +4,8 @@
 
   :source-paths ["src/main/clojure"]
   :library-path "target/dependency"
-  :test-paths ["src/test/clojure"]
-  :resources-paths ["src/main/resources"]
-  :dev-resources-path "src/test/resources"
+  :test-paths ["src/test/clojure" "src/test/resources"]
+  :resource-paths ["src/main/resources"]
   :main topoged.viewer.frame
   :extra-classpath-dirs [ "/usr/lib/jvm/jdk1.7.0/lib/tools.jar" ]
   :dependencies [[org.clojure/clojure "1.5.0-RC1"]

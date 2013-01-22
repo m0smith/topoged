@@ -115,7 +115,9 @@
 (defn render-fn [renderer info]
   (let [ent (first (db/entity :id (:value info)))]
     ;(println "ENTITY:" ent info)
-    (config! renderer  :icon "ico/gender.ico" :text (:name ent))))
+    (config! renderer
+             :icon  "image/male16.png"
+             :text (:name ent))))
 
 (defn expand-children [jtree levels]
   (dotimes [j levels]
@@ -193,6 +195,8 @@
       show!))
 
 (defn -main []
+  (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
+
   (native!)
   (db/init)
   (config! lb :model (sort-by second (db/persona-names)))
