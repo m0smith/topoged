@@ -7,7 +7,7 @@
          [topoged.viewer.status]
          [topoged.service.plugin.info]
          [topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
-         [seesaw core graphics]))
+         [seesaw core graphics tree]))
 
   
 ;; (defn display-personas []
@@ -103,6 +103,42 @@
                :east (build-pedigree-panel mother (border-panel) (inc (* 2 offset)))))
     root-panel))
 
+(defn map-undef [coll]
+  (map #(if (nil? %) db/UNDEFINEDX %) coll))
+
+(defn load-model [id]
+  ;(println "LOAD-MODEL:" id)
+  (let [rtnval (simple-tree-model identity (comp map-undef db/parents-of) id)]
+    ;(println "RTNVAL:" rtnval)
+    rtnval))
+
+(defn render-fn [renderer info]
+  (let [ent (first (db/entity :id (:value info)))]
+    ;(println "ENTITY:" ent info)
+    (config! renderer  :text (:name ent))))
+
+(defn expand-children [jtree levels]
+  (dotimes [j levels]
+    (let [paths (seq (.getPathBetweenRows jtree 0 levels))]
+      
+      (doseq [path paths]
+        (.expandPath jtree path)))))
+
+(defn build-pedigree-panel-tree "return root-panel"
+  [id root-panel offset]
+  ;(println "TREE:" root-panel)
+  
+  (let [widget (tree :id :tree :model (load-model id):renderer render-fn)]
+    (println "WIDGET:" (class widget))
+    (config! root-panel :items nil)
+    (config! root-panel :center (scrollable widget))
+    (expand-children widget 32)
+    ;(println "TREE END:" root-panel)
+    )
+  
+  root-panel)
+
+
 (def top-frame (border-panel
                 :size [500 :by 500]
                 :center (left-right-split
@@ -135,8 +171,11 @@
          ]))
 
 (defn handle-person-selection [e]
-  (let [panel (build-pedigree-panel (first (selection e)) (border-panel) 1)]
-    (config! pedigree-panel :items [ panel ])))
+  ;(println "SELECTED:" (.getValueIsAdjusting e) e)
+  (if (.getValueIsAdjusting e)
+    (let [panel (build-pedigree-panel-tree (first (selection e)) (border-panel) 1)]
+      ;(println panel)
+      (config! pedigree-panel :items [ panel ]))))
            
 
 (defn viewer-app []
@@ -154,6 +193,7 @@
       show!))
 
 (defn -main []
+  (native!)
   (db/init)
   (config! lb :model (sort-by second (db/persona-names)))
   (invoke-later (viewer-app)))
