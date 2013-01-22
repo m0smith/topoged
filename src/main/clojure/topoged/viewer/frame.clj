@@ -115,7 +115,7 @@
 (defn render-fn [renderer info]
   (let [ent (first (db/entity :id (:value info)))]
     ;(println "ENTITY:" ent info)
-    (config! renderer  :text (:name ent))))
+    (config! renderer  :icon "ico/gender.ico" :text (:name ent))))
 
 (defn expand-children [jtree levels]
   (dotimes [j levels]
