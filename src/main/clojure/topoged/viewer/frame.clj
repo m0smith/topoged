@@ -78,6 +78,8 @@
 (def status-bar (label :text "STATUS" :h-text-position :center))
 
 
+(def m-entity (partial db/entity :id))
+
 (defn render-name-item
   [renderer {:keys [value]}]
   (config! renderer :text (second value)))
@@ -91,7 +93,7 @@
 (defn build-pedigree-panel "return root-panel"
   [id root-panel offset]
   ;(println "build-pedigree-panel:" id)
-  (let [child (first (db/entity :id id))
+  (let [child (first (m-entity id))
         [father mother] (db/parents-of id)]
     ;(println "build-pedigree-panel:" father mother child)
     (when child
@@ -113,7 +115,7 @@
     rtnval))
 
 (defn render-fn [renderer info]
-  (let [ent (first (db/entity :id (:value info)))]
+  (let [ent (first (m-entity (:value info)))]
     ;(println "ENTITY:" ent info)
     (config! renderer
              :icon  "image/male16.png"
