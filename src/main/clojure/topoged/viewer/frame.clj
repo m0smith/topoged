@@ -75,10 +75,19 @@
 ;;       (.setVisible true))))
 
 
+
+
 (def status-bar (label :text "STATUS" :h-text-position :center))
 
 
-(def m-entity (partial db/entity :id))
+(def m-entity (memoize (partial db/entity :id)))
+(def m-parents-of (memoize db/parents-of))
+
+(defn std-sex [sex]
+  (cond
+   (#{"M" :male} sex) :male
+   (#{"F" :female} sex) :female
+   :else :unknown))
 
 (defn render-name-item
   [renderer {:keys [value]}]
@@ -94,7 +103,7 @@
   [id root-panel offset]
   ;(println "build-pedigree-panel:" id)
   (let [child (first (m-entity id))
-        [father mother] (db/parents-of id)]
+        [father mother] (m-parents-of id)]
     ;(println "build-pedigree-panel:" father mother child)
     (when child
       (config! root-panel :items nil)
@@ -110,15 +119,23 @@
 
 (defn load-model [id]
   ;(println "LOAD-MODEL:" id)
-  (let [rtnval (simple-tree-model identity (comp map-undef db/parents-of) id)]
+  (let [rtnval (simple-tree-model identity (comp map-undef m-parents-of) id)]
     ;(println "RTNVAL:" rtnval)
     rtnval))
+
+(def icon-sex-dict
+  {:male "image/male16.png"
+   :female "image/female16.png"
+   :unknown "image/question_octagon16.png"})
+
+(defn icon-sex [sex]
+  (icon-sex-dict (std-sex sex)))
 
 (defn render-fn [renderer info]
   (let [ent (first (m-entity (:value info)))]
     ;(println "ENTITY:" ent info)
     (config! renderer
-             :icon  "image/male16.png"
+             :icon  (icon-sex (:sex ent))
              :text (:name ent))))
 
 (defn expand-children [jtree levels]
