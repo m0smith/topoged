@@ -1,5 +1,5 @@
 (ns topoged.viewer.frame
-   (:gen-class)
+
    (:import [java.io FileNotFoundException])
    (:require [topoged.data.common :as db]
              [topoged.data.inmemory])
@@ -8,7 +8,6 @@
          [topoged.service.plugin.info]
          [topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
          [seesaw core graphics tree]))
-
   
 ;; (defn display-personas []
 ;;   (let [p @persona-agent]
@@ -150,7 +149,7 @@
   ;(println "TREE:" root-panel)
   
   (let [widget (tree :id :tree :model (load-model id):renderer render-fn)]
-    (println "WIDGET:" (class widget))
+    ;(println "WIDGET:" (class widget))
     (config! root-panel :items nil)
     (config! root-panel :center (scrollable widget))
     (expand-children widget 32)
@@ -213,10 +212,11 @@
       ;;pack!
       show!))
 
-(defn -main []
-  (println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
-
+(defn -main [ & args ]
+  ;(println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
   (native!)
+
+
   (db/init)
   (config! lb :model (sort-by second (db/persona-names)))
   (invoke-later (viewer-app)))
