@@ -18,6 +18,7 @@
                  [clj-glob "1.0.0"]
                  [org.clojure/data.codec "0.1.0"]
                  [org.clojure/core.logic "0.8.0-rc1"]
+                 [quil "1.6.0"]
 		 ]
   :dev-dependencies [[swank-clojure "1.4.0"]
                      [lein-eclipse "1.0.0"]])

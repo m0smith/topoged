@@ -158,6 +158,17 @@ The order is first father, second mother and after any other parents"
                                (parento child ?parent ?order)
                                (?== q [?order ?parent])))))))
   
+(defn children-of
+  "Returns the :id of the children of [arent.
+If there are no children return an empty list.
+The order is undefined"
+  [parent]
+  (when parent
+    (run* [q]
+          (fresh [?child ?order]
+                 (parento ?child parent ?order)
+                 (?== q ?child)))))
+  
 
 (defn anc [child]
   (run* [q]

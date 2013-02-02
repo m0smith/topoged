@@ -4,8 +4,9 @@
    (:require [topoged.data.common :as db]
              [topoged.data.inmemory])
    (:use [topoged.gedcom :only (gedcom-seq)]
-         [topoged.viewer.status]
+         [topoged.viewer status common]
          [topoged.service.plugin.info]
+         [topoged.viewer.pedigree tree fractal]
          [topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
          [seesaw core graphics tree]))
   
@@ -79,15 +80,6 @@
 (def status-bar (label :text "STATUS" :h-text-position :center))
 
 
-(def m-entity (memoize (partial db/entity :id)))
-(def m-parents-of (memoize db/parents-of))
-
-(defn std-sex [sex]
-  (cond
-   (#{"M" :male} sex) :male
-   (#{"F" :female} sex) :female
-   :else :unknown))
-
 (defn render-name-item
   [renderer {:keys [value]}]
   (config! renderer :text (second value)))
@@ -95,60 +87,31 @@
 (def lb (listbox 
                  :renderer render-name-item))
 
-(def pedigree-panel
-  (grid-panel :border "Pedigree"))
 
-(defn build-pedigree-panel "return root-panel"
-  [id root-panel offset]
-  ;(println "build-pedigree-panel:" id)
-  (let [child (first (m-entity id))
-        [father mother] (m-parents-of id)]
-    ;(println "build-pedigree-panel:" father mother child)
-    (when child
-      (config! root-panel :items nil)
-      (config! root-panel
-               :border [2 (str offset) 2] 
-               :north (apply str (take 25 (:name child)))
-               :west (build-pedigree-panel father (border-panel) (* 2 offset))
-               :east (build-pedigree-panel mother (border-panel) (inc (* 2 offset)))))
-    root-panel))
 
-(defn map-undef [coll]
-  (map #(if (nil? %) db/UNDEFINEDX %) coll))
+(def pedigree-panel-tabs
+  (tabbed-panel :placement :top
+                :tabs [ {:title "Tree"
+                         :content pedigree-panel}
+                        {:title "Fractgal"
+                         :content @pedigree-panel-fractal}]))
 
-(defn load-model [id]
-  ;(println "LOAD-MODEL:" id)
-  (let [rtnval (simple-tree-model identity (comp map-undef m-parents-of) id)]
-    ;(println "RTNVAL:" rtnval)
-    rtnval))
+(def pedigree-panel-container
+  (grid-panel :border "Pedigree" :items [pedigree-panel-tabs]))
 
-(def icon-sex-dict
-  {:male "image/male16.png"
-   :female "image/female16.png"
-   :unknown "image/question_octagon16.png"})
 
-(defn icon-sex [sex]
-  (icon-sex-dict (std-sex sex)))
 
-(defn render-fn [renderer info]
-  (let [ent (first (m-entity (:value info)))]
-    ;(println "ENTITY:" ent info)
-    (config! renderer
-             :icon  (icon-sex (:sex ent))
-             :text (:name ent))))
+(def descendent-panel
+  (grid-panel :border "Descendants"))
 
-(defn expand-children [jtree levels]
-  (dotimes [j levels]
-    (let [paths (seq (.getPathBetweenRows jtree 0 levels))]
-      
-      (doseq [path paths]
-        (.expandPath jtree path)))))
 
-(defn build-pedigree-panel-tree "return root-panel"
+
+(defn build-descendent-panel-tree "return root-panel"
   [id root-panel offset]
   ;(println "TREE:" root-panel)
   
-  (let [widget (tree :id :tree :model (load-model id):renderer render-fn)]
+  (let [widget (tree :id :tree :model (load-model id m-children-of)
+                     :renderer render-fn)]
     ;(println "WIDGET:" (class widget))
     (config! root-panel :items nil)
     (config! root-panel :center (scrollable widget))
@@ -163,7 +126,8 @@
                 :size [500 :by 500]
                 :center (left-right-split
                          (scrollable lb)
-                         pedigree-panel)
+                         (top-bottom-split
+                         pedigree-panel-container descendent-panel))
                 :north (label :text "TOPOGED" :h-text-position :center)
                 :south status-bar))
 
@@ -193,9 +157,14 @@
 (defn handle-person-selection [e]
   ;(println "SELECTED:" (.getValueIsAdjusting e) e)
   (if (.getValueIsAdjusting e)
-    (let [panel (build-pedigree-panel-tree (first (selection e)) (border-panel) 1)]
-      ;(println panel)
-      (config! pedigree-panel :items [ panel ]))))
+    (let [p-panel (build-pedigree-panel-tree (first (selection e))
+                                             (border-panel) 1)
+          d-panel (build-descendent-panel-tree (first (selection e))
+                                           (border-panel) 1)]
+      
+      
+      (config! descendent-panel :items [ d-panel ])
+      (config! pedigree-panel :items [ p-panel ]))))
            
 
 (defn viewer-app []
