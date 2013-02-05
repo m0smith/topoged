@@ -157,19 +157,19 @@
 (defn handle-person-selection [e]
   ;(println "SELECTED:" (.getValueIsAdjusting e) e)
   (if (.getValueIsAdjusting e)
-    
-    (let [id (first (selection e))
-          p-panel (build-pedigree-panel-tree id
-                                             (border-panel) 1)
-          f-panel (build-pedigree-panel-fractal id)
-          d-panel (build-descendent-panel-tree id
-                                               (border-panel) 1)]
-      
-      
-      (config! descendent-panel :items [ d-panel ])
-      (config! pedigree-panel :items [ p-panel ])
-      (config! pedigree-panel-fractal :items [ @f-panel ])
-      )))
+    (future
+      (let [id (first (selection e))
+            p-panel (future (build-pedigree-panel-tree id
+                                                       (border-panel) 1))
+            f-panel (future (build-pedigree-panel-fractal id))
+            d-panel (future (build-descendent-panel-tree id
+                                                         (border-panel) 1))]
+        
+        
+        (config! descendent-panel :items [ @d-panel ])
+        (config! pedigree-panel :items [ @p-panel ])
+        (config! pedigree-panel-fractal :items [ @@f-panel ])
+        ))))
            
 
 (defn viewer-app []

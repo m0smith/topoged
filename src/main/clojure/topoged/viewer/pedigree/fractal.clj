@@ -27,7 +27,7 @@
   ;(rect 0 0 (* h 0.8) (/ h 6))
   ;(fill 0)
   ;(rect 0 0 (* h 0.8) (inc pts))
-  (text (str "1" name) 0 0 (* h 0.8) (+ pts pts))
+  (text (str "" name) 0 0 (* h 0.8) (+ pts pts))
 
   
   ;(rect (- (/ h 2)) (- (/ h 6))
