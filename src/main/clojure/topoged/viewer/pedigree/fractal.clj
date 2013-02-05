@@ -1,9 +1,13 @@
 (ns topoged.viewer.pedigree.fractal
-  (:use quil.core))
+  (:use
+   [seesaw.core :only [grid-panel]]
+   [topoged.viewer.common]
+   [quil core]
+   ))
 
 (declare branch)
 
-(defn branch* [h neg-h theta name pts]
+(defn branch* [h neg-h theta name pts model id]
   (push-matrix);    ;; Save the current state of transformation (i.e. where are we now)
   (rotate theta);   ;; Rotate by theta
 
@@ -22,7 +26,8 @@
   (rect-mode :center)
   ;(rect 0 0 (* h 0.8) (/ h 6))
   ;(fill 0)
-  (text (str "kkk" name) 0 0 (* h 0.8) (/ h 2))
+  ;(rect 0 0 (* h 0.8) (inc pts))
+  (text (str "1" name) 0 0 (* h 0.8) (+ pts pts))
 
   
   ;(rect (- (/ h 2)) (- (/ h 6))
@@ -43,11 +48,11 @@
   (translate 0,neg-h); ;; Move to the end of the branch
 
   
-  (branch h theta name pts);       ;; Ok, now call myself to draw two new branches!!
+  (branch h theta name pts model id);       ;; Ok, now call myself to draw two new branches!!
   (pop-matrix);     ;; Whenever we get back here, we "pop" in order to restore the previous matrix state
 )
 
-(defn branch [h1 theta name pts]
+(defn branch [h1 theta name pts model node]
   (let  [m 0.69
          h (* h1 m)
          neg-h (* h1 (- m))]
@@ -55,19 +60,24 @@
     ;;// Here, ours is when the length of the branch is 2 pixels or less
     ;(println "H" h neg-h)
     ;;(line 0 0 100 100)
-    (when (> h1 6)
-      (branch* h neg-h (- theta) (str name "F") (dec pts))
-      (branch* h neg-h theta (str name "M") (dec pts))
-  )))
+    (when (and node (> h1 6) (> (.getChildCount model node) 1))
+      (let [p1 (.getChild model node 0)
+            p2 (.getChild model node 1)]
+        
+        (branch* h neg-h (- theta) (->  (m-entity p1) first :name)
+                 (dec pts) model p1)
+        (branch* h neg-h theta (-> (m-entity p2) first :name)
+                 (dec pts) model p2)
+        ))))
 
 (defn setup []
   (set-state! :mouse-position (atom [0 0]))
   (stroke 255)
   (smooth)                          ;;Turn on anti-aliasing
-  (frame-rate 30)                    ;;Set framerate to 1 FPS
+  (frame-rate 10)                    ;;Set framerate to 1 FPS
   (background 0))                 ;;Set the background colour to
                                     ;;  a nice shade of grey.
-(defn- draw []
+(defn- draw [model]
   (background 0)
  ;; Let's pick an angle 0 to 90 degrees based on the mouse position
   (let[[X Y] @(state :mouse-position)
@@ -94,7 +104,7 @@
     
     ;; Start the recursive branching!
     
-    (branch line-length theta "C" 17)
+    (branch line-length theta "C" 16 model (.getRoot model))
   )
 )
 
@@ -103,13 +113,16 @@
     ;(println "mouse" x y)
     (reset! (state :mouse-position) [x y])))
 
-(def pedigree-panel-fractal
-  (defsketch example                  ;;Define a new sketch named example
-    :title "A tree"  ;;Set the title of the sketch
-    :target :none
-    :mouse-moved mouse-moved
-    :setup setup                      ;;Specify the setup fn
-    :draw draw                        ;;Specify the draw fn
-    :size [700 700]))                  ;;You struggle to beat the golden ratio
 
-(println (class @pedigree-panel-fractal))
+(def pedigree-panel-fractal (grid-panel))
+
+(defn build-pedigree-panel-fractal [id]
+  (let [model (load-model id m-parents-of)]
+    (defsketch example                  ;;Define a new sketch named example
+      :title "A tree"  ;;Set the title of the sketch
+      :target :none
+      :mouse-moved mouse-moved
+      :setup setup                       ;;Specify the setup fn
+      :draw (partial draw model)         ;;Specify the draw fn
+      :size [700 700])))                  ;;You struggle to beat the golden ratio
+

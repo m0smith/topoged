@@ -94,7 +94,7 @@
                 :tabs [ {:title "Tree"
                          :content pedigree-panel}
                         {:title "Fractgal"
-                         :content @pedigree-panel-fractal}]))
+                         :content pedigree-panel-fractal}]))
 
 (def pedigree-panel-container
   (grid-panel :border "Pedigree" :items [pedigree-panel-tabs]))
@@ -157,14 +157,19 @@
 (defn handle-person-selection [e]
   ;(println "SELECTED:" (.getValueIsAdjusting e) e)
   (if (.getValueIsAdjusting e)
-    (let [p-panel (build-pedigree-panel-tree (first (selection e))
+    
+    (let [id (first (selection e))
+          p-panel (build-pedigree-panel-tree id
                                              (border-panel) 1)
-          d-panel (build-descendent-panel-tree (first (selection e))
-                                           (border-panel) 1)]
+          f-panel (build-pedigree-panel-fractal id)
+          d-panel (build-descendent-panel-tree id
+                                               (border-panel) 1)]
       
       
       (config! descendent-panel :items [ d-panel ])
-      (config! pedigree-panel :items [ p-panel ]))))
+      (config! pedigree-panel :items [ p-panel ])
+      (config! pedigree-panel-fractal :items [ @f-panel ])
+      )))
            
 
 (defn viewer-app []
