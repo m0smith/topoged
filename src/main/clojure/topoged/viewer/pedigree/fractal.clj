@@ -50,12 +50,18 @@
   
   (branch h theta name pts model id);       ;; Ok, now call myself to draw two new branches!!
   (pop-matrix);     ;; Whenever we get back here, we "pop" in order to restore the previous matrix state
-)
+  )
+
+(defn next-thetas [theta]
+  (if (< theta 0)
+    [(- theta) theta]
+    [theta (- theta)]))
 
 (defn branch [h1 theta name pts model node]
   (let  [m 0.69
          h (* h1 m)
-         neg-h (* h1 (- m))]
+         neg-h (* h1 (- m))
+         [t1 t2] (next-thetas theta)]
     ;;// All recursive functions must have an exit condition!!!!
     ;;// Here, ours is when the length of the branch is 2 pixels or less
     ;(println "H" h neg-h)
@@ -64,9 +70,9 @@
       (let [p1 (.getChild model node 0)
             p2 (.getChild model node 1)]
         
-        (branch* h neg-h (- theta) (->  (m-entity p1) first :name)
+        (branch* h neg-h  t1 (->  (m-entity p1) first :name)
                  (dec pts) model p1)
-        (branch* h neg-h theta (-> (m-entity p2) first :name)
+        (branch* h neg-h t2 (-> (m-entity p2) first :name)
                  (dec pts) model p2)
         ))))
 
