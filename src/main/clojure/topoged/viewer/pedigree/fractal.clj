@@ -53,7 +53,7 @@
   )
 
 (defn next-thetas [theta]
-  (if (< theta 0)
+  (if (> theta 0)
     [(- theta) theta]
     [theta (- theta)]))
 
