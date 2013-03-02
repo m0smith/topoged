@@ -1,3 +1,4 @@
+
 (defproject topoged "1.0.0-SNAPSHOT"
   :description "Topoged"
   :target-dir "target/"
@@ -7,7 +8,6 @@
   :test-paths ["src/test/clojure" "src/test/resources"]
   :resource-paths ["src/main/resources"]
   :main topoged.viewer.frame
-  :extra-classpath-dirs [ "/usr/lib/jvm/jdk1.7.0/lib/tools.jar" ]
   :dependencies [[org.clojure/clojure "1.5.0-RC6"]
                  [seesaw "1.4.2"]
                  [com.ashafa/clutch "0.3.0"]
