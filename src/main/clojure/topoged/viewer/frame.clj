@@ -1,9 +1,8 @@
 (ns topoged.viewer.frame
-
    (:import [java.io FileNotFoundException])
    (:require [topoged.data.common :as db]
              [topoged.data.inmemory])
-   (:use [topoged.gedcom :only (gedcom-seq)]
+   (:use [topoged init]
          [topoged.viewer status common]
          [topoged.service.plugin.info]
          [topoged.viewer.pedigree tree fractal]
@@ -186,12 +185,13 @@
       ;;pack!
       show!))
 
+
+
+
 (defn -main [ & args ]
   ;(println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
   (native!)
-
-
-  (db/init)
+  (topoged-init)
   (config! lb :model (sort-by second (db/persona-names)))
   (invoke-later (viewer-app)))
 

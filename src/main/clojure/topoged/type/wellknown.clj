@@ -1,8 +1,18 @@
 (ns topoged.type.wellknown)
 
+
+(def type-document-id #uuid "faa130aa-810a-11e2-9e96-0800200c9a66")
+(def representation-document-id #uuid "faa130ab-810a-11e2-9e96-0800200c9a66")
+(def default-context-id #uuid "faa130b1-810a-11e2-9e96-0800200c9a66" )
+
 (def well-known-types 
 " [ key id type representation representationId ] "
 [
+ [ :type-document type-document-id "String" "Indicates a record is a Type" #uuid "42e61480-8114-11e2-9e96-0800200c9a66"]
+ [ :representation-document representation-document-id "String" "Indicates a record is a Representation" #uuid "894e95c0-8748-11e2-9e96-0800200c9a66"]
+ [ :default-context default-context-id "String" "Default Context for a Representation" #uuid "894e95c1-8748-11e2-9e96-0800200c9a66"]
+
+
  [ :name #uuid "faa130a0-810a-11e2-9e96-0800200c9a66" "String" "Name" #uuid "e20423a0-8113-11e2-9e96-0800200c9a66"]
  [ :gender #uuid "faa130a5-810a-11e2-9e96-0800200c9a66" "String" "Gender" #uuid "e20423a1-8113-11e2-9e96-0800200c9a66"] 
  [ :birth-date #uuid "faa130a1-810a-11e2-9e96-0800200c9a66" "String" "Date of birth" #uuid "e20423a2-8113-11e2-9e96-0800200c9a66"]
@@ -14,8 +24,6 @@
  [ :male #uuid "faa130a8-810a-11e2-9e96-0800200c9a66" "String" "Male" #uuid "e20423a8-8113-11e2-9e96-0800200c9a66"]
  [ :female #uuid "faa130a9-810a-11e2-9e96-0800200c9a66" "String" "Female" #uuid "e20423a9-8113-11e2-9e96-0800200c9a66"]
 
- [ :type-document #uuid "faa130aa-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Type" #uuid "42e61480-8114-11e2-9e96-0800200c9a66"]
- [ :representation-document #uuid "faa130ab-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Representation" #uuid "42e61481-8114-11e2-9e96-0800200c9a66"]
  [ :persona-document #uuid "faa130ac-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Persona" #uuid "4ae5e460-8116-11e2-9e96-0800200c9a66"]
  [ :source-document #uuid "faa130ad-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Source" #uuid "4ae5e461-8116-11e2-9e96-0800200c9a66"]
  [ :individual-document #uuid "faa130ae-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Individual" #uuid "4ae5e462-8116-11e2-9e96-0800200c9a66"]
@@ -28,8 +36,8 @@
 ;;  A list of UUIDs to use as future well-known types
 ;; 
 ;; 
-;; #uuid "faa130b0-810a-11e2-9e96-0800200c9a66"
-;; #uuid "faa130b1-810a-11e2-9e96-0800200c9a66"
+;; 
+;; 
 ;; #uuid "faa130b2-810a-11e2-9e96-0800200c9a66"
 ;; #uuid "faa130b3-810a-11e2-9e96-0800200c9a66"
 ;; #uuid "faa130b4-810a-11e2-9e96-0800200c9a66"

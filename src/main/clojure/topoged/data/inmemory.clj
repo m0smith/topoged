@@ -63,7 +63,7 @@
   (let [k (:id m)
         v (@index-by-id k)
         ds (if v [v] @data-store)]
-    ;;(println "DATASTORE" (count ds) m k v)
+    ;(println "DATASTORE" (count ds) m k v)
     (membero pm @data-store)))
 
 (defn add-to-data-store [m]

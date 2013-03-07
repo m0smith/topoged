@@ -43,7 +43,6 @@
       m
       (illegal-args (str "Missing required keys: " kys)))))
 
-
 (defn mmap [f coll]
   (map #(map f %) coll))
 
@@ -76,7 +75,8 @@
 
 (defn add-entity [req-keys type args ]
   (let [m (validate-args req-keys args)
-        m (assoc m :type type :id (uuid))]
+        id (if (:id m) (:id m) (uuid))
+        m (assoc m :type type :id id)]
     (add-to-data-store m)
     m))
 
@@ -104,12 +104,14 @@ that have at least the values in the map specied"
          (indatastoreo ?pm m)
          (?== r ?pm)))
          
-(defn entity "Return all the entities matching the args"
+(defn entities "Return all the entities matching the args"
   ([& args]
      (when args
        (let [m (validate-args [] args)]
          (run* [q]
                (entityo m q))))))
+
+(def entity entities)
 
 (defn entityv "Return all the values of the entities as a vector"
   [kys & args]
