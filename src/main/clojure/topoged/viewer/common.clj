@@ -36,9 +36,9 @@
 
 
 (defn load-model [id next-gen-fn]
-  ;(println "LOAD-MODEL:" id)
+  (println "LOAD-MODEL:" id)
   (let [rtnval (simple-tree-model identity (comp map-undef next-gen-fn) id)]
-    ;(println "RTNVAL:" rtnval)
+    (println "RTNVAL:" rtnval)
     rtnval))
 
 

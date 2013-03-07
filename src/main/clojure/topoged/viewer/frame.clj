@@ -155,7 +155,7 @@
          ]))
 
 (defn handle-person-selection [e]
-  ;(println "SELECTED:" (.getValueIsAdjusting e) e)
+  ;(println "SELECTED:" (.getValueIsAdjusting e) (selection e))
   (if (.getValueIsAdjusting e)
     (future
       (let [id (first (selection e))

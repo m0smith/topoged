@@ -5,6 +5,7 @@
 
 (declare add-to-data-store)
 (declare indatastoreo)
+(declare by-indexo)
 (declare init)
 (declare shutdown)
 (declare dbsync)
@@ -100,7 +101,7 @@ that have at least the values in the map specied"
   [m r]
   (fresh [?pm]
          (featurec ?pm m)
-         (indatastoreo ?pm)
+         (indatastoreo ?pm m)
          (?== r ?pm)))
          
 (defn entity "Return all the entities matching the args"
@@ -126,7 +127,7 @@ that have at least the values in the map specied"
   [child parent order] 
   (fresh [?pm ?parents  ?parentrec ?children]
          (featurec ?pm {:groupType lineage-group-type :parents ?parents :children ?children})
-         (indatastoreo ?pm)                
+         (indatastoreo ?pm {:groupType lineage-group-type :parents ?parents :children ?children})                
          (membero child ?children)
          (membero ?parentrec ?parents)
          (?== ?parentrec [order parent])))

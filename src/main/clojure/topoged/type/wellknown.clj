@@ -1,54 +1,31 @@
 (ns topoged.type.wellknown)
 
-(def well-known-types
+(def well-known-types 
+" [ key id type representation representationId ] "
 [
- [ :name #uuid "faa130a0-810a-11e2-9e96-0800200c9a66" "String" "Name"]
- [ :gender #uuid "faa130a5-810a-11e2-9e96-0800200c9a66" "String" "Gender"] 
- [ :birth-date #uuid "faa130a1-810a-11e2-9e96-0800200c9a66" "String" "Date of birth"]
- [ :birth-place #uuid "faa130a2-810a-11e2-9e96-0800200c9a66" "String" "Place of birth"]
- [ :death-date #uuid "faa130a3-810a-11e2-9e96-0800200c9a66" "String" "Date of death"]
- [ :death-place #uuid "faa130a4-810a-11e2-9e96-0800200c9a66" "String" "Place of death" ] 
- [ :marriage-date #uuid "faa130a6-810a-11e2-9e96-0800200c9a66" "String" "Date of marriage"]
- [ :marriage-place #uuid "faa130a7-810a-11e2-9e96-0800200c9a66" "String" "Place of marraige"]
- [ :male #uuid "faa130a8-810a-11e2-9e96-0800200c9a66" "String" "Male"]
- [ :female #uuid "faa130a9-810a-11e2-9e96-0800200c9a66" "String" "Female"]
+ [ :name #uuid "faa130a0-810a-11e2-9e96-0800200c9a66" "String" "Name" #uuid "e20423a0-8113-11e2-9e96-0800200c9a66"]
+ [ :gender #uuid "faa130a5-810a-11e2-9e96-0800200c9a66" "String" "Gender" #uuid "e20423a1-8113-11e2-9e96-0800200c9a66"] 
+ [ :birth-date #uuid "faa130a1-810a-11e2-9e96-0800200c9a66" "String" "Date of birth" #uuid "e20423a2-8113-11e2-9e96-0800200c9a66"]
+ [ :birth-place #uuid "faa130a2-810a-11e2-9e96-0800200c9a66" "String" "Place of birth" #uuid "e20423a3-8113-11e2-9e96-0800200c9a66"]
+ [ :death-date #uuid "faa130a3-810a-11e2-9e96-0800200c9a66" "String" "Date of death" #uuid "e20423a4-8113-11e2-9e96-0800200c9a66"]
+ [ :death-place #uuid "faa130a4-810a-11e2-9e96-0800200c9a66" "String" "Place of death"#uuid "e20423a5-8113-11e2-9e96-0800200c9a66" ] 
+ [ :marriage-date #uuid "faa130a6-810a-11e2-9e96-0800200c9a66" "String" "Date of marriage" #uuid "e20423a6-8113-11e2-9e96-0800200c9a66"]
+ [ :marriage-place #uuid "faa130a7-810a-11e2-9e96-0800200c9a66" "String" "Place of marraige" #uuid "e20423a7-8113-11e2-9e96-0800200c9a66"]
+ [ :male #uuid "faa130a8-810a-11e2-9e96-0800200c9a66" "String" "Male" #uuid "e20423a8-8113-11e2-9e96-0800200c9a66"]
+ [ :female #uuid "faa130a9-810a-11e2-9e96-0800200c9a66" "String" "Female" #uuid "e20423a9-8113-11e2-9e96-0800200c9a66"]
 
- [ :type-document #uuid "faa130aa-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Type"]
- [ :representation-document #uuid "faa130ab-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Representation"]
- [ :persona-document #uuid "faa130ac-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Persona"]
- [ :source-document #uuid "faa130ad-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Source"]
- [ :individual-document #uuid "faa130ae-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Individual"]
- [ :group-document #uuid "faa130af-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Group"]
+ [ :type-document #uuid "faa130aa-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Type" #uuid "42e61480-8114-11e2-9e96-0800200c9a66"]
+ [ :representation-document #uuid "faa130ab-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Representation" #uuid "42e61481-8114-11e2-9e96-0800200c9a66"]
+ [ :persona-document #uuid "faa130ac-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Persona" #uuid "4ae5e460-8116-11e2-9e96-0800200c9a66"]
+ [ :source-document #uuid "faa130ad-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Source" #uuid "4ae5e461-8116-11e2-9e96-0800200c9a66"]
+ [ :individual-document #uuid "faa130ae-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Individual" #uuid "4ae5e462-8116-11e2-9e96-0800200c9a66"]
+ [ :group-document #uuid "faa130af-810a-11e2-9e96-0800200c9a66" "String" "Indicates a record is a Group" #uuid "4ae5e463-8116-11e2-9e96-0800200c9a66"]
 
 ]) 
-
-(def representation-id
-  {:name #uuid "e20423a0-8113-11e2-9e96-0800200c9a66"
-   :gender #uuid "e20423a1-8113-11e2-9e96-0800200c9a66"
-   :birth-date #uuid "e20423a2-8113-11e2-9e96-0800200c9a66"
-   :birth-place #uuid "e20423a3-8113-11e2-9e96-0800200c9a66"
-   :death-date #uuid "e20423a4-8113-11e2-9e96-0800200c9a66"
-   :death-place #uuid "e20423a5-8113-11e2-9e96-0800200c9a66"
-   :marriage-date #uuid "e20423a6-8113-11e2-9e96-0800200c9a66"
-   :marriage-place #uuid "e20423a7-8113-11e2-9e96-0800200c9a66"
-   :male #uuid "e20423a8-8113-11e2-9e96-0800200c9a66"
-   :female #uuid "e20423a9-8113-11e2-9e96-0800200c9a66"
-   :type-document #uuid "42e61480-8114-11e2-9e96-0800200c9a66"
-   :representation-document #uuid "42e61481-8114-11e2-9e96-0800200c9a66"
-   :persona-document #uuid "4ae5e460-8116-11e2-9e96-0800200c9a66"
-   :individual-document #uuid "4ae5e461-8116-11e2-9e96-0800200c9a66"
-   :source-document #uuid "4ae5e462-8116-11e2-9e96-0800200c9a66"
-   :group-document #uuid "4ae5e463-8116-11e2-9e96-0800200c9a66"})
-  
 
 
 ;; From: http://www.famkruithof.net/uuid/uuidgen
 ;;  A list of UUIDs to use as future well-known types
-;; 
-;; 
-;; 
-;; 
-;; 
 ;; 
 ;; 
 ;; #uuid "faa130b0-810a-11e2-9e96-0800200c9a66"
