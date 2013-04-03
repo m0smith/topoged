@@ -2,7 +2,10 @@
   (:use [seesaw core tree graphics])
   (:require [topoged.data.common :as db]))
 
-(def m-entity (memoize (partial db/entity :id)))
+
+(def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
+
+(def m-entities (memoize (partial db/entities :id)))
 (def m-parents-of (memoize db/parents-of))
 (def m-children-of (memoize db/children-of))
 
@@ -32,18 +35,18 @@
 
 
 (defn map-undef [coll]
-  (map #(if (nil? %) db/UNDEFINEDX %) coll))
+  (map #(if (nil? %) UNDEFINEDX %) coll))
 
 
 (defn load-model [id next-gen-fn]
-  (println "LOAD-MODEL:" id)
+  ;(println "LOAD-MODEL:" id)
   (let [rtnval (simple-tree-model identity (comp map-undef next-gen-fn) id)]
-    (println "RTNVAL:" rtnval)
+    ;(println "RTNVAL:" rtnval)
     rtnval))
 
 
 (defn render-fn [renderer info]
-  (let [ent (first (m-entity (:value info)))]
+  (let [ent (first (m-entities (:value info)))]
     ;(println "ENTITY:" ent info)
     (config! renderer
              :icon  (icon-sex (:sex ent))

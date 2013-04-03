@@ -66,6 +66,9 @@
     ;(println "DATASTORE" (count ds) m k v)
     (membero pm @data-store)))
 
-(defn add-to-data-store [m]
+(defn add-to-data-store 
+  "Return the its argument"
+  [m]
   (swap! data-store conj m)
-  (when-let [id (:id m)] (swap! index-by-id assoc id m)))
+  (when-let [id (:id m)] (swap! index-by-id assoc id m))
+  m)

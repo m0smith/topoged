@@ -70,9 +70,9 @@
       (let [p1 (.getChild model node 0)
             p2 (.getChild model node 1)]
         
-        (branch* h neg-h  t1 (->  (m-entity p1) first :name)
+        (branch* h neg-h  t1 (->  (m-entities p1) first :name)
                  (dec pts) model p1)
-        (branch* h neg-h t2 (-> (m-entity p2) first :name)
+        (branch* h neg-h t2 (-> (m-entities p2) first :name)
                  (dec pts) model p2)
         ))))
 

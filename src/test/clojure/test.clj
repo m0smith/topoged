@@ -1,5 +1,6 @@
 (ns test
   (:use [clojure.java.io :only [reader]])
+
   (:use [clojure.test :only [run-tests deftest is]])
   (:use [topoged.gedcom :only [gedcom? gedcom-seq]])
   )

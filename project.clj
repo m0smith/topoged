@@ -20,6 +20,7 @@
                  [org.clojure/core.logic "0.8.0-rc1"]
                  [quil "1.6.0"]
                  [slingshot "0.10.3"]
+                 [clj-time "0.5.0"]
 		 ]
   :dev-dependencies [[swank-clojure "1.4.0"]
                      [lein-eclipse "1.0.0"]])
