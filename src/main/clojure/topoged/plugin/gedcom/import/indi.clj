@@ -35,21 +35,54 @@
   :type (db/key-id type)
   :owner id
   :value value
-
+  
    }
 )
+
+(defn new-gedcom-individual []
+ {
+  :id (uuid)
+  :key :individual-document
+  :docType (db/key-id :individual-document)
+  :attributes []
+  :children []
+  :parents []
+  :groups []
+   })
+
+(defn new-gedcom-conclusion [{:keys [id name] :as researcher} individual persona]
+ {
+  :id (uuid)
+  :key :conclusion-document
+  :docType (db/key-id :conclusion-document)
+  :owner (:id individual)
+  :member (:id persona)
+  :researcher id
+  :rationale name
+  :basis [(:id persona)]
+  })
   
 (defn add-persona-to-db [{:keys [persona ps]}]
   (db/add-entity db/persona-keys db/persona-type persona)
   ps)
 
-(defn add-attribute-to-db [attr-type {:keys [persona] :as rtnval} {:keys [value]}]
-  (db/add-entity db/attribute-keys db/attribute-type (new-gedcom-attribute persona attr-type value))
-  rtnval)
+(defn add-individual-to-db [{:keys [individual] :as ps}]
+  (db/add-entity db/individual-keys db/individual-type individual)
+  ps)
 
-(defn add-group-to-db [{:keys [group] :as rtnval}]
+(defn add-conclusion-to-db [{:keys [individual persona researcher] :as ps}]
+  (let [ conc (new-gedcom-conclusion researcher persona individual)]
+    (db/add-entity db/conclusion-keys db/conclusion-type conc)
+    ps))
+
+(defn add-attribute-to-db [attr-type {:keys [persona] :as ps} {:keys [value]}]
+  (let [attr (new-gedcom-attribute persona attr-type value)]
+    (db/add-entity db/attribute-keys db/attribute-type attr)
+    (update-in ps [:individual :attributes] conj (:id attr))))
+
+(defn add-group-to-db [{:keys [group] :as ps}]
   (db/add-entity db/group-keys db/group-type group)
-  rtnval)
+  (update-in ps [:individual :groups] conj (:id group)))
 
 (defn assoc-in-persona [k]
   (fn [ps r]
@@ -75,9 +108,10 @@
           (dissoc :group)))))
       
 
-(defn indi-handler [{:keys [source] :as process-state} 
+(defn indi-handler [{:keys [source researcher] :as process-state} 
                     {:keys [value]  :as record}]
   (let [{:keys [id] :as persona} (new-gedcom-persona source value)
+        individual (new-gedcom-individual)
         ps (update-in process-state [:id-in-source] assoc value id)]
     (-> (nested-handler*
          {
@@ -89,17 +123,22 @@
                   :NSFX (assoc-in-persona :suffix)
                   } skip-handler)
           :TITL (assoc-in-persona :title)
-          :SEX (assoc-in-persona :gender)
-          :AFN (assoc-in-persona :ancestral-file-number)
-          :BIRT (group-handler source persona :birth  :child)
-          :CHR (group-handler source persona :christening  :baptismal-candidate)
-          :DEAT (group-handler source persona :death  :deceased)
-          :BURI (group-handler source persona :death  :deceased)
+          :SEX  (assoc-in-persona :gender)
+          :AFN  (assoc-in-persona :ancestral-file-number)
+          :BIRT (group-handler source persona :birth :child)
+          :CHR  (group-handler source persona :christening :baptismal-candidate)
+          :DEAT (group-handler source persona :death :deceased)
+          :BURI (group-handler source persona :death :deceased)
           :BAPL (group-handler source persona :lds-baptism  :baptismal-candidate)
           :ENDL (group-handler source persona :lds-endowment  :recipient)
           :SLGC (group-handler source persona :lds-sealed-to-parents :child)
-          } skip-handler {:persona persona :ps ps } record)
-        add-persona-to-db)))
+          } skip-handler 
+            {:persona persona :ps ps :individual individual :researcher researcher} 
+            record)
+        add-individual-to-db
+        add-conclusion-to-db
+        add-persona-to-db
+        )))
     
 
 

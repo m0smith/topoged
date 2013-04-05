@@ -12,8 +12,9 @@
 
 (defn handle-record [handlers default-handler process-state {:keys [tag] :as record}]
   "The process state is a map that contains the current state of the if the import.
-    :source - the source that represents the GEDCOM being imported.
-    :path - the tags that lead to this record
+    :source       - the source that represents the GEDCOM being imported.
+    :researcher   - id of the researcher    
+    :path         - the tags that lead to this record
     :id-in-source - a map of GEDCOM ids to uuid
 
    The record is a map of the current gedcom record with elements:

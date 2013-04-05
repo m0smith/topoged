@@ -18,6 +18,18 @@
 
 ;;(set! *warn-on-reflection* true)
 
+(def gedcom-researcher-id #uuid "e730e361-b230-4e2c-93b8-9300a7d396ef")
+(def gedcom-importer-version "1.0")
+
+
+(def gedcom-researcher
+  {
+   :id gedcom-researcher-id
+   :key :researcher-document
+   :docType db/researcher-type
+   :name (str "Gedcom Importer " gedcom-importer-version)
+   })
+
 (def gedcom-well-known-types
   [
    [:gedcom-dest #uuid "e25ad0b0-88ca-11e2-9e96-0800200c9a66" "GEDCOM A system receiving data"
@@ -96,6 +108,7 @@
 (defn init-process-state
   []  {
        :source (new-gedcom-source)
+       :researcher gedcom-researcher
        :path []
        :id-in-source {}
        })
@@ -124,4 +137,7 @@
 ;		(status-complete uuid))))
 
 (defn init-plugin []
+  (if (seq (db/entity :id gedcom-researcher-id)) 
+    nil 
+    (db/add-entity db/researcher-keys db/researcher-type gedcom-researcher))
   (doseq [well-known-type gedcom-well-known-types] (type/ensure-well-known-type well-known-type)))

@@ -7,7 +7,7 @@
   :library-path "target/dependency"
   :test-paths ["src/test/clojure" "src/test/resources"]
   :resource-paths ["src/main/resources"]
-  :main topoged.viewer.frame
+  ;:main topoged.viewer.frame
   :dependencies [[org.clojure/clojure "1.5.0-RC4"]
                  [seesaw "1.4.2"]
                  [com.ashafa/clutch "0.3.0"]

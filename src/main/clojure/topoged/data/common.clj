@@ -29,6 +29,15 @@
 (def group-keys [ :key :sourceId :type :members])
 (def group-type :event-group-type)
 
+(def individual-keys [:key :attributes :groups :parents :children])
+(def individual-type :individual-document)
+
+(def researcher-keys [:key ])
+(def researcher-type :researcher-document)
+
+(def conclusion-keys [:key :researcher :member :owner])
+(def conclusion-type :conclusion-document)
+
 (def lineage-keys [:sourceId :parents :children] )
 (def lineage-type :GROUP)
 (def lineage-group-type :LINEAGE)

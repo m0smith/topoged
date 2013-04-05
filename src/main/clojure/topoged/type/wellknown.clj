@@ -54,6 +54,8 @@
  [ :event-group-document #uuid "faa130af-810a-11e2-9e96-0800200c9a66" "Indicates a record is a Group" "Indicates a record is a Group" #uuid "4ae5e463-8116-11e2-9e96-0800200c9a66"]
  [ :attachment-document  #uuid "faa130c2-810a-11e2-9e96-0800200c9a66"  "Indicates a record is an Attachment" "Indicates a record is an Attachment" #uuid "f46b7b3b-c2c2-4bb2-a01e-a08592f76979"]
  [ :attribute-document #uuid "faa130c9-810a-11e2-9e96-0800200c9a66" "Indicates a record is an Attribute of another record" "Attribute" #uuid "de14663a-4803-42af-849b-19a47798a40e"]
+ [ :conclusion-document #uuid "faa157c2-810a-11e2-9e96-0800200c9a66" "Indicates a record is a Conclusion" "Conclusion"  #uuid "9f4247f6-f936-4cf7-9262-a5676b9de403" ]
+ [ :researcher-document #uuid "faa157c3-810a-11e2-9e96-0800200c9a66" "Indicates a record is a Researcher" "Researcher" #uuid "b174b383-31c1-4434-bf39-50432d955c93" ]
 
 ;; SOURCE Citation
 
@@ -112,8 +114,8 @@
 ;; 
 ;; 
 
-;; #uuid "faa157c2-810a-11e2-9e96-0800200c9a66"
-;; #uuid "faa157c3-810a-11e2-9e96-0800200c9a66"
+;; 
+;; 
 ;; #uuid "faa157c4-810a-11e2-9e96-0800200c9a66"
 ;; #uuid "faa157c5-810a-11e2-9e96-0800200c9a66"
 ;; #uuid "faa157c6-810a-11e2-9e96-0800200c9a66"
