@@ -1,0 +1,18 @@
+Step		IN			OUT
+INIT		FileName		gedcom-seq
+
+HEAD		gedcom-seq		graph
+					source	
+
+SUBM		gedcom-seq		graph
+		source			
+
+INDI		gedcom-seq		graph
+		source			id in source map
+
+FAM		gedcom-seq		graph
+		source
+		id in source map
+
+SOUR		gedcom-seq		graph
+		id in source map
