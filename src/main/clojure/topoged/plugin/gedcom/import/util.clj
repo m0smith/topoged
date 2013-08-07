@@ -6,48 +6,67 @@
 
 
 (defn skip-handler [process-state record]
+"A handler that simply ignores the input and returns the process-state unchanged."
   (println "skipping " (:path process-state) (:tag record))
   process-state)
 
 
-(defn handle-record [handlers default-handler process-state {:keys [tag] :as record}]
-  "The process state is a map that contains the current state of the if the import.
-    :source       - the source that represents the GEDCOM being imported.
-    :researcher   - id of the researcher    
-    :path         - the tags that lead to this record
-    :id-in-source - a map of GEDCOM ids to uuid
+(defn handle-record 
+  " handler-factory is a function that accepts a GEDCOM
+   tag (:HEAD, :INDI, etc) and returns a hander for that type of
+   record in the current context.  A handler is a function that
+   accepts process-state and record and returns a new process-state.
+
+   default-handler is the handler used when handler-factory returns nil.
+
+   process state is a map that contains the current state of the of the import.      :source - the source vertex for the GEDCOM being imported.  
+     :path - the tags that lead to this record 
+     :id-in-source - a map of GEDCOM ids to  uuid
 
    The record is a map of the current gedcom record with elements:
-     :tag - The GEDCOM TAG as a keyword
-     :attrs - any attributes of the GEDCOM record like :line-number, :representation :level
-     :value - the value of the GEDCOM record
+     :tag - The GEDCOM TAG as a keyword 
+     :attrs - any attributes of the GEDCOM record like 
+     :line-number, :representation :level 
+     :value - the value of the GEDCOM record 
      :content - a seq of nested GEDCOM records
-    "
-
-  (let [fun (handlers tag)
-        fun (if-not fun default-handler fun)]
+"
+[handler-factory process-state 
+ {:keys [tag] :as record}]
+  (if-let [fun (handler-factory tag)]
     (fun process-state record)))
+
+
 
 
 (defn assoc-in-process-state [doc-key dest-key 
                               process-state
                               {:keys [value] :as record}]
+  
   ;(println value record dest-key (coll? dest-key))
   (let [kys (if (coll? dest-key) (mapv db/key-id dest-key) (db/key-id dest-key))]
     (assoc-in process-state [doc-key kys] value)))
 
+(defn using-default 
+"wrap the function f to return a default value when it is falsey"
+[f def-fn]
+  (fn [arg]
+    (if-let [rtnval (f arg)]
+      rtnval
+      def-fn)))
 
 (defn nested-handler* 
-  [handlers def 
+  [handlers 
    {:keys [path] :as process-state} 
    {:keys [tag content] :as record}]
   ;(println "NH*: " process-state)
   (let [ps (update-in process-state [:path] conj tag)]
-    (->  (reduce (partial handle-record handlers def) ps content)
+    (->  (reduce (partial handle-record handlers) ps content)
          (assoc :path path))))
 
-(defn nested-handler [handlers def]
-  (partial nested-handler* handlers def))
+(defn nested-handler 
+  "Created a nested process-state and then call the handlers."
+  [handler-factory default-handler]
+  (partial nested-handler* (using-default handler-factory default-handler)))
 
 
 (defn thread-process-state [f1 f2 process-state record]

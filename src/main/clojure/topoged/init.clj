@@ -4,8 +4,8 @@
             [topoged.data.inmemory]))
 
 (defn topoged-init []
-  (db/init)
-  (type-init)
+  ;(db/init)
+  ;(type-init)
   )
 
   
