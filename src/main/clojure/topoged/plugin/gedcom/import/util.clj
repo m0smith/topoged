@@ -7,7 +7,7 @@
 
 (defn skip-handler [process-state record]
 "A handler that simply ignores the input and returns the process-state unchanged."
-  (println "skipping " (:path process-state) (:tag record))
+  (println "skipping "  (:tag record))
   process-state)
 
 
@@ -48,11 +48,11 @@
 
 (defn using-default 
 "wrap the function f to return a default value when it is falsey"
-[f def-fn]
+[f def]
   (fn [arg]
     (if-let [rtnval (f arg)]
       rtnval
-      def-fn)))
+      def)))
 
 (defn nested-handler* 
   [handlers 

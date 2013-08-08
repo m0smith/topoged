@@ -4,6 +4,9 @@
             [archimedes.vertex :as v]
             [archimedes.query  :as q])
   (:use [topoged.file :only (copy-to-temp )]
+        [topoged gedcom]
+        [topoged.plugin.gedcom.import.util :only (using-default handle-record skip-handler)]
+        [clojure.java.io :only [input-stream output-stream reader]]
         [clj-time.core :only [now]]))
 
 (def ^:dynamic *researcher* nil)
@@ -40,18 +43,24 @@
   (let [now (now)
         source (v/create! {:type :source :media :gedcom 
                            :meduim :web :accessed-date now} )
-        media (v/create! {:type :media :md5 md5 :media :gedcom} )
+        media (v/create! {:type :media :md5 md5 :media :gedcom :data (slurp input)} )
         delta (v/create! {:type :delta } )]
     (add-edge source :attachment media)    
     (add-edge source :contributor *type* {:date now} )
     (add-edge delta :using *type* )
     (add-edge delta :who *researcher* )
     (add-edge delta :what source )
-    [source delta]))
+    [source delta media]))
+
+(def zero-level-handlers 
+  (using-default {} skip-handler))
 
 (defn import-gedcom1 [input md5]
-  (let [[source delta] (initialize-source input md5)]
-    [delta]))
+  (let [[source delta media] (initialize-source input md5)
+        gseq (gedcom-seq (line-seq (reader input)))
+        process-state {}]
+    (reduce (partial handle-record zero-level-handlers) process-state gseq)
+    [source delta media]))
 
 (defn import-gedcom [input]
   "Imports a gedcom. Expects an something reader likes.  Returns [delta]"
