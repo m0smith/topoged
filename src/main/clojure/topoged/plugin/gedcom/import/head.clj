@@ -60,7 +60,7 @@
             ps)
         (let [vector (v/create! m)
               source (:source ps)]
-          (println "ensure-vector" ps head-state ky vector)
+          ;(println "ensure-vector" ps head-state ky vector)
           (add-edge source ky vector)
           (assoc-in ps [ky] vector))))
     ps))
@@ -70,7 +70,7 @@
   (let [subhandler (nested-handler handlers skip-handler)
         [new-ps head-state :as rtnval] (apply subhandler ps record path {:head-state 1} more) 
         ]
-    (println "top-level-head-handler" rtnval )
+    ;(println "top-level-head-handler" rtnval )
     (-> new-ps
         (ensure-vector head-state :source) 
         (ensure-vector head-state :media) 

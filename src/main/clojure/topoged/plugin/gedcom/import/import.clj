@@ -43,12 +43,12 @@
         source (v/create! {:type :source :media :gedcom 
                            :meduim :web :accessed-date now} )
         media (v/create! {:type :media :md5 md5 :media :gedcom :data (slurp input)} )
-        delta (v/create! {:type :delta } )]
+        delta (v/create! {:type :delta :date now} )]
     (add-edge source :attachment media)    
-    (add-edge source :contributor *type* {:date now} )
+    ;(add-edge source :contributor *type*  )
     (add-edge delta :using *type* )
     (add-edge delta :who *researcher* )
-    (add-edge delta :what source )
+    (add-edge delta :basis source )
     [source delta media]))
 
 (def zero-level-handlers 

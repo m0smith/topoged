@@ -7,7 +7,7 @@
 
 (defn skip-handler [process-state record path & more]
 "A handler that simply ignores the input and returns the process-state unchanged."
-  ;(println "skipping "  (:tag record) " path:" path process-state more)
+  (println "skipping "  (:tag record) " path:" path )
   (apply vector process-state more))
 
 (defprotocol HandlerResult
@@ -71,7 +71,7 @@
    path
    & more]
   (let [inital-value (apply vector process-state-in more)]
-    (println "NH*: " process-state-in more inital-value)
+    ;(println "NH*: " process-state-in more inital-value)
     (reduce #(apply handle-record handlers 
                             (process-state %1) 
                             %2
