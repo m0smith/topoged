@@ -4,15 +4,14 @@
             [archimedes.vertex :as v]
             [archimedes.query  :as q])
   (:use [topoged.file :only (copy-to-temp )]
-        [topoged gedcom]
-        [topoged.plugin.gedcom.import.util :only (using-default handle-record skip-handler)]
+        [topoged gedcom db]
+        [topoged.plugin.gedcom.import.util :only (using-default-handler handle-record skip-handler)]
+        [topoged.plugin.gedcom.import.head :only (head-handler subm-handler)]
         [clojure.java.io :only [input-stream output-stream reader]]
         [clj-time.core :only [now]]))
 
 (def ^:dynamic *researcher* nil)
 (def ^:dynamic *type* nil)
-
-(def add-edge (partial e/connect-with-id! nil))
 
 (defn already-imported? 
   "Returns nil if not already imported or a seq of the delta vertices of the
@@ -53,15 +52,17 @@
     [source delta media]))
 
 (def zero-level-handlers 
-  (using-default {} skip-handler))
+  (using-default-handler skip-handler 
+                 {:HEAD head-handler
+                  :SUBM subm-handler}))
 
 (defn import-gedcom1 [input md5]
   (let [[source delta media] (initialize-source input md5)
         gseq (gedcom-seq (line-seq (reader input)))
-        process-state {}]
-    (reduce (partial handle-record zero-level-handlers) process-state gseq)
+        process-state {:source source :media media}]
+    (reduce #(handle-record zero-level-handlers %1 %2 []) process-state gseq)
     [source delta media]))
-
+ 
 (defn import-gedcom [input]
   "Imports a gedcom. Expects an something reader likes.  Returns [delta]"
   (let [[temp-file md5] (copy-to-temp "topoged-" ".ged" input)]

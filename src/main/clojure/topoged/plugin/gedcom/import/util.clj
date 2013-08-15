@@ -5,17 +5,31 @@
 (set! *warn-on-reflection* true)
 
 
-(defn skip-handler [process-state record]
+(defn skip-handler [process-state record path & more]
 "A handler that simply ignores the input and returns the process-state unchanged."
-  (println "skipping "  (:tag record))
-  process-state)
+  ;(println "skipping "  (:tag record) " path:" path process-state more)
+  (apply vector process-state more))
+
+(defprotocol HandlerResult
+  (process-state [hr])
+  (other-states [hr]))
+
+(extend-type clojure.lang.IPersistentMap
+  HandlerResult
+  (process-state [hr] (if (:process-state hr) (:process-state hr) hr))
+  (other-states [_] nil))
+
+(extend-type clojure.lang.IPersistentVector
+  HandlerResult
+  (process-state [hr] (first hr))
+  (other-states [hr] (rest hr)))
 
 
 (defn handle-record 
-  " handler-factory is a function that accepts a GEDCOM
+  "handler-factory is a function that accepts a GEDCOM
    tag (:HEAD, :INDI, etc) and returns a hander for that type of
    record in the current context.  A handler is a function that
-   accepts process-state and record and returns a new process-state.
+   accepts process-state and record and returns an implementation of HandlerResult.
 
    default-handler is the handler used when handler-factory returns nil.
 
@@ -30,13 +44,9 @@
      :value - the value of the GEDCOM record 
      :content - a seq of nested GEDCOM records
 "
-[handler-factory process-state 
- {:keys [tag] :as record}]
+[handler-factory process-state {:keys [tag] :as record} path & more]
   (if-let [fun (handler-factory tag)]
-    (fun process-state record)))
-
-
-
+    (apply fun process-state record path more)))
 
 (defn assoc-in-process-state [doc-key dest-key 
                               process-state
@@ -46,9 +56,9 @@
   (let [kys (if (coll? dest-key) (mapv db/key-id dest-key) (db/key-id dest-key))]
     (assoc-in process-state [doc-key kys] value)))
 
-(defn using-default 
+(defn using-default-handler 
 "wrap the function f to return a default value when it is falsey"
-[f def]
+[def f]
   (fn [arg]
     (if-let [rtnval (f arg)]
       rtnval
@@ -56,17 +66,24 @@
 
 (defn nested-handler* 
   [handlers 
-   {:keys [path] :as process-state} 
-   {:keys [tag content] :as record}]
-  ;(println "NH*: " process-state)
-  (let [ps (update-in process-state [:path] conj tag)]
-    (->  (reduce (partial handle-record handlers) ps content)
-         (assoc :path path))))
+   process-state-in
+   {:keys [tag content] :as record}
+   path
+   & more]
+  (let [inital-value (apply vector process-state-in more)]
+    (println "NH*: " process-state-in more inital-value)
+    (reduce #(apply handle-record handlers 
+                            (process-state %1) 
+                            %2
+                            (conj path tag) 
+                            (other-states %1)) 
+            inital-value content)))
+       
 
 (defn nested-handler 
   "Created a nested process-state and then call the handlers."
   [handler-factory default-handler]
-  (partial nested-handler* (using-default handler-factory default-handler)))
+  (partial nested-handler* (using-default-handler default-handler  handler-factory)))
 
 
 (defn thread-process-state [f1 f2 process-state record]
@@ -80,17 +97,17 @@
     (assoc m 0 "Importing" index (inc (m index))))) 
 
 
-(defn add-record [map rec status-agent type]
-  (send status-agent status-importing type)
-  (add map rec))
+;; (defn add-record [map rec status-agent type]
+;;   (send status-agent status-importing type)
+;;   (add map rec))
 
-(defn add-persona [map rec status-agent] (add-record map rec status-agent :persona))
-(defn add-group [map rec status-agent] (add-record map rec status-agent :group))
-(defn add-source [map rec status-agent] (add-record map rec status-agent :source))
+;; (defn add-persona [map rec status-agent] (add-record map rec status-agent :persona))
+;; (defn add-group [map rec status-agent] (add-record map rec status-agent :group))
+;; (defn add-source [map rec status-agent] (add-record map rec status-agent :source))
 
 
-(defn source-id [record] (-> record :attrs :value))
+;; (defn source-id [record] (-> record :attrs :value))
 
-(defn new-id [uuid record] (str uuid "-" (source-id record)))
+;; (defn new-id [uuid record] (str uuid "-" (source-id record)))
 
     
