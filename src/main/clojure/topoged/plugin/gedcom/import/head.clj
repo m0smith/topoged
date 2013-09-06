@@ -4,9 +4,7 @@
    [topoged.plugin.gedcom.import.util :only (apply-h nested-handler*)]
    ))
 
-
 (defrecord HeadContext   [source-map media-map publisher-map repository-map])
-
 
 (defn head-rec-handler [map-key
                         attr-key 
@@ -26,7 +24,6 @@
  :VERS (to-media :version)
  :FORM (to-media :form)
  })
-
 
 (def sour-handler-map
 {
@@ -71,19 +68,22 @@
     (add-edge db out label in {})))
 
 (defn head-post-process 
-"Updates the database with the information gathered from he HEAD section.
-Returns a vector of [publisher-vertex repository-vertex] either of which can be nil."
-[db {:keys [source-map media-map repository-map publisher-map]}  source media]
-(merge-node-when source-map db source)
-(merge-node-when media-map db media)
-(let [pub (add-node-when publisher-map db) 
-      repo (add-node-when repository-map db)]
-  (add-edge-when pub db :publisher source)
-  (add-edge-when repo db :repository source)
-  [pub repo]))
+  "Updates the database with the information gathered from he HEAD section.
+   Returns a vector of [publisher-vertex repository-vertex] either of which can be nil."
+  
+  [db {:keys [source-map media-map repository-map publisher-map]}  source media]
+  (merge-node-when source-map db source)
+  (merge-node-when media-map db media)
+  (let [pub (add-node-when publisher-map db) 
+        repo (add-node-when repository-map db)]
+    (add-edge-when pub db :publisher source)
+    (add-edge-when repo db :repository source)
+    [pub repo]))
 
-(defn head-handler2 [{:keys [db shared-context] :as import-context}
-                     record path]
+
+(defn head-handler2 
+  ""
+  [{:keys [db shared-context] :as import-context} record path]
   (let [local-context (->HeadContext {} {} {} {} )
         {:keys [source media]} shared-context
         rtnval  (->  (assoc import-context :local-context local-context)

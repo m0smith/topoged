@@ -6,7 +6,6 @@
 
 (defrecord TopogedContext [user db])
 
-
 (defn- create-context []
   (g/use-clean-graph!)
   (let [db (reify tdb/DataStore
