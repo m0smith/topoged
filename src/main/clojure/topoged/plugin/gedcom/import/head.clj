@@ -1,96 +1,122 @@
 (ns topoged.plugin.gedcom.import.head
-  (:use [topoged.plugin.gedcom.import.util]
-        [topoged db])
-  (:require             [archimedes.vertex :as v]))
-
-
-(defn assoc-in-head-state [doc-key dest-keys ps {:keys [value] :as record} path hs & more]
-  ;(println "assoc-in-head-state " doc-key dest-keys value path hs)
-  [ps (assoc-in hs [doc-key dest-keys] value)])
-
-
-(defn assoc-in-source [k]
-  (partial assoc-in-process-state :source k))
-
-(defn assoc-in-source-nested [k handlers def]
-  (partial thread-process-state (assoc-in-source k) (nested-handler handlers def)))
-
-(def gedc-handlers
-{
- :VERS (partial assoc-in-head-state :media :version)
- :FORM (partial assoc-in-head-state :media :form)
-})
-
-(defn assoc-in-head-nested [doc-key dest-keys handlers]
-  (fn [ps record path hs & more]
-    (let [r1 (apply assoc-in-head-state doc-key dest-keys ps record path hs more)]
-      (apply (nested-handler handlers skip-handler)
-             (process-state r1) record path (other-states r1)))))
-
-
-(def sour-handlers
-{
- :VERS (partial assoc-in-head-state :publisher :version)
- :NAME (partial assoc-in-head-state :source :publisher)
- :CORP (partial assoc-in-head-nested :publisher :corporation
-                {:ADDR (partial assoc-in-head-state :publisher :address)})
- :DATA (nested-handler 
-        {
-         :DATE (partial assoc-in-head-state :source :date)
-         :COPR (partial assoc-in-head-state :source :copyright)
-         } skip-handler)})
-
-
-(def head-handlers
-{
- :SOUR (assoc-in-head-nested :source :publisher sour-handlers)
- :DATE (partial assoc-in-head-state :source :date)
- :FILE (partial assoc-in-head-state :source :title)
- :LANG (partial assoc-in-head-state :source :language)
- :GEDC (nested-handler gedc-handlers skip-handler)
- :DEST (partial assoc-in-head-state :media :destination)
- :CHAR (partial assoc-in-head-state :media :charset)
-})
-
-(defn ensure-vector [ps head-state ky]
-  (if-let [ m (ky head-state)]
-    (let [vector (ky ps)]
-      (if vector
-        (do (v/merge! vector m) 
-            ps)
-        (let [vector (v/create! m)
-              source (:source ps)]
-          ;(println "ensure-vector" ps head-state ky vector)
-          (add-edge source ky vector)
-          (assoc-in ps [ky] vector))))
-    ps))
-
-      
-(defn top-level-head-handler [handlers ps {:keys [tag] :as record} path & more]
-  (let [subhandler (nested-handler handlers skip-handler)
-        [new-ps head-state :as rtnval] (apply subhandler ps record path {:head-state 1} more) 
-        ]
-    ;(println "top-level-head-handler" rtnval )
-    (-> new-ps
-        (ensure-vector head-state :source) 
-        (ensure-vector head-state :media) 
-        (ensure-vector head-state :repository) 
-        (ensure-vector head-state :publisher))))
-
-(def head-handler (partial top-level-head-handler head-handlers))
-
-(def subm-handler 
-  (partial top-level-head-handler 
-   {
-    :NAME (partial assoc-in-head-state :source :author)
-    :ADDR (partial assoc-in-head-state :repository :address)
-    :COMM (partial assoc-in-head-state :repository :notes)
-    :PHONE (partial assoc-in-head-state :repository :phone)
-    :PHON (partial assoc-in-head-state :repository :phone)
-    :EMAIL (partial assoc-in-head-state :repository :email)
-    :_EMAIL (partial assoc-in-head-state :repository :email)
-    :CTRY (partial assoc-in-head-state :repository :country)
-    :DEST (partial assoc-in-head-state :media :destination)
-    } 
+  (:use     
+   [topoged db]
+   [topoged.plugin.gedcom.import.util :only (apply-h nested-handler*)]
    ))
+
+
+(defrecord HeadContext   [source-map media-map publisher-map repository-map])
+
+
+(defn head-rec-handler [map-key
+                        attr-key 
+                        import-context
+                        {:keys [value]}
+                        path]
+  (assoc-in import-context [:local-context map-key attr-key] value ))
+
+
+(defn to-source    [ky] (partial head-rec-handler :source-map ky))
+(defn to-media     [ky] (partial head-rec-handler :media-map ky))
+(defn to-publisher [ky] (partial head-rec-handler :publisher-map ky))
+(defn to-repository [ky] (partial head-rec-handler :repository-map ky))
+
+(def gedc-handler-map
+{
+ :VERS (to-media :version)
+ :FORM (to-media :form)
+ })
+
+
+(def sour-handler-map
+{
+ :VERS (to-publisher :version)
+ :NAME (to-source :publisher)
+ :CORP (apply-h (to-publisher :corporation)
+                (partial nested-handler* 
+                         {:ADDR (to-publisher :address)}))
+ :DATA (partial nested-handler*
+                {
+                 :DATE (to-source :date)
+                 :COPR (to-source :copyright)
+                 })})
+
+
+(def head-handler-map 
+  {:FILE (to-source :title)
+   :DATE (to-source :date) 
+   :LANG (to-source :language)
+   :DEST (to-media  :destination)
+   :CHAR (to-media  :charset)
+   :GEDC (partial nested-handler* gedc-handler-map)
+   :SOUR (apply-h (to-source :publisher) 
+                  (to-publisher :name)
+                  (partial nested-handler* sour-handler-map))
+   }
+)
+
+(def nested-head-handler (partial nested-handler* head-handler-map))
+
+
+(defn add-node-when [attr-map db]
+  (when (> (count attr-map) 0)
+    (add-node db attr-map)))
+
+(defn merge-node-when [attr-map db node]
+  (when (> (count attr-map) 0)
+    (merge-node db node attr-map)))
+
+(defn add-edge-when [in db label out]
+  (when (> (count in) 0)
+    (add-edge db out label in {})))
+
+(defn head-post-process 
+"Updates the database with the information gathered from he HEAD section.
+Returns a vector of [publisher-vertex repository-vertex] either of which can be nil."
+[db {:keys [source-map media-map repository-map publisher-map]}  source media]
+(merge-node-when source-map db source)
+(merge-node-when media-map db media)
+(let [pub (add-node-when publisher-map db) 
+      repo (add-node-when repository-map db)]
+  (add-edge-when pub db :publisher source)
+  (add-edge-when repo db :repository source)
+  [pub repo]))
+
+(defn head-handler2 [{:keys [db shared-context] :as import-context}
+                     record path]
+  (let [local-context (->HeadContext {} {} {} {} )
+        {:keys [source media]} shared-context
+        rtnval  (->  (assoc import-context :local-context local-context)
+                     (nested-head-handler record path))]
+    (head-post-process db local-context source media)
+    rtnval))
+
+(def subm-handler-map
+  {
+    :NAME (to-source :author)
+    :ADDR (to-repository :address)
+    :COMM (to-repository :notes)
+    :PHONE (to-repository :phone)
+    :PHON (to-repository :phone)
+    :EMAIL (to-repository :email)
+    :_EMAIL (to-repository :email)
+    :CTRY (to-repository :country)
+    :DEST (to-media :destination)
+    } 
+
+  )
+
+(def subm-nested-handler (partial nested-handler* subm-handler-map))
+
+(defn subm-handler [{:keys [db shared-context] :as import-context}
+                    record path]
+  (let [local-context (->HeadContext {} {} {} {} )
+        {:keys [source media]} shared-context
+        rtnval  (->  (assoc import-context :local-context local-context)
+                     (subm-nested-handler record path))]
+    (head-post-process db local-context source media)
+    rtnval))
+
     
+    
+

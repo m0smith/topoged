@@ -1,17 +1,20 @@
 (ns topoged.plugin.gedcom.import.import
-  (:require [archimedes.edge :as e]
-            [archimedes.core :as g]
-            [archimedes.vertex :as v]
+  (:require [archimedes.vertex :as v]
             [archimedes.query  :as q])
-  (:use [topoged.file :only (copy-to-temp )]
-        [topoged gedcom db]
-        [topoged.plugin.gedcom.import.util :only (using-default-handler handle-record skip-handler)]
-        [topoged.plugin.gedcom.import.head :only (head-handler subm-handler)]
+  (:use [topoged.file :only (copy-to-temp)]
+        ;[topoged gedcom init]
+        [topoged.db]
+        [topoged.gedcom :only (gedcom-seq)]
+        [topoged.plugin.gedcom.import.util :only (handle-record-with-default skip-handler)]
+        [topoged.plugin.gedcom.import.head :only (head-handler2 
+                                                  subm-nested-handler)]
+        ;[topoged.plugin.gedcom.import.indi :only (indi-handler)]
         [clojure.java.io :only [input-stream output-stream reader]]
         [clj-time.core :only [now]]))
 
-(def ^:dynamic *researcher* nil)
-(def ^:dynamic *type* nil)
+
+(defrecord SharedContext [source delta media input md5])
+(defrecord ImportContext [shared-context local-context db user])
 
 (defn already-imported? 
   "Returns nil if not already imported or a seq of the delta vertices of the
@@ -22,50 +25,43 @@
       (q/find-vertices (first sources ) 
                        (q/direction :in)
                        (q/labels :what)))))
-        
-  
 
-(defn init []
-  (g/use-clean-graph!)
-  (alter-var-root (var *researcher*)
-                  (fn [r] (v/create! {:type :researcher})))
-  (alter-var-root (var *type*)
-                  (fn [r] (v/create! {:type :process :name :gedcom-importer :version 1.0 }))))
-
-
-(defn initialize-source 
+(defn initialize-context 
   "Take the GEDCOM and the md5 and create the graph that relates the
-  research, media and source all together.  Return [source delta].
-
-  NOTE: researcher can be specified by binding the *researcher* var"
-  [input md5]
+  research, media and source all together. "
+  [db user type input md5]
   (let [now (now)
-        source (v/create! {:type :source :media :gedcom 
+        source (add-node db {:type :source :media :gedcom 
                            :meduim :web :accessed-date now} )
-        media (v/create! {:type :media :md5 md5 :media :gedcom :data (slurp input)} )
-        delta (v/create! {:type :delta :date now} )]
-    (add-edge source :attachment media)    
-    ;(add-edge source :contributor *type*  )
-    (add-edge delta :using *type* )
-    (add-edge delta :who *researcher* )
-    (add-edge delta :basis source )
-    [source delta media]))
+        media (add-node db {:type :media :md5 md5 :media :gedcom :data (slurp input)} )
+        delta (add-node db {:type :delta :date now} )]
+    (add-edge db source :attachment media {})    
+    (add-edge db source :contributor type {}  )
+    (add-edge db delta  :using type {})
+    (add-edge db delta  :who user {})
+    (add-edge db delta  :basis source {})
+    (->ImportContext
+     (->SharedContext  source  delta  media  input  md5)
+     {} db user)))
 
-(def zero-level-handlers 
-  (using-default-handler skip-handler 
-                 {:HEAD head-handler
-                  :SUBM subm-handler}))
+(def top-level-handler-map
+  {:HEAD head-handler2
+   :SUBM subm-nested-handler})
 
-(defn import-gedcom1 [input md5]
-  (let [[source delta media] (initialize-source input md5)
-        gseq (gedcom-seq (line-seq (reader input)))
-        process-state {:source source :media media}]
-    (reduce #(handle-record zero-level-handlers %1 %2 []) process-state gseq)
-    [source delta media]))
- 
-(defn import-gedcom [input]
-  "Imports a gedcom. Expects an something reader likes.  Returns [delta]"
-  (let [[temp-file md5] (copy-to-temp "topoged-" ".ged" input)]
-    (if-let [delta (already-imported? temp-file md5)]
-      delta
-      (import-gedcom1 temp-file md5))))
+
+(defn prepare [{:keys [user db] :as topoged-context}]
+  (let [type  (add-node db {:type :process :name :gedcom-importer :version 1.0})]
+    (letfn 
+        [(import-gedcom* [input]
+           (let [[temp-file md5] (copy-to-temp "topoged-" ".ged" input)]
+             (if-let [delta (already-imported? temp-file md5)]
+               delta
+               (let [import-context (initialize-context db user type temp-file md5)
+                     
+                     gseq (gedcom-seq (line-seq (reader input)))]
+                 (reduce (partial handle-record-with-default skip-handler top-level-handler-map []) import-context gseq)))))]
+      import-gedcom*)))
+
+(defn import-gedcom [topoged-context input]
+  (let [importer (prepare topoged-context)]
+    (importer input)))
