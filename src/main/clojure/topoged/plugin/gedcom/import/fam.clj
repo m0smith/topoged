@@ -3,32 +3,37 @@
   (:use     [topoged.plugin.gedcom.import.util]
             [topoged db]))
 
-(defn to-persona [k] (assoc-2nd-handler :persona k))
 
-(defn assoc-in-fam-nested 
-  "Assoc the current value in the 2nd state, then pass it to the handlers to process
-the nested values"
-[doc-key dest-keys handlers]
-  (fn [ps record path hs & more]
-    (let [r1 (apply assoc-in-second-state doc-key dest-keys ps record path hs more)]
-      (apply (nested-handler handlers skip-handler)
-             (process-state r1) record path (other-states r1)))))
+
+(defrecord FamContext   [persona-map])
+
+(defn assoc-in-local 
+  ""
+  [map-key
+   attr-key 
+   import-context
+   {:keys [value]}
+   path]
+  (assoc-in import-context [:local-context map-key attr-key] value ))
+
+
+(defn to-persona    [ky] (partial assoc-in-local :persona-map ky))
 
 (defmacro to-event [prefix]
-  `(nested-handler 
+  `(partial nested-handler*
     {
      :DATE (to-persona (keyword (str (name ~prefix) "-date")))
      :PLAC (to-persona (keyword (str (name ~prefix) "-place")))
      :NOTE (to-persona (keyword (str (name ~prefix) "-note")))
      :TEMP (to-persona (keyword (str (name ~prefix) "-temple")))
      :STAT (to-persona (keyword (str (name ~prefix) "-child-status")))
-     }
-    skip-handler))
+     }))
 
 
-(def top-level-handler-map
+(def fam-handler-map
 {
- :NAME (assoc-in-fam-nested :persona :name (nested-handler name-handler-map skip-handler))
+ :NAME (apply-h (to-persona :name)
+                (partial nested-handler* name-handler-map skip-handler))
  :AFN (to-persona :afn)
  :SEX (to-persona :gender)
  :BIRT (to-event :birth)
