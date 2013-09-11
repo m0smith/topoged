@@ -9,6 +9,7 @@
         [topoged.plugin.gedcom.import.head :only (head-handler2 
                                                   subm-nested-handler)]
         [topoged.plugin.gedcom.import.indi :only (indi-handler)]
+        [topoged.plugin.gedcom.import.fam  :only (fam-handler)]
         [clojure.java.io :only [input-stream output-stream reader]]
         [clj-time.core :only [now]]))
 
@@ -47,7 +48,8 @@
 (def top-level-handler-map
   {:HEAD head-handler2
    :SUBM subm-nested-handler
-   :INDI indi-handler})
+   :INDI indi-handler
+   :FAM fam-handler})
 
 
 (defn prepare [{:keys [user db] :as topoged-context}]

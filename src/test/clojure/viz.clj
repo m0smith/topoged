@@ -27,7 +27,9 @@
       (.setVertexIncludePredicate (reify Predicate
                                     (evaluate [_ context]
                                       (let [id (to-int (.getId (. context element)))]
-                                        (<  id  20)))))
+                                        (or
+                                         (<  id  20)
+                                         (> id 40))))))
       (.setVertexLabelTransformer (reify Transformer 
                                     (transform [_ vertex] 
                                       (str (.getProperty vertex "name"))))))
