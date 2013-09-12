@@ -20,8 +20,8 @@
 (defn already-imported? 
   "Returns nil if not already imported or a seq of the delta vertices of the
   previously imported ones."  
-  [temp-file md5]
-  (if-let [medias (seq (v/find-by-kv :md5 md5))]
+  [temp-file md5 db]
+  (if-let [medias (seq (find-by-kv db :md5 md5))]
     (let [sources (q/find-vertices (first medias) (q/direction :in))]
       (q/find-vertices (first sources ) 
                        (q/direction :in)
@@ -57,7 +57,7 @@
     (letfn 
         [(import-gedcom* [input]
            (let [[temp-file md5] (copy-to-temp "topoged-" ".ged" input)]
-             (if-let [delta (already-imported? temp-file md5)]
+             (if-let [delta (already-imported? temp-file md5 db)]
                delta
                (let [import-context (initialize-context db user type temp-file md5)
                      

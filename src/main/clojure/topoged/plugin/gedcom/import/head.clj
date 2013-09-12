@@ -61,7 +61,7 @@
 
 (defn merge-node-when [attr-map db node]
   (when (> (count attr-map) 0)
-    (merge-node db node attr-map)))
+    (merge-node node attr-map)))
 
 (defn add-edge-when [in db label out]
   (when (> (count in) 0)

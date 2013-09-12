@@ -1,12 +1,12 @@
 (ns topoged.viewer.frame
    (:import [java.io FileNotFoundException])
-   (:require [topoged.data.common :as db]
-             [topoged.data.inmemory])
+   (:require [topoged.model.individual :as indi])
    (:use [topoged init]
          [topoged.viewer status common]
          [topoged.service.plugin.info]
          [topoged.viewer.pedigree tree fractal]
-         [topoged.plugin.gedcom.import.core :only (gedcom-import-action)]
+         [topoged.service.plugin.ui :only (ui-choose-file ui-status)]
+         [topoged.plugin.gedcom.import.import :only (import-gedcom)]
          [seesaw core graphics tree]))
   
 ;; (defn display-personas []
@@ -130,22 +130,28 @@
                 :north (label :text "TOPOGED" :h-text-position :center)
                 :south status-bar))
 
-(defn a-import-gedcom-handler [e]
+
+
+(defn gedcom-import-action [topoged-context plugin-info]
+  (if-let [ file (ui-choose-file plugin-info)]
+    (import-gedcom topoged-context file)))
+
+(defn a-import-gedcom-handler [{:keys [db] :as topoged-context} e]
   (let [pi (create-plugin-info top-frame top-frame)]
-    (gedcom-import-action (assoc pi :status status-bar))
-    (config! lb :model (sort-by second (db/persona-names)))
-    (db/dbsync)))
+    (gedcom-import-action topoged-context (assoc pi :status status-bar))
+    (config! lb :model (sort-by second (indi/individual-names db)))
+    ))
 
 
 (defn a-settings-handler [e]
   (println e))
 
 
-(def file-menu
+(defn file-menu [topoged-context]
   (menu :text "File"
         :items
         [
-         (action :handler #(future (a-import-gedcom-handler %))
+         (action :handler #(future (a-import-gedcom-handler topoged-context %))
                  :name "Import GEDCOM"
                  :tip "Import a GEDCOM file.")
          (action :handler a-settings-handler
@@ -171,14 +177,14 @@
         ))))
            
 
-(defn viewer-app []
+(defn viewer-app [ topoged-context ]
 ;  (build-pedigree-panel "CHILD" pedigree-panel)
   (listen lb :selection #(future (handle-person-selection %)))
   (-> (frame :title "Topoged",
              :size [500 :by 500]
              :content top-frame
              :menubar (menubar
-                       :items [file-menu
+                       :items [(file-menu topoged-context)
                                (menu :text "Reports" :items [])
                                (menu :text "Tasks" :items [])])
              :on-close :exit)
@@ -191,9 +197,9 @@
 (defn -main [ & args ]
   ;(println (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
   (native!)
-  (topoged-init)
-  (config! lb :model (sort-by second (db/persona-names)))
-  (invoke-later (viewer-app)))
+  (let [{ :keys [db] :as topoged-context} (topoged-init)]
+    (config! lb :model (sort-by second (indi/individual-names db)))
+    (invoke-later (viewer-app topoged-context))))
 
 ;;(javax.swing.SwingUtilities/invokeLater topoged.viewer.frame/viewer-app)
 

@@ -16,6 +16,8 @@
   (assoc-in import-context [:local-context map-key attr-key] value ))
 
 
+
+
 (defn to-persona    [ky] (partial assoc-in-local :persona-map ky))
 
 
@@ -41,7 +43,7 @@
    :NAME (apply-h (to-persona :name) 
                   (partial nested-handler* indi-name-handler-map))
    :AFN  (to-persona :afn)
-   :SEX  (to-persona :gender)
+   :SEX  (to-persona :sex)
 
    :BIRT (to-event :birth)
    :CHR  (to-event :christening)

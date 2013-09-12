@@ -1,13 +1,17 @@
 (ns topoged.viewer.common
-  (:use [seesaw core tree graphics])
-  (:require [topoged.data.common :as db]))
+  (:use [seesaw core tree graphics]
+        [topoged db])
+  (:require [topoged.model.lineage :as lineage]))
 
 
 (def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
 
-(def m-entities (memoize (partial db/entities :id)))
-(def m-parents-of (memoize db/parents-of))
-(def m-children-of (memoize db/children-of))
+;(def m-entities (memoize (partial db/entities :id)))
+(defn m-entities [ arg ]
+  [(to-data-map arg)])
+
+(def m-parents-of (memoize lineage/parents-of))
+(def m-children-of (memoize lineage/children-of))
 
 (defn std-sex [sex]
   (cond
@@ -46,6 +50,7 @@
 
 
 (defn render-fn [renderer info]
+  (println "render-fn:" info)
   (let [ent (first (m-entities (:value info)))]
     ;(println "ENTITY:" ent info)
     (config! renderer

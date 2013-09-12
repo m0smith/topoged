@@ -6,6 +6,11 @@
 
 (defprotocol DataStore
   (add-node [db data-map])
-  (merge-node [db node data-map])
-  (add-edge [db start label end data-map]))
+  (add-edge [db start label end data-map])
+  (find-by-kv [db ky vl]))
+
+(defprotocol DataStoreNode
+  (to-data-map [node])
+  (merge-node [node data-map])
+  )
 

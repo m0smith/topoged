@@ -86,7 +86,7 @@
              {p-individual :individual} (get id-map p-id)
              {c-id :value} c-member
              {c-individual :individual} (get id-map c-id)]
-         (add-edge db p-individual :lineage c-individual p-member))))))
+         (add-edge db c-individual :lineage p-individual p-member))))))
   
 
 

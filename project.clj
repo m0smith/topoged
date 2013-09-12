@@ -7,7 +7,7 @@
   :library-path "target/dependency"
   :test-paths ["src/test/clojure" "src/test/resources"]
   :resource-paths ["src/main/resources"]
-  ;:main topoged.viewer.frame
+  :main topoged.viewer.frame
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [seesaw "1.4.3"]
                  [clj-glob "1.0.0"]
