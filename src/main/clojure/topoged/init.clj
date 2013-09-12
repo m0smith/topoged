@@ -5,7 +5,33 @@
            [archimedes.edge :as e]
            [topoged.db :as tdb]))
 
-(defrecord TopogedContext [user db])
+(defrecord TopogedContext [user db locale])
+
+(def tower-config
+  {
+   :fallback-locale :en
+   :dictionary
+   {:en  {:pedigree {:Pedigree "Pedigree"
+                     :Tree "Tree"
+                     :Descendants "Descendents"}
+          :menu    {:File "File"
+                    :Settings "Optiones"
+                    :SettingsTip "Settings for TOPOGED."
+                    :Reports "Reports"
+                    :Tasks "Tasks"
+                    :ImportGedcom "Import GEDCOM"
+                    :ImportGedcomTip "Import a GEDCOM file."}}
+    :es  {:pedigree {:Pedigree "Cuadro geneal\u00f3gico"
+                     ;:tree     "árbol"
+                     :Tree     "\u00c1rbol"
+                     :Descendants "Descendencia"}
+          :menu     {:File "Archivo"
+                     :Settings "Optiones"
+                     :SettingsTip "Optiones de TOPOGED."
+                     :Reports "Reportes"
+                     :Tasks "Tareas"
+                     :ImportGedcom "Importa GEDCOM"
+                     :ImportGedcomTip "Importa un archivo de GEDCOM."}}}})
 
 (defn- create-context []
   (g/use-clean-graph!)
@@ -19,13 +45,15 @@
       tdb/DataStoreNode
       (tdb/merge-node [node data-map] (v/merge! node data-map))
       (tdb/to-data-map [node] (v/to-map node)))
+
+
     
     (extend-type TinkerEdge
       tdb/DataStoreNode
       (tdb/merge-node [node data-map] (v/merge! node data-map))
       (tdb/to-data-map [node] (v/to-map node)))
                            
-    (->TopogedContext (tdb/add-node db {:type :researcher}) db)))
+    (->TopogedContext (tdb/add-node db {:type :researcher}) db :es)))
 
 (defn topoged-init []
   (create-context)

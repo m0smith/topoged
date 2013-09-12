@@ -16,6 +16,7 @@
                  [quil "1.6.0"]
                  [slingshot "0.10.3"]
                  [clj-time "0.5.0"]
+                 [com.taoensso/tower "2.0.0-beta5"] 
                  [clojurewerkz/archimedes "1.0.0-alpha5"]
                  [com.tinkerpop.blueprints/blueprints-core "2.4.0"]
                  [com.tinkerpop.blueprints/blueprints-graph-jung "2.4.0"]

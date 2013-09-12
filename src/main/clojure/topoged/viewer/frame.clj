@@ -1,6 +1,7 @@
 (ns topoged.viewer.frame
    (:import [java.io FileNotFoundException])
-   (:require [topoged.model.individual :as indi])
+   (:require [topoged.model.individual :as indi]
+             [taoensso.tower :as tower :refer (with-locale with-tscope t *locale*)])
    (:use [topoged init]
          [topoged.viewer status common]
          [topoged.service.plugin.info]
@@ -88,15 +89,16 @@
 
 
 
-(def pedigree-panel-tabs
+(defn pedigree-panel-tabs [{:keys [locale]}]
   (tabbed-panel :placement :top
-                :tabs [ {:title "Tree"
+                :tabs [ {:title (t locale tower-config :pedigree/Tree)
                          :content pedigree-panel}
-                        {:title "Fractgal"
+                        {:title "Fractal"
                          :content pedigree-panel-fractal}]))
 
-(def pedigree-panel-container
-  (grid-panel :border "Pedigree" :items [pedigree-panel-tabs]))
+(defn pedigree-panel-container [{:keys [locale] :as topoged-context}]
+  (grid-panel :border (t locale tower-config :pedigree/Pedigree)
+              :items [(pedigree-panel-tabs topoged-context)]))
 
 
 
@@ -121,14 +123,15 @@
   root-panel)
 
 
-(def top-frame (border-panel
-                :size [500 :by 500]
-                :center (left-right-split
-                         (scrollable lb)
-                         (top-bottom-split
-                         pedigree-panel-container descendent-panel))
-                :north (label :text "TOPOGED" :h-text-position :center)
-                :south status-bar))
+(defn top-frame [topoged-context]
+  (border-panel
+   :size [500 :by 500]
+   :center (left-right-split
+            (scrollable lb)
+            (top-bottom-split
+             (pedigree-panel-container topoged-context) descendent-panel))
+   :north (label :text "TOPOGED" :h-text-position :center)
+   :south status-bar))
 
 
 
@@ -137,7 +140,8 @@
     (import-gedcom topoged-context file)))
 
 (defn a-import-gedcom-handler [{:keys [db] :as topoged-context} e]
-  (let [pi (create-plugin-info top-frame top-frame)]
+  (let [tf (top-frame topoged-context)
+        pi (create-plugin-info tf tf)]
     (gedcom-import-action topoged-context (assoc pi :status status-bar))
     (config! lb :model (sort-by second (indi/individual-names db)))
     ))
@@ -147,16 +151,16 @@
   (println e))
 
 
-(defn file-menu [topoged-context]
-  (menu :text "File"
+(defn file-menu [{:keys [locale] :as topoged-context}]
+  (menu :text (t locale tower-config :menu/File)
         :items
         [
          (action :handler #(future (a-import-gedcom-handler topoged-context %))
-                 :name "Import GEDCOM"
-                 :tip "Import a GEDCOM file.")
+                 :name (t locale tower-config :menu/ImportGedcom)
+                 :tip (t locale tower-config :menu/ImportGedcomTip))
          (action :handler a-settings-handler
-                 :name "Settings"
-                 :tip "Setting for TOPOGED.")
+                 :name (t locale tower-config :menu/Settings)
+                 :tip (t locale tower-config :menu/SettingsTip))
          ]))
 
 (defn handle-person-selection [e]
@@ -177,16 +181,16 @@
         ))))
            
 
-(defn viewer-app [ topoged-context ]
+(defn viewer-app [ {:keys [locale] :as topoged-context} ]
 ;  (build-pedigree-panel "CHILD" pedigree-panel)
   (listen lb :selection #(future (handle-person-selection %)))
   (-> (frame :title "Topoged",
              :size [500 :by 500]
-             :content top-frame
+             :content (top-frame topoged-context)
              :menubar (menubar
                        :items [(file-menu topoged-context)
-                               (menu :text "Reports" :items [])
-                               (menu :text "Tasks" :items [])])
+                               (menu :text (t locale tower-config :menu/Reports) :items [])
+                               (menu :text (t locale tower-config :menu/Tasks) :items [])])
              :on-close :exit)
       ;;pack!
       show!))
