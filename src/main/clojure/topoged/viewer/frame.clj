@@ -194,7 +194,7 @@
 
 (defn frame-prepare [{:keys [locale db] :as topoged-context}]
   (let [l10n #(t locale tower-config %)
-        local-descendent-panel (grid-panel :border (l10n :pedigree/Descendants))
+        local-descendent-panel (grid-panel)
 
         pedigree-panel-tabs (tabbed-panel :placement :top
                                           :tabs [ {:title (l10n :pedigree/Tree)
@@ -215,7 +215,9 @@
         ]
     (letfn
         [
-         
+         (apply-localizations []
+           (config! local-descendent-panel :border (l10n :pedigree/Descendants)))
+
          (viewer-app []
            (try
              (listen lb :selection #(future (handle-person-selection %)))
