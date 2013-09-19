@@ -196,14 +196,16 @@
   (let [l10n #(t locale tower-config %)
         local-descendent-panel (grid-panel)
 
-        pedigree-panel-tabs (tabbed-panel :placement :top
-                                          :tabs [ {:title (l10n :pedigree/Tree)
-                                                   :content pedigree-panel}
-                                                  {:title (l10n :pedigree/Fractal)
-                                                   :content pedigree-panel-fractal}])
+        pedigree-panel-tabs [ {:title (l10n :pedigree/Tree)
+                               :content pedigree-panel}
+                              {:title (l10n :pedigree/Fractal)
+                               :content pedigree-panel-fractal}]
+        
+        pedigree-panel-tabbed (tabbed-panel :placement :top
+                                            :tabs pedigree-panel-tabs)
 
         pedigree-panel-container (grid-panel :border (l10n :pedigree/Pedigree)
-                                             :items [pedigree-panel-tabs])
+                                             :items [pedigree-panel-tabbed])
         top-frame (border-panel
                    :size [500 :by 500]
                    :center (left-right-split
@@ -276,6 +278,7 @@
                  (config! pedigree-panel-fractal :items [ @@f-panel ])))))
          
          ]
+      (apply-localizations)
       viewer-app)))
 
 
