@@ -128,9 +128,9 @@
 
 (defn -main [ & args ]
   (native!)
-  (let [{ :keys [db] :as topoged-context} (topoged-init)]
-    (let [app (frame-prepare topoged-context)]
-      (invoke-later (app)))))
+  (let [topoged-context (topoged-init)
+        app (frame-prepare topoged-context)]
+    (invoke-later (app))))
 
 
   
