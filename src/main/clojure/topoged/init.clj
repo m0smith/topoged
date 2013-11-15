@@ -11,6 +11,7 @@
   (g/use-clean-graph!)
   (let [db (reify tdb/DataStore
              (tdb/add-node [_ data-map] (v/create! data-map))
+             (tdb/jung [_] g/*graph*)
              
              (tdb/add-edge [_ start label end data-map] 
                (e/connect-with-id! nil start label end data-map))

@@ -4,13 +4,28 @@
             [archimedes.edge :as e]
             [archimedes.query  :as q]))
 
-(defn lineage-of [node direction]
-  (sort-by (comp :order to-data-map)
-           (q/find-edges node
-                         (q/direction direction)
-                         (q/labels :lineage))))
+
+(defn group-of 
+  ([node]
+     (map e/head-vertex (q/find-edges node
+                                      (q/direction :in))))
+  ([node label]
+     (println "group-of: " node label)
+     (map e/head-vertex (q/find-edges node
+                                      (q/direction :in)
+                                      (q/labels label)))))
+
 (defn parents-of [node]
-  (map e/head-vertex  (lineage-of node :out)))
+  (println "parents-of:" node)
+  (let [groups (group-of node :child)]
+    (println "parents-of: groups" groups)
+    (map e/head-vertex (q/find-edges node
+                                     (q/direction :out)
+                                     (q/labels :parent)))))
 
 (defn children-of [node]
-  (map e/tail-vertex  (lineage-of node :in)))
+  (let [groups (group-of node :parent)]
+    (map e/head-vertex (q/find-edges node
+                                     (q/direction :out)
+                                     (q/labels :child)))))
+

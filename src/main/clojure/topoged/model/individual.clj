@@ -9,6 +9,8 @@
     [node (:name m)]))
 
 
-(defn individual-names [db]
+(defn individual-names 
+  "Return a seq of pairs of [vertex name]"
+  [db]
   (sort-by second
            (map node-name-pair (find-by-kv db :type :individual))))

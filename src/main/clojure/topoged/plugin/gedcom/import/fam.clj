@@ -72,22 +72,20 @@
 
 (def fam-nested-handler (partial nested-handler* fam-handler-map))
 
-(defn fam-link-member [db  group {label :type :as member} {:keys [persona]}]
-  (add-edge db group label persona member))
+(defn fam-link-member [db  pgroup igroup {label :type :as member} 
+                       {:keys [persona individual]}]
+  (add-edge db pgroup label persona member)
+  (add-edge db igroup label individual member))
 
 (defn fam-post-processor [ db source {:keys [type] :as group-map} parents children id-map]
-  (let [group (add-node db (merge group-map {:type :group}))]
-    (add-edge db source :contributes group {})
+  ;;(println "fam-post-processor:" parents children id-map)
+  (let [persona-group (add-node db (merge group-map {:type :group}))
+        individual-group (add-node db (merge group-map {:type :group}))]
+    (add-edge db source :contributes persona-group {})
+    (add-edge db source :contributes individual-group {})
     (doseq [member (concat parents children)]
-      (fam-link-member db group member (get id-map (:value member))))
-    (dorun
-     (for [p-member parents c-member children]
-       (let [{p-id :value} p-member
-             {p-individual :individual} (get id-map p-id)
-             {c-id :value} c-member
-             {c-individual :individual} (get id-map c-id)]
-         (add-edge db c-individual :lineage p-individual p-member))))))
-  
+      (fam-link-member db persona-group individual-group member (get id-map (:value member))))))
+      
 
 
 (defn fam-handler 

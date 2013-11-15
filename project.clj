@@ -8,6 +8,14 @@
   :test-paths ["src/test/clojure" "src/test/resources"]
   :resource-paths ["src/main/resources"]
   :main topoged.viewer.frame
+  :jvm-opts [
+             "-server" 
+             ; "-Xms128M" "-Xmx256M"
+             ;; Use these options in development to allow debugging
+             ;; with jswat on localhost port 9900
+             "-Xdebug"
+             "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9900"
+             ]
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [seesaw "1.4.3"]
                  [clj-glob "1.0.0"]
@@ -20,6 +28,10 @@
                  [clojurewerkz/archimedes "1.0.0-alpha5"]
                  [com.tinkerpop.blueprints/blueprints-core "2.4.0"]
                  [com.tinkerpop.blueprints/blueprints-graph-jung "2.4.0"]
+                 [net.sf.jung/jung-graph-impl "2.0.1"]
+                 [net.sf.jung/jung-visualization "2.0.1"]
+                 [org.clojure/tools.trace "0.7.5"]
 		 ]
   :dev-dependencies [;;[swank-clojure "1.4.0"]
+                     
                      [lein-eclipse "1.0.0"]])

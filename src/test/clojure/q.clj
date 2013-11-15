@@ -11,7 +11,8 @@
   (let [{:keys [db] :as topoged-context} (topoged-init)]
     ;(init topoged-context)
     (q topoged-context)
-    (let [people (individual-names db)
-          parents (parents-of (first (last people)))]
-      (map to-data-map parents))))
+    topoged-context))
+;    (let [people (individual-names db)
+;          parents (parents-of (first (last people)))]
+;      (map to-data-map parents))))
 
