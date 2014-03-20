@@ -1,5 +1,6 @@
 (ns basic
   (:use [topoged.init :only [topoged-init]])
+  (:import [com.tinkerpop.blueprints.impls.tg TinkerEdge TinkerVertex])
   (:require[archimedes.core :as g]
            [archimedes.vertex :as v]
            [archimedes.edge :as e]
@@ -19,8 +20,19 @@
   edge"))
 
 (defprotocol SchemaPath
+  (path-add-node [def val])
+  (path-add-edge [def val n1 n2])
   (path-reverse [ele])
   (path-to-q [ele] "Return a function that operates in a query"))
+
+
+(defprotocol NodeManager
+  (node-create [node db type]))
+
+(defprotocol EdgeManager
+  (edge-create [edge db type node1 node2]))
+
+
 
 (defrecord NodeDefinition [label reqs]
   SchemaPath
@@ -71,11 +83,26 @@
      (let [[start end] (edge-direction type start end)]
        (tdb/add-edge db start label end data-map))))
 
+(extend-protocol NodeManager
+  TinkerVertex
+  (node-create [node _ _] node)
+  java.util.Map
+  (node-create [node db type] (add-node! db type node)))
+
+(extend-protocol EdgeManager
+  java.util.Map
+  (edge-create [edge db type node1 node2]
+    (add-edge! db node1 type node2 edge))
+  TinkerEdge
+  (edge-create [edge _ _ _ _] edge))
+
+
+
 ;;
 ;; Path
-;; A path is a vector with a Node or a [Node Edge Node] or with
+;; A path is a vector with a [Node] or a [Node Edge Node] or with
 ;; any number of repeting Edge Node appended.  It repesent a single path
-;; throught the graph. 
+;; through the graph. 
 
 (defn path-rev [path] 
   "Create a path that is the reverse of `path`.  This path will have
@@ -95,15 +122,43 @@ as it must match the last element of p1"
   "Assuming the nodes in `f`, apply `path` to those nodes."
   (reduce path-query** f path)) 
 
-(defn path-query [path node]
+(defn path-query 
   "Look for all paths matching `path` and stating with `node`.
 Eliminates paths back to the starting node"
-  (q/query
-   (v/find-by-id (v/id-of node))
-   (path-query* path)
-   (q/except [(v/find-by-id (v/id-of node))])
-   q/path
-   q/all-into-vecs!))
+  ([path]
+     (let [type (first path)]
+       (q/query
+        (v/find-by-kv :label (get type :label))
+        (path-query* path)
+        q/path
+        q/all-into-vecs!)))
+  ([path node]
+     (q/query
+      (v/find-by-id (v/id-of node))
+      (path-query* path)
+      (q/except [(v/find-by-id (v/id-of node))])
+      q/path
+      q/all-into-vecs!)))
+
+
+
+(defn path-create** [db [t1 n1] [edge-type edge] [t2 n2]]
+  (let [node1 (node-create n1 db t1)
+        node2 (node-create n2 db t2)
+        e (edge-create  edge db edge-type node1 node2)]
+    [[t1 node1] [edge-type e][t2 node2]]))
+
+(defn path-create* [db rtnval [[et nt2] [e n2] :as args] ]
+  (let [node1 (last rtnval)]
+    (apply conj rtnval (subvec (path-create** db node1 [et e] [nt2 n2]) 1))))
+
+(defn path-create [db pathdef node-defs]
+  ""
+  (println "NODE-DEFS:" node-defs)
+  (let [n (node-create  (first node-defs) db (first pathdef))
+        nt (map vector (partition 2 (drop 1 pathdef)) (partition 2 (drop 1 node-defs)))]
+    (map second (reduce (partial path-create* db) [[(first pathdef) n]] nt))))
+
 
 
 ;;;
@@ -145,19 +200,22 @@ Eliminates paths back to the starting node"
 
 (defn add-parents [db child father mother order]
   (when child
-    (when (or father mother)
-      (let [b (add-node! db Birth {:order order})]
-        (add-edge! db b -Child->  child)
-        (when father
-          (add-edge! db father <-Parent- b {:order 0}))
-        (when mother
-          (add-edge! db mother <-Parent- b {:order 1}))))))
+    (let [template [child {:order order} {} {:order 0} father]
+          [child e1 birth _ _] (if father
+                                 (path-create db child->parent-path template)
+                                 template)]
+      (when mother
+        (path-create db child->parent-path 
+                     [child e1 birth {:order 1} mother])))))
 
 (defn parents-of [node]
   (let [m (reduce conj {}
                   (for [[_ _ _ edge parent] (path-query child->parent-path node)]
                     [(v/get edge :order) parent]))]
     [(get m 0) (get m 1)]))
+
+(defn add-spouse [db s1 s2 ]
+  (path-create db marriage-path [ s1 {:order 0} {} {:order 1} s2]))
 
 
 (def p 
@@ -205,5 +263,7 @@ second is the nested father and the third is a nested mother"
 (defn c []
   (let [db (create-context)]
     (apply build db (pof p))
-    (map parents-of (tdb/find-by-kv db :label :individual))))
+    (map parents-of (tdb/find-by-kv db :label :individual))
+    db))
+
 ;    (map #(vector % (-> % v/all-edges-of seq)) (tdb/find-by-kv db :label :individual))))
