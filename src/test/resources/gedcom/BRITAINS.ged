@@ -1,0 +1,200 @@
+0 HEAD
+1 SOUR ANSTFILE
+2 NAME Ancestral File
+2 VERS 4.19
+2 CORP The Church of Jesus Christ of Latter-day Saints
+3 ADDR 50 East North Temple Street
+4 CONT Salt Lake City, UT 84150
+2 DATA Ancestral File (R)
+3 DATE 5 January 1998
+3 COPR Copyright (c) 1987, June 1998 by Intellectual Reserve, Inc.
+4 CONT  All Rights Reserved. 
+1 DEST PAF
+1 DATE 11 FEB 2001
+2 TIME 22:44:18
+1 FILE GEDCOM4.ged
+1 GEDC
+2 VERS GEDCOM 5.5
+2 FORM LINEAGE-LINKED
+1 CHAR ANSEL
+1 SUBM @SUB01@
+1 SUBN @N01@
+0 @SUB01@ SUBM
+1 NAME Created by FamilySearch Internet Genealogy Service
+1 ADDR 50 East North Temple Street
+2 CONT Salt Lake City, UT 84150
+0 @S01@ SOUR
+1 AUTH The Church of Jesus Christ of Latter-day Saints
+1 TITL Ancestral File (R)
+1 PUBL Copyright (c) 1987, June 1998, data as of 5 January 1998
+1 REPO @R01@
+0 @R01@ REPO
+1 NAME Family History Library
+1 ADDR 35 N West Temple Street
+2 CONT Salt Lake City, UT 84150  USA
+0 @N01@ SUBN
+1 DESC 4
+1 ORDI N
+0 @I8HR8-RQ@ INDI
+1 NAME Marcomir IV, King Of The /FRANKS/
+2 GIVN Marcomir IV, King Of The
+2 SURN FRANKS
+1 AFN 8HR8-RQ
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Bef 0128
+2 PLAC 
+1 DEAT
+2 DATE 0149
+2 PLAC 
+1 FAMS @F1601010@
+0 @I8HR8-QK@ INDI
+1 NAME Althildis, Princess Of The /BRITAINS/
+2 GIVN Althildis, Princess Of The
+2 SURN BRITAINS
+1 AFN 8HR8-QK
+1 SEX F
+1 SOUR @S01@
+1 BIRT
+2 DATE Bef 0125
+2 PLAC Of, , , Britain
+1 FAMS @F1601010@
+1 FAMC @F1601009@
+0 @I1RGS-QFT@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QFT
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0133
+2 PLAC 
+1 FAMC @F1601010@
+0 @I1RGS-QDM@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QDM
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0131
+2 PLAC 
+1 FAMC @F1601010@
+0 @I8HR8-SW@ INDI
+1 NAME Clodomir IV, King Of The /FRANKS/
+2 GIVN Clodomir IV, King Of The
+2 SURN FRANKS
+1 AFN 8HR8-SW
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0129
+2 PLAC 
+1 DEAT
+2 DATE 0166
+2 PLAC 
+1 FAMC @F1601010@
+0 @I1RGS-QJG@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QJG
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0139
+2 PLAC 
+1 FAMC @F1601010@
+0 @I1RGS-QKN@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QKN
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0141
+2 PLAC 
+1 FAMC @F1601010@
+0 @I1RGS-QG2@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QG2
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0135
+2 PLAC 
+1 FAMC @F1601010@
+0 @I1RGS-QH8@ INDI
+1 NAME Prince Of The /FRANKS/
+2 GIVN Prince Of The
+2 SURN FRANKS
+1 AFN 1RGS-QH8
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0137
+2 PLAC 
+1 FAMC @F1601010@
+0 @F1601010@ FAM
+1 HUSB @I8HR8-RQ@
+1 WIFE @I8HR8-QK@
+1 CHIL @I1RGS-QFT@
+1 CHIL @I1RGS-QDM@
+1 CHIL @I8HR8-SW@
+1 CHIL @I1RGS-QJG@
+1 CHIL @I1RGS-QKN@
+1 CHIL @I1RGS-QG2@
+1 CHIL @I1RGS-QH8@
+1 MARR
+2 DATE 0129
+0 @I8HR8-M2@ INDI
+1 NAME Coel "Old King Coel" (Coilus) King Of /BRITAIN/
+2 GIVN Coel "Old King Coel" (Coilus) King Of
+2 SURN BRITAIN
+1 AFN 8HR8-M2
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE 0125
+2 PLAC Of, , , Britain
+1 DEAT
+2 DATE 0170
+2 PLAC 
+1 FAMS @F1601009@
+1 FAMC @F1601008@
+0 @I8HR8-PD@ INDI
+1 NAME Aiofe //
+2 GIVN Aiofe
+2 SURN 
+1 AFN 8HR8-PD
+1 SEX F
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 240
+2 PLAC 
+1 FAMC @F1601009@
+0 @F1601009@ FAM
+1 HUSB @I8HR8-M2@
+1 CHIL @I8HR8-QK@
+1 CHIL @I8HR8-PD@
+0 @I8HR8-KP@ INDI
+1 NAME Cyllin Of /BRITAIN/
+2 GIVN Cyllin Of
+2 SURN BRITAIN
+1 AFN 8HR8-KP
+1 SEX M
+1 SOUR @S01@
+1 BIRT
+2 DATE Abt 0099
+2 PLAC Of, , , Britain
+1 FAMS @F1601008@
+0 @F1601008@ FAM
+1 HUSB @I8HR8-KP@
+1 CHIL @I8HR8-M2@
+0 TRLR

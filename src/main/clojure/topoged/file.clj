@@ -1,5 +1,5 @@
 (ns topoged.file
-  (:use [clojure.java.io :only [input-stream output-stream]])
+  (:use [clojure.java.io :only [input-stream output-stream reader]])
   (:import
    (java.io BufferedReader BufferedInputStream BufferedOutputStream File FileInputStream FileOutputStream InputStream OutputStream)
    (java.net MalformedURLException Socket URL URI)))
@@ -22,3 +22,10 @@ Based in duck-streams copy"
 		(.update digest buffer 0 size)
 		(recur))
 	    (.toString (java.math.BigInteger. 1 (.digest digest)) 16))))))) 
+
+(defn copy-to-temp [prefix suffix input]
+  (let [tempfile (File/createTempFile prefix suffix)
+        md5 (with-open [^InputStream  r (input-stream input)
+                        ^OutputStream w (output-stream tempfile)]
+              (copy-md5 r w))]
+    [tempfile md5]))

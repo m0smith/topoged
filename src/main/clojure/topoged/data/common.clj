@@ -1,47 +1,69 @@
 (ns topoged.data.common
   (:use [topoged.util]
+        [slingshot.slingshot :only [throw+]]
         [clojure.core.logic :rename {== ?==}]))
 
 
 (declare add-to-data-store)
 (declare indatastoreo)
+(declare by-indexo)
 (declare init)
 (declare shutdown)
 (declare dbsync)
 
-(def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
+;;(def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
 (def UNDEFINED nil)
 
-(def persona-keys [:sourceId ] )
-(def persona-type :PERSONA)
+(def persona-keys [ :key :sourceId ] )
+(def persona-type :persona-document)
 
-(def source-keys [] )
-(def source-type :SOURCE)
-(def source-type-gedcom #uuid "feb55486-ac9e-4ec1-a03e-0fece2c29eb8") 
+(def source-keys [ :key ] )
+(def source-type :source-document)
 
+(def attachment-keys [ :key :sourceId ])
+(def attachment-type :attachment-document)
+
+(def attribute-keys [ :key :type :owner ])
+(def attribute-type :attribute-document)
+
+(def group-keys [ :key :sourceId :type :members])
+(def group-type :event-group-type)
+
+(def individual-keys [:key :attributes :groups :parents :children])
+(def individual-type :individual-document)
+
+(def researcher-keys [:key ])
+(def researcher-type :researcher-document)
+
+(def conclusion-keys [:key :researcher :member :owner])
+(def conclusion-type :conclusion-document)
 
 (def lineage-keys [:sourceId :parents :children] )
 (def lineage-type :GROUP)
 (def lineage-group-type :LINEAGE)
 
-(defn illegal-args [msg]
-  (throw (IllegalArgumentException. msg)))
+(defn illegal-args [msg val]
+  (throw+ {:message msg :args val :class (class val)}))
 
-(defn- args-to-map [ [f & rest :as args] ]
-  (cond
-   (map? f) f
-   (even? (count args)) (apply hash-map args)
-   :else (illegal-args "Either a map or key value pairs")))
+(defn- args-to-map 
+  ([ f ] 
+     (cond
+      (map? f) f
+      (coll? f) (apply args-to-map f)
+      :else (illegal-args "A single arg must be map or a collection" f)))
+  ([ k v & args ] 
+     (if (even? (count args)) 
+       (apply hash-map k v args)
+       (illegal-args "Either a map or key value pairs" args))))
 
 (defn- has-keys [m kys]
   (every? m kys))
 
-(defn validate-args [ kys args ]
-  (let [m (args-to-map args)]
+(defn validate-args [ kys & args ]
+  (let [m (apply args-to-map args)]
     (if (has-keys m kys)
       m
-      (illegal-args (str "Missing required keys: " kys)))))
-
+      (throw+ {:message "Missing required keys: " :keys kys :args args}))))
 
 (defn mmap [f coll]
   (map #(map f %) coll))
@@ -69,24 +91,6 @@
    :children []})
 
 
-;;
-;; Add recortds
-;;
-
-(defn add-entity [req-keys type args ]
-  (let [m (validate-args req-keys args)
-        m (assoc m :type type :id (uuid))]
-    (add-to-data-store m)
-    m))
-
-(defn add-persona [  & args ]
-  (add-entity persona-keys persona-type args))
-
-(defn add-source [ & args ]
-  (add-entity source-keys source-type args))
-
-(defn add-lineage-group [ & args ]
-  (add-entity lineage-keys lineage-type [(assoc (first args) :groupType lineage-group-type)]))
 
 
 ;;          )))))
@@ -100,15 +104,17 @@ that have at least the values in the map specied"
   [m r]
   (fresh [?pm]
          (featurec ?pm m)
-         (indatastoreo ?pm)
+         (indatastoreo ?pm m)
          (?== r ?pm)))
          
-(defn entity "Return all the entities matching the args"
+(defn entities "Return all the entities matching the args"
   ([& args]
      (when args
-       (let [m (validate-args [] args)]
+       (let [m (apply validate-args [] args)]
          (run* [q]
                (entityo m q))))))
+
+(def entity entities)
 
 (defn entityv "Return all the values of the entities as a vector"
   [kys & args]
@@ -125,11 +131,12 @@ that have at least the values in the map specied"
   "Unify the child id with the parent id with the parent order (0=father, 1=mother)"
   [child parent order] 
   (fresh [?pm ?parents  ?parentrec ?children]
+         (?== ?parentrec [order parent])
          (featurec ?pm {:groupType lineage-group-type :parents ?parents :children ?children})
-         (indatastoreo ?pm)                
+         (indatastoreo ?pm {:groupType lineage-group-type :parents ?parents :children ?children})                
          (membero child ?children)
          (membero ?parentrec ?parents)
-         (?== ?parentrec [order parent])))
+         ))
 
 (defn grandparento [child grandparent]
   (fresh [?p ?order ?o2]
@@ -175,5 +182,47 @@ The order is undefined"
        (ancestoro child q)))
 
 
+(defn lookup [k]
+  (ffirst (entityv [:id] :key k)))
 
 
+(defn key-id* [a]
+  (cond
+   (keyword? a) (if-let [id (lookup a)]
+                  id
+                  (throw+ {:arg a :message "Key not defined as a type"}))
+   (instance? java.util.UUID a) a
+   :else (throw+ {:arg a :class (class a) :message "Unsupported type"})))
+
+(def key-id (memoize key-id*))
+
+(defn new-attachment-document []
+  {
+   :id (uuid)
+   :key attachment-type
+   :docType (key-id attachment-type)
+   })
+
+
+(defn include-basic-keys [{:keys [id docType key] :as m}]
+  (let [rtnval {}]
+    (when-not id (assoc m :id (uuid)))
+    (when-not docType (assoc  :docType (key-id key)))
+    (merge m rtnval)))
+
+;;
+;; Add recortds
+;;
+
+
+(defn add-entity [req-keys type & args ]
+  (-> (apply validate-args req-keys args) include-basic-keys add-to-data-store))
+
+(defn add-persona [  & args ]
+  (apply add-entity persona-keys persona-type args))
+
+(defn add-source [ & args ]
+  (apply add-entity source-keys source-type args))
+
+(defn add-lineage-group [ & args ]
+  (apply add-entity lineage-keys lineage-type [(assoc (first args) :groupType lineage-group-type)]))

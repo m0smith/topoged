@@ -1,6 +1,7 @@
 (defn x3 [x] (* 3 x))
 
-(defn p3 [x] [(dec (x3 x)) (x3 x) (inc (x3 x))])
+(defn p3 [x] 
+  ((juxt dec identity inc) (x3 x)))
 
 (defn bft [root parent-func val-func]
   (letfn [(anc-internal [q]

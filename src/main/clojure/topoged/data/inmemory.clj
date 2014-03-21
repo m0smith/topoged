@@ -23,33 +23,52 @@
 (in-ns 'topoged.data.common)
 
 (def data-store (atom []))
+(def index-by-id (atom {}))
 
-
-(def filename (str (System/getProperty "user.home") "/topoged.tgd"))
+(def dir (str (System/getProperty "user.home") "/.topoged/"))
+(def filename (str dir "entity.edn"))
+(def index-filename (str dir "index.edn"))
 
 (defn save-db [db filename]
+  (println "save db" filename)
+  (println (.mkdirs (java.io.File. dir)))
   (spit 
    filename 
-   (with-out-str (prn @data-store))))
+   (with-out-str (prn db))))
 
 (defn load-db [filename]
-  
   (with-in-str (slurp filename)
     (read)))
   
 (defn dbsync []
-  (save-db @data-store filename))
+  (save-db @data-store filename)
+  (save-db @index-by-id index-filename))
 
 (defn init []
   (try
     (reset! data-store (load-db filename ))
+    (reset! index-by-id (load-db index-filename ))
     (catch java.io.FileNotFoundException _)))
   
 
 (defn shutdown [] (dbsync))
 
-(defn indatastoreo [pm]
-  (membero pm @data-store))
+(defn by-indexo [k v]
+  (let [id (@index-by-id k)] 
+    (if id
+      (?== v id)
+      fail)))
 
-(defn add-to-data-store [m]
-  (swap! data-store conj m))
+(defn indatastoreo [pm m]
+  (let [k (:id m)
+        v (@index-by-id k)
+        ds (if v [v] @data-store)]
+    (println "DATASTORE" (count ds) m k v)
+    (membero pm @data-store)))
+
+(defn add-to-data-store 
+  "Return the its argument"
+  [m]
+  (swap! data-store conj m)
+  (when-let [id (:id m)] (swap! index-by-id assoc id m))
+  m)
