@@ -1,7 +1,8 @@
 (ns topoged.data.inmemory
   (:import [java.io FileNotFoundException])
   (:use [clojure.core.logic :rename {== ?==}])
-  (:use [clojure.core.atom]))
+
+ )
 
 ;;
 ;; To implement a new data namespace, it is only necessary to implement the following the

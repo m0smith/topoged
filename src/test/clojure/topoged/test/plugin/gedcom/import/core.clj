@@ -10,5 +10,5 @@
 (def ged2 "src/test/resources/TiberiusClaudiusCaesarAugustusGermanicusClaudiusEmperorofRome.ged")
 
 (deftest testit []
-  (import-gedcom ged1)
+  (import-gedcom ged1 (uuid) (agent ["Importing" 0 0 0] ) (agent {}) )
 )
