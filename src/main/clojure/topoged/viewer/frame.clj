@@ -42,7 +42,7 @@
 (defn create-top-frame []
   (frame :title "Topoged",
          :size [500 :by 500]
-         :on-close :exit))
+         ))
 
 
 (defn file-menu [import-event-fn]
@@ -65,6 +65,21 @@
                      :content pedigree-panel}
                     {:title ::Fractal
                      :content pedigree-panel-fractal}])]))
+
+
+(defn person-selection-handler [local-descendent-panel e]
+  (if (.getValueIsAdjusting e)
+    (future
+      (let [sel  (selection e)
+            id (first sel)
+            p-panel (future (build-pedigree-panel-tree id (border-panel) 1))
+            f-panel (future (build-pedigree-panel-fractal id))
+            d-panel (future (build-descendent-panel-tree id (border-panel) 1))]
+        (def last-id id)
+        (printf "e: %s sel: %s id: %s\n" e sel id)
+        (config! local-descendent-panel :items [ @d-panel ])
+        (config! pedigree-panel :items [ @p-panel ])
+        (config! pedigree-panel-fractal :items [ @@f-panel ])))))
 
 
 (defn frame-prepare [{:keys [locale db] :as topoged-context}]
@@ -113,15 +128,7 @@
                (.printStackTrace ex))))
          
          (handle-person-selection [e]
-           (if (.getValueIsAdjusting e)
-             (future
-               (let [id (first (selection e))
-                     p-panel (future (build-pedigree-panel-tree id (border-panel) 1))
-                     f-panel (future (build-pedigree-panel-fractal id))
-                     d-panel (future (build-descendent-panel-tree id (border-panel) 1))]
-                 (config! local-descendent-panel :items [ @d-panel ])
-                 (config! pedigree-panel :items [ @p-panel ])
-                 (config! pedigree-panel-fractal :items [ @@f-panel ])))))
+           (person-selection-handler local-descendent-panel e))
          
          ]
       viewer-app)))

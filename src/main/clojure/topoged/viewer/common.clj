@@ -43,16 +43,16 @@
 
 
 (defn load-model [id next-gen-fn]
-  ;(println "LOAD-MODEL:" id)
+  (println "LOAD-MODEL:" id)
   (let [rtnval (simple-tree-model identity (comp map-undef next-gen-fn) id)]
-    ;(println "RTNVAL:" rtnval)
+    (println "RTNVAL:" rtnval)
     rtnval))
 
 
-(defn render-fn [renderer info]
-  (println "render-fn:" info)
-  (let [ent (first (m-entities (:value info)))]
-    ;(println "ENTITY:" ent info)
+(defn render-fn [renderer {:keys [value]}]
+  ;;(println "render-fn:" value)
+  (let [{:keys [sex name] :as ent}  (first (m-entities value))]
+    ;;(println "ENTITY:" name sex ent)
     (config! renderer
-             :icon  (icon-sex (:sex ent))
-             :text (:name ent))))
+             :icon  (icon-sex sex)
+             :text name)))
