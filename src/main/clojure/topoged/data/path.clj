@@ -55,8 +55,8 @@
 
 ; Evidence
 
-(defedge Source Event :source Source [])
-(defedge EventPersonal Event :persona Persona [])
+(defedge EventSource Event :source Source [])
+(defedge EventPersona Event :persona Persona [])
 (defedge IndividualPersona Individual :evidence Persona [])
 (defedge BirthEvent Birth :evidence Event [])
 
