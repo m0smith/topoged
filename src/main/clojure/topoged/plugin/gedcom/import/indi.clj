@@ -1,6 +1,7 @@
 (ns topoged.plugin.gedcom.import.indi
   (:use     
    [topoged db]
+   [topoged.data path schema]
    [topoged.plugin.gedcom.import.util :only (apply-h nested-handler*)]
    ))
 
@@ -15,11 +16,7 @@
    path]
   (assoc-in import-context [:local-context map-key attr-key] value ))
 
-
-
-
 (defn to-persona    [ky] (partial assoc-in-local :persona-map ky))
-
 
 (defmacro to-event [prefix]
   `(partial nested-handler*
@@ -55,7 +52,19 @@
    })
 
 
+
 (defn indi-post-process 
+  "Updates the database with the information gathered from he INDI section.
+   Returns import-context with the persona added to :id-map"
+  [{:keys [local-context] :as import-context} db id source user]
+  (println "indi-post-process: " local-context)
+  (let [{:keys [persona-map]} local-context]
+    (when persona-map
+      (let [i (path-create db [Individual] [persona-map])]
+        (assoc-in import-context [:id-map id] {:individual i})))))
+  
+
+(defn indi-post-process-xxx
   "Updates the database with the information gathered from he INDI section.
    Returns import-context with the persona added to :id-map"
   

@@ -1,7 +1,8 @@
 (ns topoged.plugin.gedcom.import.fam
   (:require [archimedes.vertex :as v])
   (:use     [topoged.plugin.gedcom.import.util]
-            [topoged db]))
+            [topoged db]
+            [topoged.data path schema]))
 
 (defrecord FamContext   [group-map parents children child-index])
 
@@ -15,8 +16,9 @@
 
 (defn to-parents
   ([type order import-context {:keys [value]} path]
-     (update-in import-context [:local-context :parents] conj
-                {:order order :type type :value value})))
+     ;(println "to-parents:" import-context)
+     (assoc-in import-context [:local-context :parents order] 
+                {:type type :value value})))
 
 (defn to-children
   ([type order import-context {:keys [value]} path]
@@ -77,7 +79,23 @@
   (add-edge db pgroup label persona member)
   (add-edge db igroup label individual member))
 
-(defn fam-post-processor [ db source {:keys [type] :as group-map} parents children id-map]
+
+(defn from-id-map [id-map k]
+  (first (:individual (id-map k))))
+
+(defn fam-post-processor 
+  [ db source {:keys [type] :as group-map} parents children id-map]
+  (let [p1 (from-id-map id-map (:value (parents 0)))
+        p2 (from-id-map id-map (:value (parents 1)))]
+    (println "f=" p1 " m=" p2 " parents=" parents "children=" children)
+    (doall (map #(add-parents db (from-id-map id-map (:value %)) p1 p2 (:order %)) children)))
+  ;(println "fam-post-processor: parents=" parents " children=" children " id-map=" id-map)
+  ;(path-create db child->parent-path [persona-map])]
+  ;(let [persona-group (add-node db (merge group-map {:type :group}))
+)
+
+
+(defn fam-post-processor-xxx [ db source {:keys [type] :as group-map} parents children id-map]
   ;;(println "fam-post-processor:" parents children id-map)
   (let [persona-group (add-node db (merge group-map {:type :group}))
         individual-group (add-node db (merge group-map {:type :group}))]
@@ -96,13 +114,16 @@
 3. Create edges from the group to the persona vertices using the informaton on the members vector
      4. Create the links from the parent individual to the child with label 'lineage'"
   [{:keys [db user shared-context id-map] :as import-context} {:keys [value] :as record} path]
-  (let [local-context (->FamContext {} [] [] 0)
+  (let [local-context (->FamContext {} {} [] 0)
         {:keys [source]} shared-context
         rtnval (fam-nested-handler (assoc import-context :local-context local-context)
                                    record path)
         {:keys [group-map parents children] :as local-context} (:local-context rtnval)]
          
          (fam-post-processor db source group-map parents children id-map)
+         (println "HASMTER" (first children))
+         (if (first children)
+           (println "parants-of" (parents-of (from-id-map id-map (:value (first children))))))
          rtnval))
          
 
