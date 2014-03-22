@@ -6,6 +6,8 @@
 ;;; Define Schema
 ;;;
 
+;; Conclusions
+
 (defnode Individual :individual 
   [
    :name ;the print name1
@@ -19,8 +21,22 @@
   [
    ])
 
+;; Evidence
+
+(defnode Source :source 
+  [
+   ])
+
+(defnode Persona :Persona 
+  [
+   ])
+
+(defnode Event :marriage 
+  [
+   ])
 
 
+; Conclusion
 
 (defedge Parent Birth :parent Individual 
   [
@@ -37,9 +53,21 @@
    :order ; 0 = husband and 1 = wife
    ])
 
+; Evidence
+
+(defedge Source Event :source Source [])
+(defedge EventPersonal Event :persona Persona [])
+(defedge IndividualPersona Individual :evidence Persona [])
+(defedge BirthEvent Birth :evidence Event [])
+
+;;
+;; Define paths
+
 (def child->parent-path [ Individual <-Child- Birth -Parent-> Individual ])
 
 (def marriage-path [ Individual <-Spouse- Marriage -Spouse-> Individual ])
+
+
 
 (defn add-parents [db child father mother order]
   (when child
