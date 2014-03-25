@@ -39,6 +39,11 @@
   (edge-direction [_ s e] [s e]))
 
 
+(defn prop-filter [node ky v]
+  (= (v/get v ky) (get node ky)))
+
+          
+
 (defrecord ReverseEdgeDefinition [end label start reqs]
   SchemaEdge
   (edge-direction [_ end-points] (rseq end-points))
@@ -46,14 +51,25 @@
   SchemaPath
   (path-reverse [{:keys [start label end reqs]}] (->EdgeDefinition start label end reqs))
   (path-to-q [{:keys [start label end reqs]}] 
-    (fn [f] (-> f (q/<E-- [label]) q/out-vertex))))
+    (fn [f] (-> f (q/<E-- [label]) 
+                (q/as (str(gensym))) 
+                q/out-vertex 
+                (q/as (str(gensym)))
+                (q/filter (partial prop-filter start :label))
+                ))))
 
 ;; Broken out because ReverseEdgeDefinition wasn't defined until now
 (extend-protocol  SchemaPath
   EdgeDefinition
   (path-reverse [{:keys [start label end reqs]}] (->ReverseEdgeDefinition end label start reqs))
   (path-to-q [{:keys [start label end reqs]}]
-    (fn [f] (-> f (q/--E> [label]) q/in-vertex))))
+    (fn [f] (-> f (q/--E> [label]) 
+                (q/as (str(gensym))) 
+                q/in-vertex 
+                (q/as (str(gensym)))
+                (q/filter (partial prop-filter end :label))
+
+                ))))
 
 
 (defmacro defnode [name label reqs]
@@ -123,15 +139,17 @@ Eliminates paths back to the starting node"
      (let [type (first path)]
        (q/query
         (v/find-by-kv :label (get type :label))
+        (q/as "start")
         (path-query* path)
-        q/path
+        q/select
         q/all-into-vecs!)))
   ([path node]
      (q/query
       (v/find-by-id (v/id-of node))
+      (q/as "start")
       (path-query* path)
       (q/except [(v/find-by-id (v/id-of node))])
-      q/path
+      q/select
       q/all-into-vecs!)))
 
 
