@@ -13,11 +13,13 @@
   (let [widget (tree :id :tree
                      :model (load-model id m-parents-of)
                      :renderer render-fn)]
-    ;(println "WIDGET:" (class widget))
+    (println "==== build-pedigree-panel-tree: WIDGET:" (class widget))
     (config! root-panel :items nil)
+    (println "==== build-pedigree-panel-tree: before :center")
     (config! root-panel :center (scrollable widget))
-    (expand-children widget 32)
-    ;(println "TREE END:" root-panel)
+    (println "==== build-pedigree-panel-tree: before expand-children")
+    ;(expand-children widget 1)
+    (println "==== build-pedigree-panel-tree: TREE END:" root-panel)
     )
   
   root-panel)

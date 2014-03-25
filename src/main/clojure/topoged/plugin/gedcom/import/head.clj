@@ -1,6 +1,7 @@
 (ns topoged.plugin.gedcom.import.head
   (:use     
    [topoged db]
+   [topoged.data schema path]
    [topoged.plugin.gedcom.import.util :only (apply-h nested-handler*)]
    ))
 

@@ -16,17 +16,6 @@
              (tdb/add-edge [_ start label end data-map] 
                (e/connect-with-id! nil start label end data-map))
              (tdb/find-by-kv [_ ky vl] (v/find-by-kv ky vl)))]
-    (extend-type TinkerVertex
-      tdb/DataStoreNode
-      (tdb/merge-node [node data-map] (v/merge! node data-map))
-      (tdb/to-data-map [node] (v/to-map node)))
-
-
-    
-    (extend-type TinkerEdge
-      tdb/DataStoreNode
-      (tdb/merge-node [node data-map] (v/merge! node data-map))
-      (tdb/to-data-map [node] (v/to-map node)))
                            
     (->TopogedContext (tdb/add-node db {:type :researcher}) db :es)))
 

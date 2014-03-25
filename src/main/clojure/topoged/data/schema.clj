@@ -21,7 +21,9 @@
 
 
 (defprotocol NodeManager
-  (node-create [node db type]))
+  (node-create [node db type])
+  (to-data-map [node])
+  (merge-node [node data-map]))
 
 (defprotocol EdgeManager
   (edge-create [edge db type node1 node2]))
@@ -96,8 +98,12 @@
 (extend-protocol NodeManager
   TinkerVertex
   (node-create [node _ _] node)
+  (to-data-map [m] (v/to-map m))
+  (merge-node [node data-map] (v/merge! node data-map))
   java.util.Map
-  (node-create [node db type] (add-node! db type node)))
+  (node-create [node db type] (add-node! db type node))
+  (to-data-map [m] m)
+  (merge-node [node data-map] (merge node data-map)))
 
 (extend-protocol EdgeManager
   java.util.Map

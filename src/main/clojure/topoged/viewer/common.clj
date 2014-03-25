@@ -1,17 +1,18 @@
 (ns topoged.viewer.common
   (:use [seesaw core tree graphics]
-        [topoged db])
+        [topoged db][topoged.data path schema])
   (:require [topoged.model.lineage :as lineage]))
 
 
-(def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
+;;(def UNDEFINEDX #uuid "a4d6c4d6-bb29-45ca-8bf6-25c06168a8d5")
+(def UNDEFINEDX {})
 
 ;(def m-entities (memoize (partial db/entities :id)))
 (defn m-entities [ arg ]
   [(to-data-map arg)])
 
-(def m-parents-of (memoize lineage/parents-of))
-(def m-children-of (memoize lineage/children-of))
+(def m-parents-of  parents-of)
+(def m-children-of (memoize children-of))
 
 (defn std-sex [sex]
   (cond
@@ -32,9 +33,12 @@
 
 (defn expand-children [jtree levels]
   (dotimes [j levels]
+    (println "expand-children:" j jtree levels)
     (let [paths (seq (.getPathBetweenRows jtree 0 levels))]
+    (println "expand-children: paths" paths)
       
       (doseq [path paths]
+        (println "expand-children: path" path)
         (.expandPath jtree path)))))
 
 
@@ -43,16 +47,18 @@
 
 
 (defn load-model [id next-gen-fn]
-  (println "LOAD-MODEL:" id)
+  ;(println "LOAD-MODEL:" id)
   (let [rtnval (simple-tree-model identity (comp map-undef next-gen-fn) id)]
-    (println "RTNVAL:" rtnval)
+    ;(println "RTNVAL:" rtnval)
     rtnval))
 
 
 (defn render-fn [renderer {:keys [value]}]
-  ;;(println "render-fn:" value)
-  (let [{:keys [sex name] :as ent}  (first (m-entities value))]
-    ;;(println "ENTITY:" name sex ent)
+  (println "render-fn:" value)
+  (let [me (m-entities value)
+        {:keys [sex name] :as ent}  (first me)]
+    
+    (println "ENTITY:" me name sex ent)
     (config! renderer
              :icon  (icon-sex sex)
              :text name)))

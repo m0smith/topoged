@@ -83,7 +83,12 @@
   (let [m (reduce conj {}
                   (for [[_ _ _ edge parent] (path-query child->parent-path node)]
                     [(v/get edge :order) parent]))]
+    (println "parents-of:" node [(get m 0) (get m 1)])
     [(get m 0) (get m 1)]))
+
+(defn children-of [node]
+  (let [paths (path-query (path-rev child->parent-path) node)]
+    (vec (map last paths))))
 
 (defn add-spouse [db s1 s2 ]
   (path-create db marriage-path [ s1 {:order 0} {} {:order 1} s2]))
