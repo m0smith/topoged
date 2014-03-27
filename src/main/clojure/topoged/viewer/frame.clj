@@ -42,6 +42,7 @@
 (defn create-top-frame []
   (frame :title "Topoged",
          :size [500 :by 500]
+         :on-close :exit
          ))
 
 
