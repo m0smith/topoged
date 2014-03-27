@@ -72,16 +72,16 @@
     (future
       (let [sel  (selection e)
             id (first sel)
-           ; p-panel (future (build-pedigree-panel-tree id (border-panel) 1))
-            p-panel  (build-pedigree-panel-tree id (border-panel) 1)
-         ;   f-panel (future (build-pedigree-panel-fractal id))
+            p-panel (future (build-pedigree-panel-tree id (border-panel) 1))
+           ; p-panel  (build-pedigree-panel-tree id (border-panel) 1)
+            f-panel (future (build-pedigree-panel-fractal id))
             d-panel (future (build-descendent-panel-tree id (border-panel) 1))]
         (def last-id id)
         (printf "e: %s sel: %s id: %s\n" e sel id)
         (config! local-descendent-panel :items [ @d-panel ])
-        ;(config! pedigree-panel :items [ @p-panel ])
-        (config! pedigree-panel :items [ p-panel ])
-        ;(config! pedigree-panel-fractal :items [ @@f-panel ])
+        (config! pedigree-panel :items [ @p-panel ])
+        ;(config! pedigree-panel :items [ p-panel ])
+        (config! pedigree-panel-fractal :items [ @@f-panel ])
 ))))
 
 

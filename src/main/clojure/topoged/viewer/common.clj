@@ -11,8 +11,8 @@
 (defn m-entities [ arg ]
   [(to-data-map arg)])
 
-(def m-parents-of  parents-of)
-(def m-children-of (memoize children-of))
+(def m-parents-of   parents-of)
+(def m-children-of  children-of)
 
 (defn std-sex [sex]
   (cond
@@ -33,12 +33,12 @@
 
 (defn expand-children [jtree levels]
   (dotimes [j levels]
-    (println "expand-children:" j jtree levels)
+    ;(println "expand-children:" j jtree levels)
     (let [paths (seq (.getPathBetweenRows jtree 0 levels))]
-    (println "expand-children: paths" paths)
+    ;(println "expand-children: paths" paths)
       
       (doseq [path paths]
-        (println "expand-children: path" path)
+        ;(println "expand-children: path" path)
         (.expandPath jtree path)))))
 
 
@@ -53,7 +53,7 @@
 
 (defn load-model [id next-gen-fn]
   ;(println "LOAD-MODEL:" id)
-  (let [rtnval (simple-tree-model identity (model-next-gen-fn next-gen-fn) id)]
+  (let [rtnval (simple-tree-model identity (memoize (model-next-gen-fn next-gen-fn)) id)]
     ;(println "RTNVAL:" rtnval)
     rtnval))
 
