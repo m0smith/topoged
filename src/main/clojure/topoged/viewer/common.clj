@@ -46,9 +46,14 @@
   (map #(if (nil? %) UNDEFINEDX %) coll))
 
 
+(defn model-next-gen-fn [f]
+  (fn [n]
+    (if (not= UNDEFINEDX n)
+      (map-undef (f n)))))
+
 (defn load-model [id next-gen-fn]
   ;(println "LOAD-MODEL:" id)
-  (let [rtnval (simple-tree-model identity (comp map-undef next-gen-fn) id)]
+  (let [rtnval (simple-tree-model identity (model-next-gen-fn next-gen-fn) id)]
     ;(println "RTNVAL:" rtnval)
     rtnval))
 
