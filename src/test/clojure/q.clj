@@ -17,6 +17,7 @@
       people)))
 
 (defn q3 []
+  "maybe try (invoke-later ((q3)))"
   (def topoged-context (topoged-init))
   (def app             (frame-prepare topoged-context))
   app)

@@ -67,36 +67,49 @@
                     {:title ::Fractal
                      :content pedigree-panel-fractal}])]))
 
+(defn build-individual-panel [id root-panel]
+  (let [widget (grid-panel :columns 2) 
+        m (to-data-map id)]
+    (println m)
+    (config! widget :items (mapcat (fn [[k v]] [(label (str k)) (label (str v))]) m))
+    (config! root-panel :items nil)
+    (config! root-panel :center  widget)))
 
-(defn person-selection-handler [local-descendent-panel e]
+
+(defn person-selection-handler [local-descendent-panel individual-panel e]
   (if (.getValueIsAdjusting e)
-    (future
+    
       (let [sel  (selection e)
             id (first sel)
             p-panel (future (build-pedigree-panel-tree id (border-panel) 1))
            ; p-panel  (build-pedigree-panel-tree id (border-panel) 1)
+            i-panel  (build-individual-panel id (border-panel))
             f-panel (future (build-pedigree-panel-fractal id))
             d-panel (future (build-descendent-panel-tree id (border-panel) 1))]
         (def last-id id)
         (printf "e: %s sel: %s id: %s\n" e sel id)
         (config! local-descendent-panel :items [ @d-panel ])
         (config! pedigree-panel :items [ @p-panel ])
-        ;(config! pedigree-panel :items [ p-panel ])
         (config! pedigree-panel-fractal :items [ @@f-panel ])
-))))
+        (config! individual-panel :items [ i-panel])
+        
+)))
 
 
 (defn frame-prepare [{:keys [locale db] :as topoged-context}]
   (let [status-bar (label :text "STATUS" :h-text-position :center)
         names-list-box (listbox :renderer render-name-item)
         local-descendent-panel (grid-panel :border ::Descendants)
+        individual-panel (grid-panel :border ::Individual :columns 2)
         pedigree-panel-container (create-container)
         top-frame-container (border-panel
                              :size [500 :by 500]
                              :center (left-right-split
                                       (scrollable names-list-box)
-                                      (top-bottom-split
-                                       pedigree-panel-container local-descendent-panel))
+                                      (left-right-split
+                                       individual-panel
+                                       (top-bottom-split
+                                        pedigree-panel-container local-descendent-panel)))
                              :north (label :text "TOPOGED" :h-text-position :center)
                              :south status-bar)
 
@@ -132,7 +145,7 @@
                (.printStackTrace ex))))
          
          (handle-person-selection [e]
-           (person-selection-handler local-descendent-panel e))
+           (person-selection-handler local-descendent-panel individual-panel e))
          
          ]
       viewer-app)))
