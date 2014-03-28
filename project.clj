@@ -16,7 +16,7 @@
              ;;"-Xdebug"
              ;;"-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9900"
              ]
-  :dependencies [[org.clojure/clojure "1.5.1"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
                  [seesaw "1.4.3"]
                  [clj-glob "1.0.0"]
                  [org.clojure/data.codec "0.1.0"]

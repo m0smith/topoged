@@ -10,8 +10,9 @@
 (defn q [topoged-context] (import-gedcom topoged-context "src/test/resources/gedcom/WJTHOMAS.ged"))
 
 (defn q2 []
-  (let [{:keys [db] :as topoged-context} (topoged-init)]
-    (q topoged-context)
+  (let [{:keys [db] :as topoged-context1} (topoged-init)]
+    (def topoged-context topoged-context1)
+    (q topoged-context1)
     (let [people (individual-names db)
           person (-> people last first)]
       people)))
