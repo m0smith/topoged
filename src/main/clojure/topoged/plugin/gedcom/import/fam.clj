@@ -84,27 +84,14 @@
   (first (:individual (id-map k))))
 
 (defn fam-post-processor 
-  [ db source {:keys [type] :as group-map} parents children id-map]
+  [ db source group-map parents children id-map]
   (let [p1 (from-id-map id-map (:value (parents 0)))
         p2 (from-id-map id-map (:value (parents 1)))]
-    (println "f=" p1 " m=" p2 " parents=" parents "children=" children)
-    (doall (map #(add-parents db (from-id-map id-map (:value %)) p1 p2 (:order %)) children)))
-  ;(println "fam-post-processor: parents=" parents " children=" children " id-map=" id-map)
-  ;(path-create db child->parent-path [persona-map])]
-  ;(let [persona-group (add-node db (merge group-map {:type :group}))
-)
-
-
-(defn fam-post-processor-xxx [ db source {:keys [type] :as group-map} parents children id-map]
-  ;;(println "fam-post-processor:" parents children id-map)
-  (let [persona-group (add-node db (merge group-map {:type :group}))
-        individual-group (add-node db (merge group-map {:type :group}))]
-    (add-edge db source :contributes persona-group {})
-    (add-edge db source :contributes individual-group {})
-    (doseq [member (concat parents children)]
-      (fam-link-member db persona-group individual-group member (get id-map (:value member))))))
-      
-
+    (println "f=" p1 " m=" p2 " parents=" parents "children=" children " group-map:" group-map )
+    (doall (map #(add-parents db (from-id-map id-map (:value %)) p1 p2 (:order %)) children))
+    (when (seq group-map)
+      (add-spouse db p1 p2))))
+  
 
 (defn fam-handler 
   "Read each record.  The relationship tags (HUSB, WIFE, CHIL) get added to a vector of relationships.  The events get added to the group-map.  Once all the infomation is gathered:
@@ -121,9 +108,8 @@
         {:keys [group-map parents children] :as local-context} (:local-context rtnval)]
          
          (fam-post-processor db source group-map parents children id-map)
-         (println "HASMTER" (first children))
          (if (first children)
-           (println "parants-of" (parents-of (from-id-map id-map (:value (first children))))))
+           (println "fam-handler: parents-of:" (parents-of (from-id-map id-map (:value (first children))))))
          rtnval))
          
 
