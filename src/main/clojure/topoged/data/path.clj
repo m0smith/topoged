@@ -92,3 +92,8 @@
 
 (defn add-spouse [db s1 s2 ]
   (path-create db marriage-path [ s1 {:order 0} {} {:order 1} s2]))
+
+(defn spouse-of [db s1]
+  (for [[_ _ _ edge spouse]
+        (filter #(not= (first %) (last %)) (path-query marriage-path s1))]
+    [(v/get edge :order) (v/get spouse :name) spouse]))
